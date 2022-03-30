@@ -11,6 +11,10 @@ import Cart from "./components/CartPage/Cart";
 import Store from "./components/StorePage/Store";
 import MemberRegister from "./components/RegisterPage/MemberRegister";
 import OwnerRegister from "./components/RegisterPage/OwnerRegister";
+import OrderList from "./components/MyPage/OrderList";
+import ReviewHistory from "./components/MyPage/ReviewHistory";
+import ReviewWriting from "./components/MyPage/ReviewWriting";
+import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 
 function App() {
   return (
@@ -20,10 +24,13 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/store" element={<Store />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/order-list" element={<OrderList />} />
+        <Route path="/review-history" element={<ReviewHistory />} />
+        <Route path="/review-writing" element={<ReviewWriting />} />
+        <Route path="/userinfo-config" element={<UserInfoConfig />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/memberRegister" element={<MemberRegister />} />
-        <Route path="/ownerregister" element={<OwnerRegister />} />
+        <Route path="/member-Register" element={<MemberRegister />} />
+        <Route path="/owner-register" element={<OwnerRegister />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
