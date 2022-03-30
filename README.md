@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+## . **프로젝트 주제**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+    **: 사용자 주변 푸드트럭 정보 통합 제공 및 푸드트럭 음식 주문 플랫폼**
 
-In the project directory, you can run:
+## 2. **프로젝트 배경 및 목표**
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2.1 기획 배경 - 구체화 필요? (SWOT 분석)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+      **[ 사용자 입장(고객1) ]**
 
-### `npm test`
+       1. 푸드트럭의 잦은 이동성으로 인해 **푸드트럭의 위치를 알기 어려움**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+       2. 푸드트럭 주문 후, 얼마나 걸리는 지 알 수 없어 무한정 **대기해야하는 불편함**
 
-### `npm run build`
+      **[ 푸드트럭 사장님 입장(고객2) ]**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+       1. 푸드트럭 사업주 **배달광고 플랫폼 가입 문제**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+       2. **코로나19** 여파로 인한 축제, 행사 등의 취소로 **푸드트럭 폐업률 증가**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[ **주관하는 입장(자사)** ]
 
-### `npm run eject`
+1. 경쟁사 대비 장점, 단점
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. 경쟁사와 다른 차별성
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2.2 목표
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+     **이동성이 잦은 푸드트럭의 주소 변경을 용이하게 하며, 푸드트럭 정보를 사용자 위치 기반으로 제공함으로써
+    사용자가 언제 어디서든지 주변 푸드트럭 정보를 확인할 수 있게하고, 비대면 포장 주문으로 대기 시간을 단축 → 확인(사용자 편의성 제공)
+    하여 편리함을 주는 것을 목표로 서비스를 개발한다.**
