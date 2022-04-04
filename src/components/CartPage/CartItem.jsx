@@ -1,16 +1,22 @@
+import classes from './CartItem.module.css';
 const CartItem = () => {
   return (
-    <>
-      <span className='menuimage'>
-        <div class='card border-primary mb-3' style='max-width: 20rem;'>
+    <ul class='list-group'>
+      <li class='list-group-item d-flex justify-content-between align-items-center'>
+        Cras justo odio
+        <span class='badge bg-primary rounded-pill'>14</span>
+      </li>
+
+      {/* <span className={classes.Menuimage}>
+        <div className='card border-primary mb-3'>
           <div class='card-body'>
             <img
-              src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/NYC-Diner-Bacon-Cheeseburger.jpg/220px-NYC-Diner-Bacon-Cheeseburger.jpg'
+              src='https://blog.kakaocdn.net/dn/kAZgq/btqQzRFyXuO/Dg2fSKaU4ykGl88lxKC9zk/img.jpg'
               alt='동적으로 받아와야함'
             ></img>
           </div>
         </div>
-      </span>
+      </span> */}
       <span className='menuName'>pasta(동적으로 받아오ㅏ야함)</span>
       <span>
         <div class='btn-group' role='group' aria-label='Basic example'>
@@ -26,7 +32,7 @@ const CartItem = () => {
         </div>
       </span>
       <span className='MenuPrice'>3,000 데이터받아오기</span>
-    </>
+    </ul>
   );
 };
 

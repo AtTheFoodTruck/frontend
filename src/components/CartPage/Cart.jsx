@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Cart.module.css';
+import CartItemList from './CartItemList';
 
 const Cart = () => {
   return (
@@ -15,7 +16,9 @@ const Cart = () => {
         <span>수량</span>
         <span>가격</span>
       </section>
-      <section className='itemList'></section>
+      <section className='itemList'>
+        <CartItemList />
+      </section>
       <section className='totalPrice'>
         <h2>Total Price :</h2>
         <h2>금액계산(동적)</h2>
