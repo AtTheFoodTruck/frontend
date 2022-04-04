@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import 'bootswatch/dist/sketchy/bootstrap.min.css';
 import Home from './components/MainPage/Home';
 import Layout from './components/Layout/Layout';
 import NotFound from './components/NotFound/NotFound';
