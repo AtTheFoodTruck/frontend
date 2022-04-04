@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   return (
     <>
-      <h1>로그인</h1>
+      <h1>branchtest</h1>
       <form>
         <input name='username' placeholder='아이디' />
         <input name='password' placeholder='비밀번호' type='password' />
