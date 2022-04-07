@@ -42,10 +42,7 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <section className='SocialLogin'>
-            소셜로그인(구글이랑 네이버 달 예정)
-          </section>
-          <section className='JoinBtn mt-5'>
+          <section className='JoinBtn'>
             <Link to='/member-register'>
               <div className='d-grid gap-2'>
                 <button
