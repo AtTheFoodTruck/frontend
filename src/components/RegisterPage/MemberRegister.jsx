@@ -21,9 +21,9 @@ const MemberRegister = () => {
       <section className='container mt-5 p-5'>
         <h1 className='text-center'>Join</h1>
         <div className='row'>
-          <div className='col'></div>
+          <div className='col p-0'></div>
           <div className='col'>
-            <div className='container mt-sm-5'>
+            <div className='container mt-sm-5 p-0'>
               <div className='input-group mb-3'>
                 <input
                   type='text'
@@ -56,7 +56,7 @@ const MemberRegister = () => {
                   중복확인
                 </button>
               </div>
-              <div className='input-group mb-3 w-75'>
+              <div className='input-group mb-3 w-75 '>
                 <input
                   type='text'
                   className='form-control'
@@ -85,7 +85,7 @@ const MemberRegister = () => {
               </div>
             </div>
           </div>
-          <div className='col'></div>
+          <div className='col p-0'></div>
         </div>
       </section>
       <section className='container mt-1'>
