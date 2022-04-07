@@ -14,6 +14,7 @@ import OrderList from './components/MyPage/OrderList';
 import ReviewHistory from './components/MyPage/ReviewHistory';
 import ReviewWriting from './components/MyPage/ReviewWriting';
 import UserInfoConfig from './components/MyPage/UserInfoConfig';
+import ReviewPage from './components/ReviewPage/ReviewPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/order-list' element={<OrderList />} />
         <Route path='/review-history' element={<ReviewHistory />} />
         <Route path='/review-writing' element={<ReviewWriting />} />
+        <Route path='/reviews' element={<ReviewPage />} />
         <Route path='/userinfo-config' element={<UserInfoConfig />} />
         <Route path='/login' element={<Login />} />
         <Route path='/member-register' element={<MemberRegister />} />
