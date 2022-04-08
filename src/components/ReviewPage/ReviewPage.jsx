@@ -21,7 +21,7 @@ const ReviewPage = () => {
       </Container>
 
       {/*리뷰 리스트 */}
-      <Card>
+      <Card className='mt-5'>
         <Row className='ReviewList'>
           <Col xs={3} className='MenuImg'>
             <Card.Img
