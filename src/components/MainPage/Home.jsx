@@ -1,212 +1,41 @@
 import React from "react";
+import HomeCategories from "./HomeCategories";
+import HomeMenu from "./HomeMenu";
+import HomePagination from "./HomePagination";
+import styled from "styled-components";
+
+const Input1 = styled.input`
+  margin-top: 11%;
+  width: 35%;
+  height: 40px;
+`;
+const Header1 = styled.header`
+  align-items: center;
+  /* background: black; */
+`;
 
 const Home = () => {
   return (
-    <div>
-      <h1>홈</h1>
-      <p>
-        먼저 보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Laudantium reprehenderit suscipit harum quasi aut aliquid, enim
-        sunt, nihil natus ea dolore necessitatibus itaque nostrum quo.
-        Consectetur sit recusandae doloribus excepturi.먼저 보여지는 페이지Lorem
-        ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-        reprehenderit suscipit harum quasi aut aliquid, enim sunt, nihil natus
-        ea dolore necessitatibus itaque nostrum quo. Consectetur sit recusandae
-        doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Laudantium reprehenderit suscipit harum
-        quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum 먼저 보여지는 페이지Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Laudantium reprehenderit
-        suscipit harum quasi aut aliquid, enim sunt, nihil natus ea dolore
-        necessitatibus itaque nostrum quo. Consectetur sit recusandae doloribus
-        excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Laudantium reprehenderit suscipit harum quasi aut
-        aliquid, enim sunt, nihil natus ea dolore necessitatibus itaque nostrum
-        quo. Consectetur sit recusandae doloribus excepturi.먼저 보여지는
-        페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, eni먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim su먼저 보여지는 페이지Lorem ipsum dolor
-        sit amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.nt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.m
-        sunt, nihil natus ea dolore necessitatibus itaque nostrum quo.
-        Consectetur sit recusandae doloribus excepturi.먼저 보여지는 페이지Lorem
-        ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-        reprehenderit suscipit harum quasi aut aliquid, enim sunt, nihil natus
-        ea dolore necessitatibus itaque nostrum quo. Consectetur sit recusandae
-        doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Laudantium reprehenderit suscipit harum
-        quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.quasi
-        aut aliquid, enim sunt, nihil natus ea dolore necessitatibus itaque
-        nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.먼저
-        보여지는 페이지Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Laudantium reprehenderit suscipit harum quasi aut aliquid, enim sunt,
-        nihil natus ea dolore necessitatibus itaque nostrum quo. Consectetur sit
-        recusandae doloribus excepturi.먼저 보여지는 페이지Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Laudantium reprehenderit suscipit
-        harum quasi aut aliquid, enim sunt, nihil natus ea dolore necessitatibus
-        itaque nostrum quo. Consectetur sit recusandae doloribus excepturi.
-      </p>
+    <div className="container">
+      <Header1 class="masthead d-flex ">
+        <div class="container  px-4 px-lg-5 text-center">
+          <div class="mb-3">
+            <Input1
+              type="text"
+              class="form-control"
+              placeholder="Recipient's username"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+            <button class="btn btn-primary" type="button" id="button-addon2">
+              Button
+            </button>
+          </div>
+        </div>
+        <HomeCategories />
+      </Header1>
+      <HomeMenu />
+      <HomePagination />
     </div>
   );
 };
