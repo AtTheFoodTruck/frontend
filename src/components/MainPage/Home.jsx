@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import styled from "styled-components";
 import HomeCategories from "./HomeCategories";
 import HomeMenu from "./HomeMenu";
@@ -37,6 +38,15 @@ const Home = () => {
       <HomeMenu />
       <HomePagination />
     </div>
+=======
+import { Link } from "react-router-dom";
+
+const Home = () => {
+  return (
+    <Link to="/search-list">
+      <h1>검색리스트</h1>
+    </Link>
+>>>>>>> fce46288b9944c60bfe4e7d3fafd2c9c537e6f46
   );
 };
 
