@@ -1,5 +1,6 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Inputform = styled.form`
   display: flex;
@@ -12,11 +13,16 @@ const Inputform = styled.form`
 
 const HeaderInput = () => {
   return (
-    <Inputform className=" ">
-      <input className="form-control " type="text" placeholder="Search" />
-      <button className="btn btn-secondary my-2 my-sm-0" type="submit">
+    <Inputform className=' '>
+      <input className='form-control ' type='text' placeholder='Search' />
+      <Link
+        to='/search-list'
+        button
+        className='btn btn-secondary my-2 my-sm-0'
+        type='submit'
+      >
         Search
-      </button>
+      </Link>
     </Inputform>
   );
 };
