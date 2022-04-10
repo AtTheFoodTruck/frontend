@@ -1,77 +1,103 @@
-import classes from './ReviewPage.module.css';
-import {
-  Card,
-  Container,
-  Pagination,
-  Button,
-  Col,
-  Row,
-  Stack,
-} from 'react-bootstrap';
+import { Card, Container, Button, Col, Row } from 'react-bootstrap';
 
 const ReviewPage = () => {
   return (
     <Container className='ReviewPage text-center mt-5'>
       <h1>Review</h1>
+
       {/*리뷰페이지 네브바 */}
-      <Container className='Navbar text-center mt-5'>
+      <Container className='Navbar d-inline-flex justify-content-center mt-5'>
         <Button variant='outline-secondary'>Notice</Button>
-        <Button variant='outline-secondary'>Menu</Button>
-        <Button variant='outline-secondary'>Review</Button>
+        <Button className='ms-3' variant='outline-secondary'>
+          Menu
+        </Button>
+        <Button className='ms-3' variant='outline-secondary'>
+          Review
+        </Button>
       </Container>
 
       {/*리뷰 리스트 */}
-      <Card className='mt-5'>
-        <Row className='ReviewList'>
-          <Col xs={3} className='MenuImg'>
+
+      <Row
+        className='mt-5 mb-5
+      d-flex align-items-center justify-content-center'
+      >
+        <Col className='d-flex justify-content-center'>
+          <Card style={{ width: '8rem', height: '8rem' }}>
             <Card.Img
-              className={classes.Img}
-              variant='left rounded'
-              src='https://cdn.imweb.me/upload/S2017041358eed92818b4f/59fc0ee9bc7c3.jpg'
+              variant='top'
+              src='https://mp-seoul-image-production-s3.mangoplate.com/999285_1575800181007324.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80'
             />
-          </Col>
-          <Col gap={3} className='ReviewContents'>
-            <Stack direction='horizontal' gap={1} clssName='MetaInfo'>
-              <Col className='NickName'>
-                <h5>NickName</h5>
-              </Col>
-              <Col className='Rating text-warning'>
-                <i class='fa fa-star'></i>
-                <i class='fa fa-star'></i>
-                <i class='fa fa-star'></i>
-                <i class='fa fa-star'></i>
-                <i class='fa fa-star'></i>
-              </Col>
-              <Col className='Date'>
-                <h5>2222.22.22</h5>
-              </Col>
-            </Stack>
-            <Row className='Text'>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Row>
-          </Col>
-        </Row>
-      </Card>
+          </Card>
+        </Col>
+        <Col lg={9} className=''>
+          <Row className=''>
+            <Col className='NickName'>
+              <h5>NickName</h5>
+            </Col>
+            <Col lg={5} className='Rating text-warning'>
+              <i class='fa fa-star'></i>
+              <i class='fa fa-star'></i>
+              <i class='fa fa-star'></i>
+              <i class='fa fa-star'></i>
+              <i class='fa fa-star'></i>
+            </Col>
+            <Col className='Date'>
+              <h5>2222.22.22</h5>
+            </Col>
+          </Row>
+          <Row>
+            <Card.Body>
+              <Card.Text>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </Card.Text>
+            </Card.Body>
+          </Row>
+        </Col>
+        <hr className='mt-3' />
+      </Row>
 
       {/*페이징 처리*/}
-      <Pagination>
-        <Pagination.First />
-        <Pagination.Prev />
-        <Pagination.Item>{1}</Pagination.Item>
-        <Pagination.Ellipsis />
-
-        <Pagination.Item>{10}</Pagination.Item>
-        <Pagination.Item>{11}</Pagination.Item>
-        <Pagination.Item active>{12}</Pagination.Item>
-        <Pagination.Item>{13}</Pagination.Item>
-        <Pagination.Item disabled>{14}</Pagination.Item>
-
-        <Pagination.Ellipsis />
-        <Pagination.Item>{20}</Pagination.Item>
-        <Pagination.Next />
-        <Pagination.Last />
-      </Pagination>
+      <div className='d-flex justify-content-center'>
+        <ul class='pagination'>
+          <li class='page-item disabled'>
+            <a class='page-link' href='#'>
+              &laquo;
+            </a>
+          </li>
+          <li class='page-item active'>
+            <a class='page-link' href='#'>
+              1
+            </a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>
+              2
+            </a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>
+              3
+            </a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>
+              4
+            </a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>
+              5
+            </a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>
+              &raquo;
+            </a>
+          </li>
+        </ul>
+      </div>
     </Container>
   );
 };
