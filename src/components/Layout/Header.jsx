@@ -1,61 +1,35 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import DropDown from "../MyPage/DropDown";
-import styles from "./Header.module.css";
+import styled from "styled-components";
+import HeaderInput from "./HeaderInput";
+import HeaderNav from "./HeaderNav";
 
+const NavH = styled.nav`
+  display: flex;
+  margin-left: 15px;
+  margin-top: 10px;
+  width: 99%;
+  height: 90px;
+  font-size: 25px;
+  position: fixed;
+  left: 0;
+  right: 0;
+`;
+const StyledLink = styled(Link)`
+  font-size: 30px;
+`;
 const Header = () => {
-  const [dropdown, setDropdown] = useState(false);
-
-  const onMouseEnter = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-      console.log("false" + window.innerWidth);
-    } else {
-      setDropdown(true);
-      console.log("true" + window.innerWidth);
-    }
-  };
-
-  const onMouseLeave = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-    } else {
-      setDropdown(false);
-      console.log("false" + window.innerWidth);
-    }
-  };
-
   return (
-    <header className={styles.header}>
-      <li>
-        <Link className={styles.logo} to="/">
-          Foodtruck Around Me
-        </Link>
-      </li>
-      <form action="">
-        <input type="text" placeholder="메뉴명을 입력해주세요" />
-      </form>
-      <ul className={styles.ul}>
-        <li className={styles.li}>
-          <Link className={styles.a} to="/profile">
-            Profile
-          </Link>
-        </li>
-        <li>
-          <Link to="/store">store</Link>
-        </li>
-        <li>
-          <Link to="/cart">cart</Link>
-        </li>
-        <li onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          <Link to="/userinfo-config">mypage</Link>
-          {dropdown && <DropDown />}
-        </li>
-        <li>
-          <Link to="/login">login</Link>
-        </li>
-      </ul>
-    </header>
+    <>
+      <NavH className="navbar navbar-expand-lg bg-light">
+        <div className="container-fluid ">
+          <StyledLink className="navbar-brand h4" to="/">
+            Foodtruck Around Me
+          </StyledLink>
+          <HeaderInput />
+          <HeaderNav />
+        </div>
+      </NavH>
+    </>
   );
 };
 
