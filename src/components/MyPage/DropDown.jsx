@@ -1,24 +1,17 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { DropDownMenu } from "./DropDownMenu";
-import "./Dropdown.css";
+
 const DropDown = () => {
-  const [click, setClick] = useState(false);
-  const handleClick = () => setClick(!click);
   return (
     <>
       <ul
-        onClick={handleClick}
-        className={click ? "dropdown-menu clicked" : "dropdown-menu"}
+        className={"dropdown-menu show clicked"}
+        style={{ position: "absolute" }}
       >
         {DropDownMenu.map((item, index) => {
           return (
-            <li key={index}>
-              <Link
-                className={item.cName}
-                to={item.path}
-                onClick={() => setClick(false)}
-              >
+            <li className="nav-item" key={index}>
+              <Link className={item.cName} to={item.path}>
                 {item.title}
               </Link>
             </li>
