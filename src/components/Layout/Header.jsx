@@ -24,7 +24,7 @@ const Header = () => {
       <NavH className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid ">
           <StyledLink className="navbar-brand h4" to="/">
-            Foodtruck Around Me ( 빌드)
+            Foodtruck Around Me
           </StyledLink>
           <HeaderInput />
           <HeaderNav />
