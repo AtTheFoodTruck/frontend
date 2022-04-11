@@ -1,6 +1,6 @@
 import React from 'react';
-import classes from './Store.module.css';
 import styled from 'styled-components';
+import Post from './Post';
 import { BiTargetLock } from 'react-icons/bi';
 import {
   Container,
@@ -8,8 +8,6 @@ import {
   Card,
   InputGroup,
   FormControl,
-  Col,
-  Row,
 } from 'react-bootstrap';
 
 const StoreWrapper = styled.div`
@@ -21,6 +19,9 @@ const StoreWrapper = styled.div`
 `;
 
 const Store = () => {
+  const [address, setAddress] = React.useState('');
+  const [popup, setPopup] = React.useState(false);
+
   return (
     <StoreWrapper>
       <Container className='Store text-center mt-5'>
@@ -31,14 +32,18 @@ const Store = () => {
         {/* 검색창 */}
         <Container className='Search w-90 d-flex justify-content-center '>
           <InputGroup className='ms-5 mb-3 w-75'>
+            {/* 검색창 클릭 시 우편번호 입력 창 창 생성 */}
             <FormControl
+              onClick={() => setPopup(!popup)}
               size='lg'
               placeholder='동명, 도로명을 검색하세요'
               aria-describedby='basic-addon2'
             />
+            {popup && <Post address={address} setAddress={setAddress}></Post>}
+
+            {/* 아이콘 클릭 시 현재 위치 지도에 표시 */}
             <BiTargetLock
               style={{ width: 40, height: 'auto' }}
-              className={classes.Target}
               id='basic-addon2'
             />
           </InputGroup>
