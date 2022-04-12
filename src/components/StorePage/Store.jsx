@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Post from './Post';
+import Map from '../Map/Map';
 import { BiTargetLock } from 'react-icons/bi';
 import {
   Container,
@@ -52,10 +53,7 @@ const Store = () => {
         {/* 지도 api 받아와야함 */}
         <Container className='Map mt-5' style={{ width: 1000, height: 'auto' }}>
           <Card className='MapApi'>
-            <Card.Img
-              variant='top'
-              src='https://apis.map.kakao.com/images/webres/sample_thumb/mapInfo.png'
-            />
+            <Map />
           </Card>
         </Container>
         <Container className='Table'>
