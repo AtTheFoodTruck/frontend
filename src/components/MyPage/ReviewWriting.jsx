@@ -17,6 +17,7 @@ const ReviewWriting = () => {
     content: "",
     img_URL: "",
     rating: 0,
+    created_date: new Date().getTime(),
   });
   const contnetInput = useRef();
   const imgURLInput = useRef();
