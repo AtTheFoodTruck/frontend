@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+let LoglinS = styled.div`
+  padding: 100px
+`
 
 const Login = () => {
   return (
-    <div className='container Login mt-5'>
+    <LoglinS>
+    <div className='container Login mt-5 test'>
       <section className='title text-center'>
         <h1>Login</h1>
       </section>
@@ -58,6 +64,7 @@ const Login = () => {
         <div className='col'></div>
       </section>
     </div>
+    </LoglinS>
   );
 };
 
