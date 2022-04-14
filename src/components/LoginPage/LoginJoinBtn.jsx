@@ -18,7 +18,7 @@ const LoginJoinBtn = () => {
               </button>
           </Link>
 
-          <Link to='/member-register'>
+          <Link to='/owner-register'>
               <button className='btn btn-outline-secondary'>
               사장 가입
               </button>
