@@ -5,7 +5,7 @@ import LoginBtn from "./LoginBtn";
 import LoginJoinBtn from "./LoginJoinBtn";
 
 const LoginContainer = styled.div`
-  padding-top: 20%;
+  padding-top: 250px;
   width: 50%;
   margin: auto;
   text-align-last: center;
