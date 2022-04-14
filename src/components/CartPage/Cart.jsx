@@ -1,7 +1,7 @@
-import { render } from '@testing-library/react';
-import { React, useState } from 'react';
-import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
+import { React } from 'react';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import styled from 'styled-components';
+import CartList from './CartList';
 
 const CartWrapper = styled.div`
   position: absolute;
@@ -11,6 +11,41 @@ const CartWrapper = styled.div`
   left: 30%;
 `;
 
+const DUMMY_DATA = [
+  {
+    id: 's1',
+    store_name: '비빔밥 세상',
+    menu: '돌솥비빔밥',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
+    price: '6,000',
+  },
+  {
+    id: 's2',
+    store_name: '비빔밥 세상',
+    menu: '날치알비빔밥',
+    image:
+      'https://d1hk7gw6lgygff.cloudfront.net/uploads/recipe/image_file/4472/Flying_Fish_Roe_Bibimbap_I01.jpg',
+    price: '7,000',
+  },
+  {
+    id: 's3',
+    store_name: '쉐프의 스테이크',
+    menu: '큐브 스테이크',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
+    price: '10,000',
+  },
+  {
+    id: 's4',
+    store_name: '쉐프의 스테이크',
+    menu: '오늘의 추천메뉴',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Minute_steak_in_Tulppio.jpg/220px-Minute_steak_in_Tulppio.jpg',
+    price: '16,000',
+  },
+];
+
 const handleClick = () => alert(`주문 완료되었습니다!`);
 
 const Cart = () => {
@@ -18,9 +53,6 @@ const Cart = () => {
     <CartWrapper>
       <Container className='mt-5'>
         <h1 className='text-center'>Cart</h1>
-        <Row className='StoreName d-flex justify-content-start mt-5'>
-          <h4>Store Name</h4>
-        </Row>
 
         <Row className='d-flex justify-content-evenly mt-5'>
           <Col lg={5}></Col>
@@ -34,24 +66,12 @@ const Cart = () => {
             <h5>Price</h5>
           </Col>
         </Row>
-        <hr />
+
+        <Row className='StoreName d-flex justify-content-start mt-5'>
+          <hr />
+        </Row>
         <Row>
-          <Col lg={6} className='d-flex justify-content-start'>
-            <Card style={{ width: '8rem', height: '8rem' }}>
-              <Card.Img
-                variant='top'
-                src='https://mp-seoul-image-production-s3.mangoplate.com/999285_1575800181007324.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80'
-              />
-            </Card>
-          </Col>
-          <Col className='d-flex align-items-center me-5'>카레라이스</Col>
-          <Col className='d-flex align-items-center ms-3 me-5'>
-            <Button variant='outline-secondary'>+</Button>{' '}
-            <Button variant='outline-secondary disabled'>0</Button>{' '}
-            <Button variant='outline-secondary'>-</Button>{' '}
-          </Col>
-          <Col className='d-flex align-items-center ms-5'>12,000</Col>
-          <hr className='mt-5' />
+          <CartList cartlists={DUMMY_DATA} />
           <Row className='text-end mt-5'>
             <h4>총 금액 : 20,000</h4>
           </Row>
