@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const InputContainer = styled.div`  
+const InputContainer = styled.form`  
   .email {
     text-align-last: left;
   }
   .password {
     margin-top : 0.5em;
     text-align-last: left;
+  }
+  .btn {
+    margin-top : 0.5em;
+    width: 100%;
   }
 `;
 
@@ -39,6 +43,8 @@ const LoginInput = () => {
                 <label for='floatingPassword'>Password</label>
             </div>
         </div>
+        
+        <input type="submit"  className='btn btn-lg btn-outline-secondary' value="Login" />
     </InputContainer> 
   );
 };

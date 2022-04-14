@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import LoginInput from './LoginInput';
-import LoginBtn from "./LoginBtn";
 import LoginJoinBtn from "./LoginJoinBtn";
 
 const LoginContainer = styled.div`
@@ -14,8 +13,7 @@ const LoginContainer = styled.div`
 const Login = () => {
   return (
     <LoginContainer>
-        <LoginInput />
-        <LoginBtn />
+        <LoginInput />    
         <LoginJoinBtn />
     </LoginContainer>
   );
