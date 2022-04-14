@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav1 = styled.nav`
