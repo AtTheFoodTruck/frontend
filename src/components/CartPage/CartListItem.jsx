@@ -1,6 +1,21 @@
+import { useState } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 
 const CartListItem = (props) => {
+  const [number, setNumber] = useState(0);
+  const increaseNumber = () => {
+    //메뉴 갯수 1개 증가
+    setNumber(number + 1);
+  };
+  const decreaseNumber = () => {
+    //메뉴 갯수 1개 감소
+    if (number <= 0) {
+      setNumber = 0;
+    } else {
+      setNumber(number - 1);
+    }
+  };
+
   return (
     <>
       <h4>{props.store_name}</h4>
@@ -18,9 +33,13 @@ const CartListItem = (props) => {
         <Col lg={6} className='d-flex justify-content-start'>
           <Col className='d-flex align-items-center me-5'>{props.menu}</Col>
           <Col className='d-flex align-items-center ms-3 me-5'>
-            <Button variant='outline-secondary'>+</Button>{' '}
-            <Button variant='outline-secondary disabled'>0</Button>{' '}
-            <Button variant='outline-secondary'>-</Button>{' '}
+            <Button onClick={increaseNumber} variant='outline-secondary'>
+              +
+            </Button>{' '}
+            <Button variant='outline-secondary disabled'>{number}</Button>{' '}
+            <Button onClick={decreaseNumber} variant='outline-secondary'>
+              -
+            </Button>{' '}
           </Col>
           <Col className='d-flex align-items-center ms-5'>{props.price}</Col>
         </Col>

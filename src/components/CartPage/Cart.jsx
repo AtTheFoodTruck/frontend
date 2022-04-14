@@ -1,50 +1,7 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import CartList from './CartList';
-
-const CartWrapper = styled.div`
-  position: absolute;
-  align-items: center;
-  width: 40%;
-  top: 20%;
-  left: 30%;
-`;
-
-const DUMMY_DATA = [
-  {
-    id: 's1',
-    store_name: '비빔밥 세상',
-    menu: '돌솥비빔밥',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
-    price: '6,000',
-  },
-  {
-    id: 's2',
-    store_name: '비빔밥 세상',
-    menu: '날치알비빔밥',
-    image:
-      'https://d1hk7gw6lgygff.cloudfront.net/uploads/recipe/image_file/4472/Flying_Fish_Roe_Bibimbap_I01.jpg',
-    price: '7,000',
-  },
-  {
-    id: 's3',
-    store_name: '쉐프의 스테이크',
-    menu: '큐브 스테이크',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
-    price: '10,000',
-  },
-  {
-    id: 's4',
-    store_name: '쉐프의 스테이크',
-    menu: '오늘의 추천메뉴',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Minute_steak_in_Tulppio.jpg/220px-Minute_steak_in_Tulppio.jpg',
-    price: '16,000',
-  },
-];
 
 const handleClick = () => alert(`주문 완료되었습니다!`);
 
@@ -91,4 +48,46 @@ const Cart = () => {
   );
 };
 
+const CartWrapper = styled.div`
+  position: absolute;
+  align-items: center;
+  width: 40%;
+  top: 20%;
+  left: 30%;
+`;
+
+const DUMMY_DATA = [
+  {
+    id: 's1',
+    store_name: '비빔밥 세상',
+    menu: '돌솥비빔밥',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
+    price: '6,000',
+  },
+  {
+    id: 's2',
+    store_name: '비빔밥 세상',
+    menu: '날치알비빔밥',
+    image:
+      'https://d1hk7gw6lgygff.cloudfront.net/uploads/recipe/image_file/4472/Flying_Fish_Roe_Bibimbap_I01.jpg',
+    price: '7,000',
+  },
+  {
+    id: 's3',
+    store_name: '쉐프의 스테이크',
+    menu: '큐브 스테이크',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
+    price: '10,000',
+  },
+  {
+    id: 's4',
+    store_name: '쉐프의 스테이크',
+    menu: '오늘의 추천메뉴',
+    image:
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Minute_steak_in_Tulppio.jpg/220px-Minute_steak_in_Tulppio.jpg',
+    price: '16,000',
+  },
+];
 export default Cart;
