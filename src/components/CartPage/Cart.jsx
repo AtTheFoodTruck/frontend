@@ -1,5 +1,6 @@
-import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { render } from '@testing-library/react';
+import { React, useState } from 'react';
+import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const CartWrapper = styled.div`
@@ -9,6 +10,8 @@ const CartWrapper = styled.div`
   top: 20%;
   left: 30%;
 `;
+
+const handleClick = () => alert(`주문 완료되었습니다!`);
 
 const Cart = () => {
   return (
@@ -54,7 +57,12 @@ const Cart = () => {
           </Row>
         </Row>
         <Container className='text-center'>
-          <Button className='mt-5' size='lg' variant='outline-secondary'>
+          <Button
+            onClick={handleClick}
+            className='mt-5'
+            size='lg'
+            variant='outline-secondary'
+          >
             주문하기
           </Button>{' '}
         </Container>
