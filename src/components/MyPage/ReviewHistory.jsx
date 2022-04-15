@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Card, Container, Button, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
@@ -11,6 +12,9 @@ const ReviewHistoryWrapper = styled.div`
   top: 20%;
   left: 30%;
 `;
+=======
+import React from 'react';
+>>>>>>> feature-orderlist
 
 const ReviewHistory = () => {
   const [test, setTest] = useState([]);
