@@ -1,33 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-<<<<<<< HEAD
-=======
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
->>>>>>> feature-orderlist
 
 const OrderListWrapper = styled.div`
   position: absolute;
   align-items: center;
-<<<<<<< HEAD
-  width: 40%;
-  top: 20%;
-  left: 30%;
-=======
   width: 100%;
   top: 20%;
->>>>>>> feature-orderlist
 `;
 
 const OrderList = () => {
   return (
     <OrderListWrapper>
-<<<<<<< HEAD
-      <div>주문 내역 페이지 입니다.</div>
-      <Link to='/review-writing'>
-        <button>리뷰 쓰기</button>
-      </Link>
-=======
       <Container className='text-center'>
         <h1>주문내역</h1>
 
@@ -116,7 +101,6 @@ const OrderList = () => {
           </Col>
         </Row>
       </Container>
->>>>>>> feature-orderlist
     </OrderListWrapper>
   );
 };
