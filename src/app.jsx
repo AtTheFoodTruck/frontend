@@ -16,6 +16,7 @@ import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import MemberRegister from "./components/RegisterPage/MemberRegister";
 import OwnerRegister from "./components/RegisterPage/OwnerRegister";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
+import OrderPage from "./components/OrderPage/OrderPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/store" element={<Store />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order-list" element={<OrderList />} />
+        <Route path="/order-page" element={<OrderPage />} />
         <Route path="/review-history" element={<ReviewHistory />} />
         <Route path="/review-writing" element={<ReviewWriting />} />
         <Route path="/userinfo-config" element={<UserInfoConfig />} />

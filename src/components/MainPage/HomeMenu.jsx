@@ -37,7 +37,7 @@ const HomeMenu = ({ movie }) => {
           {/* <!-- Product actions--> */}
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div className="text-center">
-              <Link className="btn btn-outline-dark mt-auto" to="/order-list">
+              <Link className="btn btn-outline-dark mt-auto" to="/order-page">
                 주문하기
               </Link>
             </div>
