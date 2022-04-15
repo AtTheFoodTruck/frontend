@@ -81,15 +81,17 @@ const ReviewHistory = () => {
   //삭제
   //리뷰 내용
 
+  //배열내에 고유한 값을 가지고 있는 변수 예> id , 가 있다면 굳이 idx를 쓰기보다는
+  //그 값을 쓰는게 좋다 이유는 삭제 수정을 하면서 약간씩 오류가 발생할 수 있기 때문
   return (
     <ReviewHistoryWrapper>
       <Container className="ReviewPage text-center mt-5">
         <h1>리뷰관리</h1>
         {/* 이미지 */}
-        {test2.map((it, idx) => (
+        {test2.map((it) => (
           <Row
             className="mt-5 mb-5 d-flex align-items-center justify-content-center"
-            key={idx}
+            key={it.id}
           >
             <Col className="d-flex justify-content-center">
               <Card style={{ width: "8rem", height: "8rem" }}>
