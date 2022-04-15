@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HomeCategories from "./HomeCategories";
 import HomeMenu from "./HomeMenu";
 import HomePagination from "./HomePagination";
 import { AnimatePresence, motion } from "framer-motion";
+=======
+import React from 'react';
+import styled from 'styled-components';
+import HomeCategories from './HomeCategories';
+import HomeMenu from './HomeMenu';
+import HomePagination from './HomePagination';
+>>>>>>> origin/feature-searchlist
 
 const Input1 = styled.input`
   margin-top: 11%;
@@ -44,18 +52,18 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="container">
-      <Header1 class="masthead d-flex ">
-        <div class="container  px-4 px-lg-5 text-center">
-          <div class="mb-3">
+    <div className='container'>
+      <Header1 class='masthead d-flex '>
+        <div class='container  px-4 px-lg-5 text-center'>
+          <div class='mb-3'>
             <Input1
-              type="text"
-              class="form-control"
+              type='text'
+              class='form-control'
               placeholder="Recipient's username"
               aria-label="Recipient's username"
-              aria-describedby="button-addon2"
+              aria-describedby='button-addon2'
             />
-            <button class="btn btn-primary" type="button" id="button-addon2">
+            <button class='btn btn-primary' type='button' id='button-addon2'>
               Button
             </button>
           </div>
