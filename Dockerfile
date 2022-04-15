@@ -12,8 +12,8 @@ RUN npm install
 COPY . .
 
 # 리액트 빌드
-RUN npm run build
-
+# RUN npm run build
+RUN /bin/sh -c npm run build
 
 FROM nginx:latest
 # nginx의 기본 설정을 삭제하고 앱 소스에서 설정한 파일을 복사
