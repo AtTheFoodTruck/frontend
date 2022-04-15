@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HomeCategories from "./HomeCategories";
 import HomeMenu from "./HomeMenu";
 import HomePagination from "./HomePagination";
 import { AnimatePresence, motion } from "framer-motion";
-=======
-import React from 'react';
-import styled from 'styled-components';
-import HomeCategories from './HomeCategories';
-import HomeMenu from './HomeMenu';
-import HomePagination from './HomePagination';
->>>>>>> origin/feature-searchlist
 
 const Input1 = styled.input`
   margin-top: 11%;
