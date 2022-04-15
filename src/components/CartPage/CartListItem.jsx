@@ -3,16 +3,24 @@ import { Row, Col, Card, Button } from 'react-bootstrap';
 
 const CartListItem = (props) => {
   const [number, setNumber] = useState(0);
+  const [unitPrice, setUnitPrice] = useState(props.price);
+  const [price, setPrice] = useState(0);
+
   const increaseNumber = () => {
     //메뉴 갯수 1개 증가
     setNumber(number + 1);
+    setPrice(price + unitPrice);
+    props.handTotalPrice(unitPrice);
   };
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
     if (number <= 0) {
-      setNumber = 0;
+      setNumber(0);
+      setPrice(0);
     } else {
       setNumber(number - 1);
+      setPrice(price - unitPrice);
+      props.handTotalPrice(-1 * unitPrice);
     }
   };
 
@@ -41,7 +49,9 @@ const CartListItem = (props) => {
               -
             </Button>{' '}
           </Col>
-          <Col className='d-flex align-items-center ms-5'>{props.price}</Col>
+          <Col className='d-flex align-items-center ms-5'>
+            {price.toLocaleString()}
+          </Col>
         </Col>
       </Row>
 

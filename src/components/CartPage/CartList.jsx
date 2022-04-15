@@ -11,6 +11,7 @@ const CartItemList = (props) => {
           image={cartlist.image}
           menu={cartlist.menu}
           price={cartlist.price}
+          handTotalPrice={props.handTotalPrice}
         />
       ))}
     </span>

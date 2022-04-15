@@ -6,6 +6,10 @@ import CartList from './CartList';
 const handleClick = () => alert(`주문 완료되었습니다!`);
 
 const Cart = () => {
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const handTotalPrice = (price) => setTotalPrice(totalPrice + price);
+
   return (
     <CartWrapper>
       <Container className='mt-5'>
@@ -28,9 +32,9 @@ const Cart = () => {
           <hr />
         </Row>
         <Row>
-          <CartList cartlists={DUMMY_DATA} />
+          <CartList cartlists={DUMMY_DATA} handTotalPrice={handTotalPrice} />
           <Row className='text-end mt-5'>
-            <h4>총 금액 : 20,000</h4>
+            <h4>총 금액 : {totalPrice.toLocaleString()}</h4>
           </Row>
         </Row>
         <Container className='text-center'>
@@ -63,7 +67,7 @@ const DUMMY_DATA = [
     menu: '돌솥비빔밥',
     image:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
-    price: '6,000',
+    price: 6000,
   },
   {
     id: 's2',
@@ -71,7 +75,7 @@ const DUMMY_DATA = [
     menu: '날치알비빔밥',
     image:
       'https://d1hk7gw6lgygff.cloudfront.net/uploads/recipe/image_file/4472/Flying_Fish_Roe_Bibimbap_I01.jpg',
-    price: '7,000',
+    price: 7000,
   },
   {
     id: 's3',
@@ -79,7 +83,7 @@ const DUMMY_DATA = [
     menu: '큐브 스테이크',
     image:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/220px-Dolsot-bibimbap.jpg',
-    price: '10,000',
+    price: 10000,
   },
   {
     id: 's4',
@@ -87,7 +91,7 @@ const DUMMY_DATA = [
     menu: '오늘의 추천메뉴',
     image:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Minute_steak_in_Tulppio.jpg/220px-Minute_steak_in_Tulppio.jpg',
-    price: '16,000',
+    price: 16999,
   },
 ];
 export default Cart;
