@@ -19,6 +19,9 @@ const Home = () => {
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [activeGenre, setActiveGenre] = useState(0);
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+  const [postsPerPage] = useState(8); //페이지당 게시물
 
   useEffect(() => {
     fetchPopular();
@@ -32,6 +35,14 @@ const Home = () => {
     setPopular(movies.results);
     setFiltered(movies.results);
   };
+
+  // pagination
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filtered.slice(indexOfFirstPost, indexOfLastPost);
+  //Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="container">
       <Header1 class="masthead d-flex ">
@@ -54,19 +65,24 @@ const Home = () => {
           setFiltered={setFiltered}
           activeGenre={activeGenre}
           setActiveGenre={setActiveGenre}
+          paginate={paginate}
         />
       </Header1>
       {/* <HomeMenu /> */}
       <motion.div layout className="container px-4 px-lg-5 mt-5 ">
         <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <AnimatePresence>
-            {filtered.map((movie) => {
+            {currentPosts.map((movie) => {
               return <HomeMenu key={movie.id} movie={movie} />;
             })}
           </AnimatePresence>
         </motion.div>
       </motion.div>
-      <HomePagination />
+      <HomePagination
+        postsPerPage={postsPerPage}
+        totalPosts={popular.length}
+        paginate={paginate}
+      />
     </div>
   );
 };

@@ -10,6 +10,7 @@ const HomeCategories = ({
   activeGenre,
   setFiltered,
   popular,
+  paginate,
 }) => {
   useEffect(() => {
     if (activeGenre === 0) {
@@ -20,56 +21,65 @@ const HomeCategories = ({
       movie.genre_ids.includes(activeGenre)
     );
     setFiltered(filtered);
-  }, [activeGenre]);
+  });
 
+  //리팩터링 필요함
+  function handleClick() {
+    paginate(1);
+    setActiveGenre(0);
+  }
+  function handleClick2() {
+    paginate(1);
+    setActiveGenre(28);
+  }
+  function handleClick3() {
+    paginate(1);
+    setActiveGenre(35);
+  }
+  function handleClick4() {
+    paginate(1);
+    setActiveGenre(0);
+  }
+  function handleClick5() {
+    paginate(1);
+    setActiveGenre(28);
+  }
+  function handleClick6() {
+    paginate(1);
+    setActiveGenre(35);
+  }
+  function handleClick7() {
+    paginate(1);
+    setActiveGenre(28);
+  }
+  function handleClick8() {
+    paginate(1);
+    setActiveGenre(35);
+  }
   return (
     <Nav1>
-      <button
-        onClick={() => setActiveGenre(0)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick} className="btn btn-outline-primary m-3">
         전체
       </button>
-      <button
-        onClick={() => setActiveGenre(35)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick2} className="btn btn-outline-primary m-3">
         스테이크
       </button>
-      <button
-        onClick={() => setActiveGenre(28)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick3} className="btn btn-outline-primary m-3">
         닭강정
       </button>
-      <button
-        onClick={() => setActiveGenre(35)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick4} className="btn btn-outline-primary m-3">
         치킨
       </button>
-      <button
-        onClick={() => setActiveGenre(28)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick5} className="btn btn-outline-primary m-3">
         피자
       </button>
-      <button
-        onClick={() => setActiveGenre(35)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick6} className="btn btn-outline-primary m-3">
         닭꼬치
       </button>
-      <button
-        onClick={() => setActiveGenre(0)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick7} className="btn btn-outline-primary m-3">
         떡볶이
       </button>
-      <button
-        onClick={() => setActiveGenre(35)}
-        className="btn btn-outline-primary m-3"
-      >
+      <button onClick={handleClick8} className="btn btn-outline-primary m-3">
         츄러스
       </button>
     </Nav1>
