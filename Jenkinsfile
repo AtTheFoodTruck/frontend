@@ -31,6 +31,6 @@ pipeline {
 
   }
   environment {
-    registryCredential = 'dockerhub_cred2'
+    registryCredential = 'dockerhub_cred'
   }
 }
