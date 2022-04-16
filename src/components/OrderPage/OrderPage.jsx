@@ -1,7 +1,13 @@
+import styled from "styled-components";
+
+const DivTop = styled.div`
+  /* margin-top: 11%; */
+`;
+
 const OrderPage = () => {
   return (
-    <div className="container">
-      <section className="Title container text-center">
+    <DivTop className="">
+      <section className="Title container text-center ">
         <h1>동대문 엽기 떡볶이</h1>
       </section>
       <section className="Waiting container text-center mt-3">
@@ -167,7 +173,7 @@ const OrderPage = () => {
           </div>
         </div>
       </section>
-    </div>
+    </DivTop>
   );
 };
 

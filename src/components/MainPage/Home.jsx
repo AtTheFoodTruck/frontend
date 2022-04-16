@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import HomeCategories from "./HomeCategories";
 import HomeMenu from "./HomeMenu";
 import HomePagination from "./HomePagination";
 import { AnimatePresence, motion } from "framer-motion";
+import styled from "styled-components";
 
 const Input1 = styled.input`
   margin-top: 11%;
   width: 35%;
   height: 40px;
 `;
+
 const Header1 = styled.header`
   align-items: center;
   /* background: black; */
