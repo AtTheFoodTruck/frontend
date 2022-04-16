@@ -1,9 +1,11 @@
 import { Card, Container, Button, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Star from "./star";
 import { FaStar } from "react-icons/fa";
+import ReviewPage from "./ReviewPage";
+import { toContainHTML } from "@testing-library/jest-dom/dist/matchers";
 const ReviewHistoryWrapper = styled.div`
   position: absolute;
   align-items: center;
@@ -13,8 +15,6 @@ const ReviewHistoryWrapper = styled.div`
 `;
 
 const ReviewHistory = () => {
-  const [test, setTest] = useState([]);
-
   const test2 = [
     {
       postId: 1,
@@ -24,6 +24,7 @@ const ReviewHistory = () => {
       email: "ada@gardner.biz",
       body: "lasi\nreiciendis et nam sapiente accusantium",
       rating: 3,
+      date: "2012.01.10",
     },
     {
       postId: 2,
@@ -33,6 +34,7 @@ const ReviewHistory = () => {
       email: "Eliseo@gardner.biz",
       body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
       rating: 4,
+      date: "2020.03.11",
     },
     {
       postId: 3,
@@ -42,27 +44,99 @@ const ReviewHistory = () => {
       email: "Eliseo@gardner.biz",
       body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
       rating: 5,
+      date: "2020.08.31",
     },
 
     {
-      postId: 3,
-      id: 3,
-      name: "핫도그",
+      postId: 4,
+      id: 4,
+      name: "핫도그1",
       price: 4000,
       email: "Eliseo@gardner.biz",
       body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
       rating: 4,
+      date: "2020.04.31",
     },
     {
-      postId: 3,
-      id: 3,
-      name: "핫도그",
+      postId: 5,
+      id: 5,
+      name: "핫도그3",
       price: 4000,
       email: "Eliseo@gardner.biz",
       body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
       rating: 3,
+      date: "2222.12.12",
+    },
+    {
+      postId: 6,
+      id: 6,
+      name: "피자2",
+      price: 12000,
+      email: "ada@gardner.biz",
+      body: "lasi\nreiciendis et nam sapiente accusantium",
+      rating: 3,
+      date: "2012.01.10",
+    },
+    {
+      postId: 7,
+      id: 7,
+      name: "햄버거4",
+      price: 8000,
+      email: "Eliseo@gardner.biz",
+      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
+      rating: 4,
+      date: "2020.03.11",
+    },
+    {
+      postId: 8,
+      id: 8,
+      name: "핫도그5",
+      price: 4000,
+      email: "Eliseo@gardner.biz",
+      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
+      rating: 5,
+      date: "2020.08.31",
+    },
+
+    {
+      postId: 9,
+      id: 9,
+      name: "핫도그6",
+      price: 4000,
+      email: "Eliseo@gardner.biz",
+      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
+      rating: 4,
+      date: "2020.04.31",
+    },
+    {
+      postId: 10,
+      id: 10,
+      name: "핫도그1",
+      price: 4000,
+      email: "Eliseo@gardner.biz",
+      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
+      rating: 3,
+      date: "2222.12.12",
+    },
+    {
+      postId: 11,
+      id: 11,
+      name: "핫도그2",
+      price: 6000,
+      email: "Eliseo@gardner.biz",
+      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
+      rating: 3,
+      date: "2222.12.12",
     },
   ];
+  //데이터 리스트
+  const [test, setTest] = useState([]);
+  //page 당 게시글 수
+  const [limit, setLimit] = useState(5);
+  //현재 페이지 번호
+  const [page, setPage] = useState(1);
+  // 페이지 첫 글 Index
+  const offset = (page - 1) * limit;
 
   const testList = () => {
     axios.get("https://jsonplaceholder.typicode.com/comments/").then((res) => {
@@ -88,7 +162,7 @@ const ReviewHistory = () => {
       <Container className="ReviewPage text-center mt-5">
         <h1>리뷰관리</h1>
         {/* 이미지 */}
-        {test2.map((it) => (
+        {test2.slice(offset, offset + limit).map((it) => (
           <Row
             className="mt-5 mb-5 d-flex align-items-center justify-content-center"
             key={it.id}
@@ -115,7 +189,7 @@ const ReviewHistory = () => {
                   <Star rating={it.rating} />
                 </Col>
                 <Col className="Date">
-                  <h5>2222.22.22</h5>
+                  <h5>{it.date}</h5>
                 </Col>
                 <Col className="deleteBtn">
                   <Button variant="outline-secondary">삭제</Button>
@@ -125,56 +199,20 @@ const ReviewHistory = () => {
               {/* 리뷰텍스트 */}
               <Row className="mt-3">
                 <Card.Body>
-                  <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </Card.Text>
+                  <Card.Text>{it.body}</Card.Text>
                 </Card.Body>
               </Row>
             </Col>
             <hr className="mt-5" />
           </Row>
         ))}
-        ;{/*페이징 처리*/}
-        <div className="d-flex justify-content-center">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#">
-                &laquo;
-              </a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">
-                1
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                2
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                4
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                5
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                &raquo;
-              </a>
-            </li>
-          </ul>
-        </div>
+        {/*페이징 처리*/}
+        <ReviewPage
+          total={test2.length}
+          page={page}
+          setPage={setPage}
+          limit={limit}
+        />
       </Container>
     </ReviewHistoryWrapper>
   );
