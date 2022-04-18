@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Rating from "./star/Rating";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import _ from "lodash";
+import axios from "axios";
 
 const ReviewWritinghWrapper = styled.div`
   position: absolute;
@@ -42,15 +43,20 @@ const ReviewWriting = () => {
 
   const onCreate = (content, img_url, img_file, rating, created_date) => {
     const newData = {
-      content,
-      img_url,
-      img_file,
-      rating,
-      created_date,
+      content: content,
+      img_url: img_url,
+      img_file: img_file,
+      rating: rating,
+      created_date: created_date,
       // id : dataId.current
     };
-    // dataId.current += 1;
-    console.log(newData);
+    const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
+    axios
+      .post(url, newData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err.response));
   };
 
   //input debounce
