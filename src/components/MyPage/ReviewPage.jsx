@@ -21,15 +21,18 @@ const Nav = styled.nav`
   }
 `;
 
-export default function ReviewPage({ total, limit, page, setPage }) {
-  const numPages = Math.ceil(total / limit);
-  console.log(numPages, total, limit);
+export default function ReviewPage({ getData, endPage, page, setPage }) {
+  const numPages = endPage + 1;
+
   return (
     <Nav>
       <button
         type="button"
         className="btn btn-outline-dark "
-        onClick={() => setPage(page - 1)}
+        onClick={() => {
+          setPage(page - 1);
+          getData();
+        }}
         disabled={page === 1}
       >
         &lt;
@@ -42,7 +45,10 @@ export default function ReviewPage({ total, limit, page, setPage }) {
             type="button"
             className="btn btn-outline-dark"
             key={i + 1}
-            onClick={() => setPage(i + 1)}
+            onClick={() => {
+              setPage(i + 1);
+              getData();
+            }}
             aria-current={page === i + 1 ? "page" : null}
           >
             {i + 1}
@@ -52,7 +58,10 @@ export default function ReviewPage({ total, limit, page, setPage }) {
       <button
         type="button"
         className="btn btn-outline-dark"
-        onClick={() => setPage(page + 1)}
+        onClick={() => {
+          setPage(page + 1);
+          getData();
+        }}
         disabled={page === numPages}
       >
         &gt;

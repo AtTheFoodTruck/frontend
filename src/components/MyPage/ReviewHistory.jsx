@@ -15,137 +15,36 @@ const ReviewHistoryWrapper = styled.div`
 `;
 
 const ReviewHistory = () => {
-  const test2 = [
-    {
-      postId: 1,
-      id: 1,
-      name: "피자",
-      price: 12000,
-      email: "ada@gardner.biz",
-      body: "lasi\nreiciendis et nam sapiente accusantium",
-      rating: 3,
-      date: "2012.01.10",
-    },
-    {
-      postId: 2,
-      id: 2,
-      name: "햄버거",
-      price: 8000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 4,
-      date: "2020.03.11",
-    },
-    {
-      postId: 3,
-      id: 3,
-      name: "핫도그",
-      price: 4000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 5,
-      date: "2020.08.31",
-    },
-
-    {
-      postId: 4,
-      id: 4,
-      name: "핫도그1",
-      price: 4000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 4,
-      date: "2020.04.31",
-    },
-    {
-      postId: 5,
-      id: 5,
-      name: "핫도그3",
-      price: 4000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 3,
-      date: "2222.12.12",
-    },
-    {
-      postId: 6,
-      id: 6,
-      name: "피자2",
-      price: 12000,
-      email: "ada@gardner.biz",
-      body: "lasi\nreiciendis et nam sapiente accusantium",
-      rating: 3,
-      date: "2012.01.10",
-    },
-    {
-      postId: 7,
-      id: 7,
-      name: "햄버거4",
-      price: 8000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 4,
-      date: "2020.03.11",
-    },
-    {
-      postId: 8,
-      id: 8,
-      name: "핫도그5",
-      price: 4000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 5,
-      date: "2020.08.31",
-    },
-
-    {
-      postId: 9,
-      id: 9,
-      name: "핫도그6",
-      price: 4000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 4,
-      date: "2020.04.31",
-    },
-    {
-      postId: 10,
-      id: 10,
-      name: "핫도그1",
-      price: 4000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 3,
-      date: "2222.12.12",
-    },
-    {
-      postId: 11,
-      id: 11,
-      name: "핫도그2",
-      price: 6000,
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptateapiente accusantium",
-      rating: 3,
-      date: "2222.12.12",
-    },
-  ];
   //데이터 리스트
-  const [test, setTest] = useState([]);
-  //page 당 게시글 수
+  const [data, setData] = useState([]);
+  //page 당 게시글 수  고정??
   const [limit, setLimit] = useState(5);
-  //현재 페이지 번호
+  //현재 페이지 번호  --> 0
   const [page, setPage] = useState(1);
-  // 페이지 첫 글 Index
-  const offset = (page - 1) * limit;
+  //const [currentPage,setCurrentPage] = useState(0);
+  const [endPage, setEndPage] = useState();
 
-  const testList = () => {
-    axios.get("https://jsonplaceholder.typicode.com/comments/").then((res) => {
-      setTest(res.data);
+  const getData = async () => {
+    await axios
+      .get(
+        `http://localhost:8000/order-service/orders/v1/customer/reviews?page=${
+          page - 1
+        }&size=${limit}`
+      )
+      .then((res) => {
+        setData(res.data.itemDto);
+      });
+  };
+
+  const getEndPage = async () => {
+    const request = `http://localhost:8000/order-service/orders/v1/customer/reviews?page=0&size=${limit}}`;
+    await axios.get(request).then((res) => {
+      setEndPage(res.data.page.endPage);
     });
   };
 
   useEffect(() => {
-    testList();
+    getEndPage();
   }, []);
 
   //img
@@ -161,10 +60,11 @@ const ReviewHistory = () => {
     <ReviewHistoryWrapper>
       <Container className="ReviewPage text-center mt-5">
         <h1>리뷰관리</h1>
-        {/* 이미지 */}
-        {test2.slice(offset, offset + limit).map((it) => (
+
+        {data.map((it) => (
           <Row
             className="mt-5 mb-5 d-flex align-items-center justify-content-center"
+            // key={it.item_id}
             key={it.id}
           >
             <Col className="d-flex justify-content-center">
@@ -180,12 +80,15 @@ const ReviewHistory = () => {
             <Col lg={9}>
               <Row>
                 <Col className="MenuName">
+                  {/* {it.item_name} */}
                   <h5>{it.name}</h5>
                 </Col>
                 <Col className="Price">
+                  {/* {it.price} */}
                   <h5>{it.price}</h5>
                 </Col>
                 <Col className="Rating text-warning">
+                  {/* {it.rating} rating필요 */}
                   <Star rating={it.rating} />
                 </Col>
                 <Col className="Date">
@@ -208,10 +111,10 @@ const ReviewHistory = () => {
         ))}
         {/*페이징 처리*/}
         <ReviewPage
-          total={test2.length}
           page={page}
           setPage={setPage}
-          limit={limit}
+          endPage={endPage}
+          getData={getData}
         />
       </Container>
     </ReviewHistoryWrapper>
