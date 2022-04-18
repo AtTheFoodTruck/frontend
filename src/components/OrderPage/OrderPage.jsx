@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import OrderPageMenu from "./OrderPageMenu";
 
 const OrderPage = () => {
   let params = useParams();
@@ -14,12 +15,13 @@ const OrderPage = () => {
     setDetails(detailData);
     console.log(detailData);
   };
+
   useEffect(() => {
     fetchDetails();
   }, []);
 
   return (
-    <StoreWrapper className="">
+    <StoreWrapper className="container">
       {/* Title */}
       <section className="Title container text-center ">
         <h1>{details.title}</h1>
@@ -63,40 +65,14 @@ const OrderPage = () => {
       </section>
 
       {/* MenuList */}
+
       <section className="Menus container mt-4">
         <h4>Menu</h4>
-        <div className="MenuList row text-center">
-          <div className="MenuItems col">
-            <div className="MenuItem card">
-              <img
-                src={"https://image.tmdb.org/t/p/w500" + details.backdrop_path}
-                className="card-img-top"
-                alt="menuimage"
-              />
-              <div className="card-body">
-                <h5>{details.title}</h5>
-                <h6>${details.vote_count}</h6>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic outlined example"
-                >
-                  <button type="button" className="btn btn-outline-primary">
-                    -
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary disabled"
-                  >
-                    0
-                  </button>
-                  <button type="button" className="btn btn-outline-primary">
-                    +
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="MenuList row gx-4 gx-lg-5  row-cols-md-3 row-cols-xl-4  text-center">
+          {details.genres &&
+            details.genres.map((genre) => {
+              return <OrderPageMenu key={genre.id} genre={genre} />;
+            })}
         </div>
       </section>
     </StoreWrapper>
