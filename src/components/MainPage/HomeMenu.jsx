@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import OrderPage from "../OrderPage/OrderPage";
 
 const ImgSize = styled.img`
   height: 15rem;
@@ -37,7 +38,10 @@ const HomeMenu = ({ movie }) => {
           {/* <!-- Product actions--> */}
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div className="text-center">
-              <Link className="btn btn-outline-dark mt-auto" to="/order-page">
+              <Link
+                className="btn btn-outline-dark mt-auto"
+                to={"/order-page/" + movie.id}
+              >
                 주문하기
               </Link>
             </div>

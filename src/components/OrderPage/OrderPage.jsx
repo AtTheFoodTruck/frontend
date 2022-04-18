@@ -1,20 +1,38 @@
 import styled from "styled-components";
-
-const DivTop = styled.div`
-  /* margin-top: 11%; */
-`;
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const OrderPage = () => {
+  let params = useParams();
+  const [details, setDetails] = useState({});
+
+  const fetchDetails = async () => {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/${params.name}?api_key=e2604cc00e2d6cf3166131fbe7c76bd7&language=en-US&page=1`
+    );
+    const detailData = await data.json();
+    setDetails(detailData);
+    console.log(detailData);
+  };
+  useEffect(() => {
+    fetchDetails();
+  }, []);
+
   return (
-    <DivTop className="">
+    <StoreWrapper className="">
+      {/* Title */}
       <section className="Title container text-center ">
-        <h1>동대문 엽기 떡볶이</h1>
+        <h1>{details.title}</h1>
       </section>
+
+      {/* Waiting Number */}
       <section className="Waiting container text-center mt-3">
         <button type="button" className="btn btn-secondary disabled">
           대기 13번
         </button>
       </section>
+
+      {/* Navigation Bar */}
       <section className="Navbar container text-center mt-5">
         <button type="button" className="btn btn-outline-secondary">
           notice
@@ -26,130 +44,38 @@ const OrderPage = () => {
           reviews
         </button>
       </section>
+
+      {/* Notice */}
       <section className="Notice container mt-5">
         <h4>Notice</h4>
         <div className="Notice card">
           <div className="card-body">
             <h5 className="card-subtitle mb-2 text-muted">sajangnim alarm</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+            <p className="card-text">{details.overview}</p>
             <h5 className="card-subtitle mb-2 text-muted">Time</h5>
-            <p className="card-text">09:00 ~ 11:00</p>
+            <p className="card-text">{details.id}</p>
             <h5 className="card-subtitle mb-2 text-muted">Place</h5>
-            <p className="card-text">Seoul City</p>
+            <p className="card-text">{details.homepage}</p>
             <h5 className="card-subtitle mb-2 text-muted">Phone Number</h5>
-            <p className="card-text">010-12344-12234</p>
+            <p className="card-text">{details.vote_count}</p>
           </div>
         </div>
       </section>
+
+      {/* MenuList */}
       <section className="Menus container mt-4">
         <h4>Menu</h4>
         <div className="MenuList row text-center">
           <div className="MenuItems col">
             <div className="MenuItem card">
               <img
-                src="https://image.ytn.co.kr/general/jpg/2018/0809/201808091525069109_d.jpg"
+                src={"https://image.tmdb.org/t/p/w500" + details.backdrop_path}
                 className="card-img-top"
                 alt="menuimage"
               />
               <div className="card-body">
-                <h5>menu name</h5>
-                <h6>13,000</h6>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic outlined example"
-                >
-                  <button type="button" className="btn btn-outline-primary">
-                    -
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary disabled"
-                  >
-                    0
-                  </button>
-                  <button type="button" className="btn btn-outline-primary">
-                    +
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="MenuItems col">
-            <div className="MenuItem card">
-              <img
-                src="https://image.ytn.co.kr/general/jpg/2018/0809/201808091525069109_d.jpg"
-                className="card-img-top"
-                alt="menuimage"
-              />
-              <div className="card-body">
-                <h5>menu name</h5>
-                <h6>13,000</h6>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic outlined example"
-                >
-                  <button type="button" className="btn btn-outline-primary">
-                    -
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary disabled"
-                  >
-                    0
-                  </button>
-                  <button type="button" className="btn btn-outline-primary">
-                    +
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="MenuItems col">
-            <div className="MenuItem card">
-              <img
-                src="https://image.ytn.co.kr/general/jpg/2018/0809/201808091525069109_d.jpg"
-                className="card-img-top"
-                alt="menuimage"
-              />
-              <div className="card-body">
-                <h5>menu name</h5>
-                <h6>13,000</h6>
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic outlined example"
-                >
-                  <button type="button" className="btn btn-outline-primary">
-                    -
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary disabled"
-                  >
-                    0
-                  </button>
-                  <button type="button" className="btn btn-outline-primary">
-                    +
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="MenuItems col">
-            <div className="MenuItem card">
-              <img
-                src="https://image.ytn.co.kr/general/jpg/2018/0809/201808091525069109_d.jpg"
-                className="card-img-top"
-                alt="menuimage"
-              />
-              <div className="card-body">
-                <h5>menu name</h5>
-                <h6>13,000</h6>
+                <h5>{details.title}</h5>
+                <h6>${details.vote_count}</h6>
                 <div
                   className="btn-group"
                   role="group"
@@ -173,8 +99,16 @@ const OrderPage = () => {
           </div>
         </div>
       </section>
-    </DivTop>
+    </StoreWrapper>
   );
 };
+
+const StoreWrapper = styled.div`
+  position: absolute;
+  align-items: center;
+  width: 40%;
+  top: 10%;
+  left: 30%;
+`;
 
 export default OrderPage;
