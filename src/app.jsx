@@ -8,7 +8,7 @@ import Login from './components/LoginPage/Login';
 import ProFile from './components/ProFilePage/ProFile';
 import Cart from './components/CartPage/Cart';
 import Store from './components/StorePage/Store';
-import OrderList from './components/MyPage/OrderList';
+import OrderListPage from './components/MyPage/OrderListPage';
 import ReviewHistory from './components/MyPage/ReviewHistory';
 import ReviewWriting from './components/MyPage/ReviewWriting';
 import UserInfoConfig from './components/MyPage/UserInfoConfig';
@@ -24,7 +24,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path='/store' element={<Store />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/order-list' element={<OrderList />} />
+        <Route path='/order-list' element={<OrderListPage />} />
         <Route path='/review-history' element={<ReviewHistory />} />
         <Route path='/review-writing' element={<ReviewWriting />} />
         <Route path='/userinfo-config' element={<UserInfoConfig />} />
