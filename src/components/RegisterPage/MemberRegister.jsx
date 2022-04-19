@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useState } from 'react';
+import styled from "styled-components";
+
 
 const MemberRegister = () => {
-  return <div>개인 회원 가입 페이지</div>;
+  const MemberRegisterContainer = styled.form` 
+  padding-top: 250px;
+`
+
+
+const MemberRegister = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+      <MemberRegisterContainer>
+        <h3>Sign up</h3>
+        <input
+          type="text"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Sign up</button>
+      </MemberRegisterContainer>
+  );
+};
 };
 
 export default MemberRegister;
