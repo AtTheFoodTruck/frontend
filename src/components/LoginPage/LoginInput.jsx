@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
 
 const InputContainer = styled.form`
   .email {
@@ -18,11 +18,11 @@ const InputContainer = styled.form`
 `;
 
 const LoginInput = () => {
-  const [inputId, setInputId] = useState("");
-  const [inputPw, setInputPw] = useState("");
-  let [accessToken, setAccessToken] = useState("");
-  let [refreshToken, setRefreshToken] = useState("");
-  let [userId, setUserId] = useState("");
+  const [inputId, setInputId] = useState('');
+  const [inputPw, setInputPw] = useState('');
+  let [accessToken, setAccessToken] = useState('');
+  let [refreshToken, setRefreshToken] = useState('');
+  let [userId, setUserId] = useState('');
   const navigate = useNavigate();
 
   const handleInputPw = (e) => {
@@ -36,32 +36,36 @@ const LoginInput = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("Authorization", accessToken);
-    localStorage.setItem("userId", userId);
-    localStorage.setItem("refreshToken", refreshToken);
-    console.log("accessToken : " + accessToken);
-    console.log("userId : " + userId);
-    console.log("refreshToken : " + refreshToken);
+    localStorage.setItem('Authorization', accessToken);
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('refreshToken', refreshToken);
+    console.log('accessToken : ' + accessToken);
+    console.log('userId : ' + userId);
+    console.log('refreshToken : ' + refreshToken);
   }, [accessToken, userId, refreshToken]);
 
   async function onClickLogin(e) {
     e.preventDefault();
 
-    if (inputId === "") {
-      alert("아이디를 입력하세요");
-    } else if (inputPw === "") {
-      alert("비밀번호를 입력하세요");
+    if (inputId === '') {
+      alert('아이디를 입력하세요');
+    } else if (inputPw === '') {
+      alert('비밀번호를 입력하세요');
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/login", {
+        .post('http://localhost:8000/user-service/users/v1/logins', {
           email: inputId,
           password: inputPw,
         })
         .then(function (response) {
-          setAccessToken(response.data.accesToken);
-          setRefreshToken(response.data.refreshToken);
-          setUserId(response.data.userId);
+          console.log(response);
+          setAccessToken(response.data.data.accessToken);
+          setRefreshToken(response.data.data.refreshToken);
+          setUserId(response.data.data.userId);
           // navigate('/', { replace: true });
+        })
+        .catch(function (error) {
+          console.log(error);
         });
     }
   }
