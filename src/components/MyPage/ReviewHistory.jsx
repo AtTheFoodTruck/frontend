@@ -6,7 +6,7 @@ import Star from "./star";
 import { FaStar } from "react-icons/fa";
 import ReviewPage from "./ReviewPage";
 import { toContainHTML } from "@testing-library/jest-dom/dist/matchers";
-import useFetch from "./utils/useFetch";
+
 const ReviewHistoryWrapper = styled.div`
   position: absolute;
   align-items: center;

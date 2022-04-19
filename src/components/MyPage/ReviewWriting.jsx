@@ -41,17 +41,18 @@ const ReviewWriting = () => {
   //image 상태
   const [loaded, setLoaded] = useState(false);
 
-  const onCreate = (content, img_url, img_file, rating, created_date) => {
+  const onCreate = async (content, img_url, img_file, rating, created_date) => {
     const newData = {
       content: content,
       img_url: img_url,
       img_file: img_file,
       rating: rating,
-      created_date: created_date,
+      
       // id : dataId.current
     };
+    console.log(newData);
     const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
-    axios
+    await axios
       .post(url, newData)
       .then((res) => {
         console.log(res);
