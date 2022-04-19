@@ -1,59 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
-const InputContainer = styled.form`  
+const InputContainer = styled.form`
   .email {
     text-align-last: left;
   }
   .password {
-    margin-top : 0.5em;
+    margin-top: 0.5em;
     text-align-last: left;
   }
   .btn {
-    margin-top : 0.5em;
+    margin-top: 0.5em;
     width: 100%;
   }
 `;
 
-function User({ id }) {
-  const { data: user, error, isLoading } = useAsync({
-    promiseFn: getUser,
-    id,
-    watch: id
-  });
-}
-
 const LoginInput = () => {
+  const [inputId, setInputId] = useState("");
+  const [inputPw, setInputPw] = useState("");
+  let [jwt, setJwt] = useState("");
+  let [refresh, setRefresh] = useState("");
+  let [userId, setUserId] = useState("");
+  const navigate = useNavigate();
+
+  const handleInputPw = (e) => {
+    setInputPw(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleInputId = (e) => {
+    setInputId(e.target.value);
+    console.log(e.target.value);
+  };
+
+  async function onClickLogin(e) {
+    e.preventDefault();
+
+    if (inputId === "") {
+      alert("아이디를 입력하세요");
+    } else if (inputPw === "") {
+      alert("비밀번호를 입력하세요");
+    } else {
+      axios
+        .post("http://localhost:8000/user-service/users/v1/join", {
+          email: inputId,
+          password: inputPw,
+        })
+        .then(function (response) {
+          console.log(response.data.accesToken);
+          console.log(response.data.refreshToken);
+          console.log(response.data.userId);
+          setJwt(response.data.accesToken);
+          setRefresh(response.data.refreshToken);
+          setUserId(response.data.userId);
+          navigate("/", { replace: true });
+        });
+    }
+  }
+
   return (
     <InputContainer>
-        <h1>Login</h1>                     
-        <div className='email'>
-            <div className='form-floating'>
-                <input
-                    type='email'
-                    className='form-control'
-                    id='floatingInput'
-                    placeholder='name@example.com'
-                />
-                <label for='floatingInput'>Email address</label>
-            </div>
-        </div>
+      <div className="login__body--id">
+        <label htmlFor="input_id" className="login__body--id-icon">
+          {" "}
+        </label>
+        <input
+          type="text"
+          name="input_id"
+          value={inputId}
+          className="login__body--id-input"
+          id="input_id"
+          placeholder="아이디를 입력하세요."
+          onChange={handleInputId}
+        />
+      </div>
 
-        
-        <div className="password">
-            <div className='form-floating'>
-                <input
-                type='password'
-                className='form-control'
-                id='floatingPassword'
-                placeholder='Password'
-                />
-                <label for='floatingPassword'>Password</label>
-            </div>
-        </div>
-        
-        <input type="submit"  className='btn btn-lg btn-outline-secondary' value="Login" />
-    </InputContainer> 
+      <div className="login__body--pw">
+        <label htmlFor="input_pw" className="login__body--pw-icon">
+          {" "}
+        </label>
+        <input
+          type="password"
+          name="input_pw"
+          value={inputPw}
+          className="login__body--pw-input"
+          id="input_pw"
+          placeholder="비밀번호를 입력하세요."
+          onChange={handleInputPw}
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="login__btn--signin"
+        onClick={onClickLogin}
+      >
+        로그인
+      </button>
+    </InputContainer>
   );
 };
 
