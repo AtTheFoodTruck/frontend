@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
 
 const InputContainer = styled.form`
   .email {
@@ -18,11 +18,11 @@ const InputContainer = styled.form`
 `;
 
 const LoginInput = () => {
-  const [inputId, setInputId] = useState("");
-  const [inputPw, setInputPw] = useState("");
-  let [jwt, setJwt] = useState("");
-  let [refresh, setRefresh] = useState("");
-  let [userId, setUserId] = useState("");
+  const [inputId, setInputId] = useState('');
+  const [inputPw, setInputPw] = useState('');
+  let [accessToken, setAccessToken] = useState('');
+  let [refreshToken, setRefreshToken] = useState('');
+  let [userId, setUserId] = useState('');
   const navigate = useNavigate();
 
   const handleInputPw = (e) => {
@@ -35,16 +35,25 @@ const LoginInput = () => {
     console.log(e.target.value);
   };
 
+  useEffect(() => {
+    localStorage.setItem('Authorization', accessToken);
+    localStorage.setItem('userId', userId);
+    localStorage.setItem('refreshToken', refreshToken);
+    console.log('accessToken : ' + accessToken);
+    console.log('userId : ' + userId);
+    console.log('refreshToken : ' + refreshToken);
+  }, [accessToken, userId, refreshToken]);
+
   async function onClickLogin(e) {
     e.preventDefault();
 
-    if (inputId === "") {
-      alert("아이디를 입력하세요");
-    } else if (inputPw === "") {
-      alert("비밀번호를 입력하세요");
+    if (inputId === '') {
+      alert('아이디를 입력하세요');
+    } else if (inputPw === '') {
+      alert('비밀번호를 입력하세요');
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/join", {
+        .post('http://localhost:8000/user-service/users/v1/join', {
           email: inputId,
           password: inputPw,
         })
@@ -52,10 +61,10 @@ const LoginInput = () => {
           console.log(response.data.accesToken);
           console.log(response.data.refreshToken);
           console.log(response.data.userId);
-          setJwt(response.data.accesToken);
-          setRefresh(response.data.refreshToken);
+          setAccessToken(response.data.accesToken);
+          setRefreshToken(response.data.refreshToken);
           setUserId(response.data.userId);
-          navigate("/", { replace: true });
+          // navigate('/', { replace: true });
         });
     }
   }
@@ -64,7 +73,7 @@ const LoginInput = () => {
     <InputContainer>
       <div className="login__body--id">
         <label htmlFor="input_id" className="login__body--id-icon">
-          {" "}
+          {' '}
         </label>
         <input
           type="text"
@@ -79,7 +88,7 @@ const LoginInput = () => {
 
       <div className="login__body--pw">
         <label htmlFor="input_pw" className="login__body--pw-icon">
-          {" "}
+          {' '}
         </label>
         <input
           type="password"
