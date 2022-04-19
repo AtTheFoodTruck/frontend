@@ -2,15 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Post from './Post';
 import Map from '../Map/Map';
+import StoreList from './StoreList';
 import { useState } from 'react';
 import { BiTargetLock } from 'react-icons/bi';
-import {
-  Container,
-  Table,
-  Card,
-  InputGroup,
-  FormControl,
-} from 'react-bootstrap';
+import { Container, Card, InputGroup, FormControl } from 'react-bootstrap';
 
 const StoreWrapper = styled.div`
   position: absolute;
@@ -19,6 +14,33 @@ const StoreWrapper = styled.div`
   top: 10%;
   left: 30%;
 `;
+
+const DUMMYDATA = [
+  {
+    id: 1,
+    store_name: '박가네',
+    address: '서울시 관악구 남부순환로 2222길',
+    category: '치킨',
+  },
+  {
+    id: 2,
+    store_name: '정많은 집',
+    address: '서울시 강남구 남부순환로 2222길',
+    category: '중식',
+  },
+  {
+    id: 3,
+    store_name: '마라탕',
+    address: '대구광역시 관악구 남부순환로 2222길',
+    category: '중식',
+  },
+  {
+    id: 4,
+    store_name: '비빔밥나라',
+    address: '부산시 해운대구 남부순환로 2222길',
+    category: '한식',
+  },
+];
 
 const Store = () => {
   const [address, setAddress] = useState('');
@@ -66,29 +88,7 @@ const Store = () => {
         </Container>
 
         {/* 매장리스트 */}
-        <Container className='Table'>
-          <Table className='text-center mt-5'>
-            <thead>
-              <tr>
-                <th>매장명</th>
-                <th>주소</th>
-                <th>카테고리</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>엽기떡볶이</td>
-                <td>반포한강공원</td>
-                <td>분식</td>
-              </tr>
-              <tr>
-                <td>엽기떡볶이</td>
-                <td>반포한강공원</td>
-                <td>분식</td>
-              </tr>
-            </tbody>
-          </Table>
-        </Container>
+        <StoreList storelist={DUMMYDATA} />
 
         <Container className='d-flex justify-content-center mt-5'>
           <ul class='pagination'>

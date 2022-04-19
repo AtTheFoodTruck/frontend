@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
+
+//우편번호 조회 컴포넌트
 
 const postCodeStyle = {
   display: 'block',
