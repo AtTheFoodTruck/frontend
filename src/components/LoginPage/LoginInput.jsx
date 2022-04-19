@@ -15,6 +15,14 @@ const InputContainer = styled.form`
   }
 `;
 
+function User({ id }) {
+  const { data: user, error, isLoading } = useAsync({
+    promiseFn: getUser,
+    id,
+    watch: id
+  });
+}
+
 const LoginInput = () => {
   return (
     <InputContainer>
