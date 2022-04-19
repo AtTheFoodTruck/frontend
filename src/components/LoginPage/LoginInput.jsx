@@ -53,7 +53,7 @@ const LoginInput = () => {
       alert("비밀번호를 입력하세요");
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/logins", {
+        .post("http://localhost:8761/user-service/users/v1/logins", {
           email: inputId,
           password: inputPw,
         })
