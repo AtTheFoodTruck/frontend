@@ -61,7 +61,7 @@ const Store = () => {
         {/* 지도 api 받아와야함 */}
         <Container className='Map mt-5' style={{ width: 1000, height: 'auto' }}>
           <Card className='MapApi'>
-            <Map />
+            <Map address={address} />
           </Card>
         </Container>
 
