@@ -8,11 +8,10 @@ const Map = () => {
       center: new kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
       level: 3,
     };
-    var map = new kakao.maps.Map(container, options);
-    var markerPosition = new kakao.maps.LatLng(
-      37.365264512305174,
-      127.10676860117488
-    );
+
+    var map = new kakao.maps.Map(container, options); //지도생성
+    var markerPosition = new kakao.maps.LatLng(37.470285, 126.925622); //마커 위치
+
     var marker = new kakao.maps.Marker({
       position: markerPosition,
     });

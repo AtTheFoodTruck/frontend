@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Post from './Post';
 import Map from '../Map/Map';
+import { useState } from 'react';
 import { BiTargetLock } from 'react-icons/bi';
 import {
   Container,
@@ -20,11 +21,17 @@ const StoreWrapper = styled.div`
 `;
 
 const Store = () => {
-  const [address, setAddress] = React.useState('');
-  const [popup, setPopup] = React.useState(false);
+  const [address, setAddress] = useState('');
+  const [popup, setPopup] = useState(false);
+
+  const selectedAddress = (data) => {
+    console.log(data);
+    setPopup(!popup);
+    setAddress(data.address);
+  };
 
   return (
-    <StoreWrapper>
+    <StoreWrapper className='test w-auto'>
       <Container className='Store text-center mt-5'>
         <Container className='Title mb-5'>
           <h1>매장찾기</h1>
@@ -39,8 +46,9 @@ const Store = () => {
               size='lg'
               placeholder='동명, 도로명을 검색하세요'
               aria-describedby='basic-addon2'
+              value={address}
             />
-            {popup && <Post address={address} setAddress={setAddress}></Post>}
+            {popup && <Post selectedAddress={selectedAddress}></Post>}
 
             {/* 아이콘 클릭 시 현재 위치 지도에 표시 */}
             <BiTargetLock
@@ -56,6 +64,8 @@ const Store = () => {
             <Map />
           </Card>
         </Container>
+
+        {/* 매장리스트 */}
         <Container className='Table'>
           <Table className='text-center mt-5'>
             <thead>
