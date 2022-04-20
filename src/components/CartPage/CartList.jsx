@@ -1,9 +1,9 @@
 import CartListItem from './CartListItem';
 
-const CartItemList = (props) => {
+const CartList = ({ cartlists, handTotalPrice, onRemove }) => {
   return (
     <span className='list'>
-      {props.cartlists.map((cartlist) => (
+      {cartlists.map((cartlist) => (
         <CartListItem
           key={cartlist.id}
           id={cartlist.id}
@@ -11,11 +11,16 @@ const CartItemList = (props) => {
           image={cartlist.image}
           menu={cartlist.menu}
           price={cartlist.price}
-          handTotalPrice={props.handTotalPrice}
+          handTotalPrice={handTotalPrice}
+          onRemove={onRemove}
         />
       ))}
     </span>
   );
 };
 
-export default CartItemList;
+CartList.defaultProps = {
+  cartList: [],
+};
+
+export default CartList;
