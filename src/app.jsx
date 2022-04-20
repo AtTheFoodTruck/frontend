@@ -16,11 +16,11 @@ import ReviewHistory from "./components/MyPage/ReviewHistory";
 import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import SearchList from "./components/SearchListPage/SearchList";
-import { SearchContextProvider } from "./components/Context/SearchContext";
+import { ContextProvider } from "./components/Context/Context";
 
 function App() {
   return (
-    <SearchContextProvider>
+    <ContextProvider>
       <Routes>
         <Route path="/profile" element={<ProFile />} />
         <Route element={<Layout />}>
@@ -39,7 +39,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </SearchContextProvider>
+    </ContextProvider>
   );
 }
 
