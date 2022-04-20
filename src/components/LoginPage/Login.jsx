@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import LoginInput from './LoginInput';
+import LoginInput from "./LoginInput";
 import LoginJoinBtn from "./LoginJoinBtn";
 
 const LoginContainer = styled.div`
   padding-top: 250px;
-  width: 50%;
+  width: 20em;
   margin: auto;
   text-align-last: center;
 `;
@@ -13,8 +13,8 @@ const LoginContainer = styled.div`
 const Login = () => {
   return (
     <LoginContainer>
-        <LoginInput />    
-        <LoginJoinBtn />
+      <LoginInput />
+      <LoginJoinBtn />
     </LoginContainer>
   );
 };
