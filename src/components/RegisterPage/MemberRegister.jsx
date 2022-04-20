@@ -69,9 +69,11 @@ const MemberRegister = () => {
       alert("비밀번호를 입력하세요");
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/logins", {
+        .post("http://localhost:8000/user-service/users/v1/join", {
           email: inputEmail,
+          nickname: inputNickname,
           password: inputPw,
+          phone_number: inputPhonenumber,
         })
         .then(function (response) {
           alert("가입완료!");
@@ -86,7 +88,7 @@ const MemberRegister = () => {
 
   return (
     <MemberRegisterContainer>
-      <h3>Sign up</h3>
+      <h1>Sign up</h1>
 
       <div className="email">
         <div className="form-floating">
