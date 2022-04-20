@@ -25,36 +25,50 @@ const Card = styled.div`
 const ReviewWriting = () => {
   const navigate = useNavigate();
   const contnetInput = useRef();
-  const imgurlInput = useRef();
-  // const date = new Date().getTime();
-  //dataId = useRef(0)
 
+  //order_id,user_id 포함해야함!
   const [state, setState] = useState({
+    // user_id: 1,
+    // order_id: 1,
     content: "",
     img_url: "",
     img_file: "img/default_image.png",
     rating: 0,
-    created_date: new Date().getTime(),
-    // created_date: new Date(date).toLocaleString(),
   });
-
   //image 상태
   const [loaded, setLoaded] = useState(false);
 
-  const onCreate = (content, img_url, img_file, rating, created_date) => {
-    const newData = {
-      content: content,
-      img_url: img_url,
-      img_file: img_file,
-      rating: rating,
-      created_date: created_date,
-      // id : dataId.current
-    };
-    const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
+  console.log(state);
+
+  //${accessToken}
+  const headers = {
+    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0SkhAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MTAyMzgxMH0.l6ciZhzih-0m8DBwypBojnNXAKQDhSunyTbOztnjl0OA2vy_F_l7W6HEfeRZ2lq_7pgYzuMrr2DKNweqL_2-1g`,
+  };
+
+  const onCreate = (content, img_file, rating) => {
     axios
-      .post(url, newData)
-      .then((res) => {
-        console.log(res);
+      .post(
+        "http://localhost:8000/order-service/orders/v1/customer/reviews",
+
+        //data (user/order_id 변수로 )
+        {
+          //변수처리
+          // user_id: 1,
+          // order_id: 1,
+          rating: rating,
+          //이미지 파일 오류
+          // review_img_url: img_file,
+          review_img_url: "img파일",
+          content: content,
+          user_id: 1,
+          order_id: 1,
+        },
+        { headers }
+      )
+      .then((response) => {
+        console.log(response);
+        alert("저장 성공");
+        navigate(-1);
       })
       .catch((err) => console.log(err.response));
   };
@@ -72,30 +86,24 @@ const ReviewWriting = () => {
     inputDebounce(text);
   };
 
+  //img input
   const handleImgInput = (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
-    const imgFile = e.target.files[0];
-    if (imgFile) {
+    if (e.target.files[0]) {
       setLoaded("loading");
-      fileReader.readAsDataURL(imgFile);
+      fileReader.readAsDataURL(e.target.files[0]);
     }
     fileReader.onload = () => {
       setState({
         ...state,
-        [e.target.name]: imgFile,
+        [e.target.name]: e.target.files[0],
         img_file: fileReader.result,
       });
       setLoaded(true);
     };
-
-    // const url = imgFile.name;
-    // console.log(url);
-    // setState({
-    //   ...state,
-    //   [e.target.name]: url,
-    // });
   };
+
   const getRating = (score) => {
     setState({
       ...state,
@@ -109,21 +117,8 @@ const ReviewWriting = () => {
       return;
     }
 
-    if (!state.img_url) {
-      imgurlInput.current.focus();
-      return;
-    }
-
-    onCreate(
-      state.content,
-      state.img_url,
-      state.img_file,
-      state.rating,
-      state.created_date
-    );
+    onCreate(state.content, state.img_file, state.rating);
     // console.log(state);
-    alert("저장 성공");
-    navigate(-1);
   };
 
   return (
@@ -169,7 +164,6 @@ const ReviewWriting = () => {
               </Card>
               <Form.Control
                 type="file"
-                ref={imgurlInput}
                 accept="image/*"
                 name="img_url"
                 onChange={handleImgInput}
