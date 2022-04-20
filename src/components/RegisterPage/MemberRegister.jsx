@@ -152,7 +152,7 @@ const MemberRegister = () => {
       <div className="join">
         <button
           type="submit"
-          className=" btn btn-outline-secondary"
+          className=" btn btn-lg btn-outline-secondary"
           onClick={onClickJoin}
         >
           회원가입
