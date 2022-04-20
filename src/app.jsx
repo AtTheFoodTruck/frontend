@@ -16,27 +16,30 @@ import ReviewHistory from "./components/MyPage/ReviewHistory";
 import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import SearchList from "./components/SearchListPage/SearchList";
+import { SearchContextProvider } from "./components/Context/SearchContext";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/profile" element={<ProFile />} />
-      <Route element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/order-list" element={<OrderList />} />
-        <Route path="/review-history" element={<ReviewHistory />} />
-        <Route path="/review-writing" element={<ReviewWriting />} />
-        <Route path="/userinfo-config" element={<UserInfoConfig />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/member-register" element={<MemberRegister />} />
-        <Route path="/owner-register" element={<OwnerRegister />} />
-        <Route path="/search-list" element={<SearchList />} />
-        <Route path="/search-list" element={<SearchList />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <SearchContextProvider>
+      <Routes>
+        <Route path="/profile" element={<ProFile />} />
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/order-list" element={<OrderList />} />
+          <Route path="/review-history" element={<ReviewHistory />} />
+          <Route path="/review-writing" element={<ReviewWriting />} />
+          <Route path="/userinfo-config" element={<UserInfoConfig />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/member-register" element={<MemberRegister />} />
+          <Route path="/owner-register" element={<OwnerRegister />} />
+          <Route path="/search-list" element={<SearchList />} />
+          <Route path="/search-list" element={<SearchList />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </SearchContextProvider>
   );
 }
 

@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import axios, { Axios } from "axios";
+import { useSearchContext } from "../Context/SearchContext";
+import { useListContext } from "../Context/ListContext";
 const Form = styled.form`
   display: flex;
   justify-content: center;
@@ -11,34 +13,22 @@ const Form = styled.form`
   width: 15%;
   //input창 중앙으로
 `;
-
+const headers = {
+  Authorization: `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0SkhAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MTAzOTc2M30.l93_vKFRvZRZhBe_9QOh4_EcwR4xekssEezfnLhrUe1HIcM01goDmQ6_uKK21_O1SPuBJompsouF5fGK7Py2Pw`,
+};
 const HeaderInput = () => {
-  // axios
-  //   .post("api_url", {
-  //     //파라미터
-  //     username: "",
-  //     password: "",
-  //   })
-  //   .then(function (response) {
-  //     //response
-  //   })
-  //   .catch(function (error) {
-  //     //오류 발생 시 실행할 로직
-  //   })
-  //   .then(function () {
-  //     //항상 실행
-  //   });
-
-  const [search, setSearch] = useState("");
-
+  const [word, setWord] = useState("");
+  const { setSearch } = useSearchContext();
+  const { setList } = useSearchContext();
   // useEffect(() => {
   //   const word = search.split(" ");
   //   console.log(word);
   // }, [search]);
 
   const inputDebounce = _.debounce((input) => {
-    const word = input.split(" ");
-    setSearch(word);
+    // const word = input.split(" ");
+    // setSearch(word);
+    setWord(input);
   }, 400);
 
   const handleInput = (e) => {
@@ -46,8 +36,18 @@ const HeaderInput = () => {
     inputDebounce(input);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, word) => {
     e.preventDefault();
+    axios
+      .get(
+        "http://localhost:8000/item-service/items/v1/search/stores?page=0&size=10 ",
+        { name: word, lattitude: "1782.93", longitutde: "168.156" }
+      )
+      .then((res) => {
+        setList(res);
+        setSearch(word);
+      })
+      .catch((err) => console.log(err.response));
   };
 
   return (
@@ -63,7 +63,7 @@ const HeaderInput = () => {
       <button
         type="submit"
         className="btn btn-secondary my-2 my-sm-0"
-        onClick={() => console.log(search)}
+        onClick={handleInput}
       >
         <Link to="/search-list">Search</Link>
       </button>

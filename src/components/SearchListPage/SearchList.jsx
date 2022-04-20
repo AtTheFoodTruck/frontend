@@ -1,8 +1,11 @@
 import { render } from "@testing-library/react";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { AiFillStar } from "react-icons/ai";
 import styled from "styled-components";
+import { useSearchContext } from "../Context/SearchContext";
+import { useListContext } from "../Context/ListContext";
 import SearchResult from "./SearchResult";
 const SearchWrapper = styled.div`
   position: absolute;
@@ -55,28 +58,31 @@ const SearchList = () => {
       rating: 3,
     },
   ];
-  const storeList1 = [];
 
   // 데이터 - store list
-  const [data, setData] = useState(storeList1);
+  const { search } = useSearchContext();
+  const { list } = useListContext();
 
   //
 
-  //나중에 교체
   // useEffect(() => {
-  //   active === "All"
-  //     ? setData(item)
-  //     : setData(item.filter((it) => it.category === active));
-  // }, [active]);
+  //   axios
+  //     .get(
+  //       `http://localhost:8000/item-service/items/v1/search/stores?page=0&size=10`,
+  //       { data }
+  //     )
+  //     .then((res) => setlist(res));
+  // }, [search]);
 
-  const renderList = data.map((g, i) => {
+  //
+  const renderList = storeList.map((g, i) => {
     return (
       <div className="card_container">
         <SearchResult card={g} key={i} />
       </div>
     );
   });
-
+  console.log(search);
   return (
     <SearchWrapper>
       <Container className="text-center mt-5">
@@ -84,7 +90,7 @@ const SearchList = () => {
           {renderList.length > 0 ? (
             renderList
           ) : (
-            <h3 className="mb-5">~~에 대한 결과가 없습니다</h3>
+            <h3 className="mb-5">{search} 에 대한 결과가 없습니다</h3>
           )}
         </article>
       </Container>
