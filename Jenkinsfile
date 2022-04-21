@@ -26,7 +26,7 @@ pipeline {
     stage('Docker Compose') {
       steps {
         sh 'cd /project/myeongjun && docker-compose down'
-        sh 'cd /project/hyoyong && docker-compose down'
+        sh 'cd /project/hyoyoung && docker-compose down'
         sh 'cd /project && docker-compose up -d'
       }
     }
