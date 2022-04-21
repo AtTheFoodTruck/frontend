@@ -14,13 +14,34 @@ const CartListItem = (props, id) => {
 
   const increaseNumber = () => {
     //메뉴 갯수 1개 증가
-    axios.patch(`http://localhost:8000/user-service/orders/v1/customer/carts`);
+    axios.patch(
+      `http://localhost:8000/user-service/orders/v1/customer/carts`,
+      {
+        order_id: id,
+        order_item_id: 2,
+        plus_minus: true,
+      },
+      {
+        headers: headers,
+      }
+    );
     setNumber(number + 1);
     setPrice(price + unitPrice);
     props.handTotalPrice(unitPrice);
   };
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
+    axios.patch(
+      `http://localhost:8000/user-service/orders/v1/customer/carts`,
+      {
+        order_id: id,
+        order_item_id: 2,
+        plus_minus: false,
+      },
+      {
+        headers: headers,
+      }
+    );
     if (number <= 0) {
       setNumber(0);
       setPrice(0);
