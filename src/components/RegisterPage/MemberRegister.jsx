@@ -69,9 +69,12 @@ const MemberRegister = () => {
       alert("이메일을 입력하세요");
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/validation/email", {
-          email: inputEmail,
-        })
+        .post(
+          "https://apifood.blacksloop.com/user-service/users/v1/validation/email",
+          {
+            email: inputEmail,
+          }
+        )
         .then(function (response) {
           // 입력한 값이 DB에 저장되어 있다면 0(=false)를 반환한다.
           if (response.data.data.userId !== inputEmail) {
@@ -94,9 +97,12 @@ const MemberRegister = () => {
       alert("이름을 입력하세요");
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/validation/name", {
-          username: inputUsername,
-        })
+        .post(
+          "https://apifood.blacksloop.com/user-service/users/v1/validation/name",
+          {
+            username: inputUsername,
+          }
+        )
         .then(function (response) {
           // 입력한 값이 DB에 저장되어 있다면 0(=false)를 반환한다.
           if (response.data.data.username !== inputUsername) {
@@ -125,7 +131,7 @@ const MemberRegister = () => {
       alert("이름 중복확인을 해주세요");
     } else {
       axios
-        .post("https://apifood.blacksloop.com//user-service/users/v1/join", {
+        .post("https://apifood.blacksloop.com/user-service/users/v1/join", {
           email: inputEmail,
           username: inputUsername,
           password: inputPw,
