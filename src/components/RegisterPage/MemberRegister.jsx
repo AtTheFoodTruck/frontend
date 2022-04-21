@@ -125,7 +125,7 @@ const MemberRegister = () => {
       alert("이름 중복확인을 해주세요");
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/join", {
+        .post("https://apifood.blacksloop.com//user-service/users/v1/join", {
           email: inputEmail,
           username: inputUsername,
           password: inputPw,
