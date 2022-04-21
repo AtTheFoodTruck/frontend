@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
 
 const MemberRegisterContainer = styled.form`
   padding-top: 250px;
@@ -34,12 +34,19 @@ const MemberRegisterContainer = styled.form`
 `;
 
 const MemberRegister = () => {
+<<<<<<< HEAD
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [inputUsername, setInputUsername] = useState("");
   const [inputPhonenumber, setInputPhonenumber] = useState("");
   const [mailDuplicate, setMailDuplicate] = useState(false);
   const [nameDuplicate, setNameDuplicate] = useState(true);
+=======
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPw, setInputPw] = useState('');
+  const [inputNickname, setInputNickname] = useState('');
+  const [inputPhonenumber, setInputPhonenumber] = useState('');
+>>>>>>> develop
   const navigate = useNavigate();
 
   // 메일 입력시 상태값 변경
@@ -115,6 +122,7 @@ const MemberRegister = () => {
   // 회원 가입
   async function onClickJoin(e) {
     e.preventDefault();
+<<<<<<< HEAD
     if (inputEmail === "") {
       alert("아이디를 입력하세요");
     } else if (inputPw === "") {
@@ -123,18 +131,29 @@ const MemberRegister = () => {
       alert("메일 중복확인을 해주세요");
     } else if (nameDuplicate) {
       alert("이름 중복확인을 해주세요");
+=======
+
+    if (inputEmail === '') {
+      alert('아이디를 입력하세요');
+    } else if (inputPw === '') {
+      alert('비밀번호를 입력하세요');
+>>>>>>> develop
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/join", {
+        .post('https://apifood.blacksloop.com/user-service/users/v1/join', {
           email: inputEmail,
+<<<<<<< HEAD
           username: inputUsername,
+=======
+          username: inputNickname,
+>>>>>>> develop
           password: inputPw,
           phone_num: inputPhonenumber,
         })
         .then(function (response) {
-          alert("가입완료!");
+          alert('가입완료!');
           console.log(response);
-          navigate("/login", { replace: true });
+          navigate('/login', { replace: true });
         })
         .catch(function (error) {
           console.log(error);
