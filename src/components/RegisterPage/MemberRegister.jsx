@@ -69,7 +69,7 @@ const MemberRegister = () => {
       alert('비밀번호를 입력하세요');
     } else {
       axios
-        .post('http://localhost:8000/user-service/users/v1/join', {
+        .post('gateway/user-service/users/v1/join', {
           email: inputEmail,
           username: inputNickname,
           password: inputPw,
