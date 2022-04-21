@@ -4,13 +4,6 @@ import styled from 'styled-components';
 import CartList from './CartList';
 import axios from 'axios';
 
-// axios.get(`http://localhost:8080/api/orders/v1/customer/carts/${userId}`,{
-// headers: headers,
-// })
-// .then(function ())
-
-// const handleClick = () => alert(`주문 완료되었습니다!`);
-
 const Cart = () => {
   // 변수 선언부
   const [data, setData] = useState([]);
@@ -25,17 +18,17 @@ const Cart = () => {
   };
 
   // 데이터 조작 시작
-  const onAdd = (store_name, menu, image, price) => {
-    const newItem = {
-      store_name,
-      menu,
-      image,
-      price,
-      id: dataId.current,
-    };
-    dataId.current += 1;
-    setData([newItem, ...data]);
-  };
+  // const onAdd = (store_name, menu, image, price) => {
+  //   const newItem = {
+  //     store_name,
+  //     menu,
+  //     image,
+  //     price,
+  //     id: dataId.current,
+  //   };
+  //   dataId.current += 1;
+  //   setData([newItem, ...data]);
+  // };
 
   // 아이템 삭제 버튼 클릭 이벤트
   const onRemove = (targetId) => {
@@ -48,7 +41,7 @@ const Cart = () => {
 
   // 최초 브라우저 rendering되었을 때 실행
   useEffect(() => {
-    const request = `http://localhost:8000/order-service/orders/v1/customer/carts`;
+    const request = `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`;
     printCartList(request);
 
     /* 이재민 샘플 코드
