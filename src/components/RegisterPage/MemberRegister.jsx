@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
 
 const MemberRegisterContainer = styled.form`
   padding-top: 250px;
@@ -34,10 +34,10 @@ const MemberRegisterContainer = styled.form`
 `;
 
 const MemberRegister = () => {
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPw, setInputPw] = useState("");
-  const [inputNickname, setInputNickname] = useState("");
-  const [inputPhonenumber, setInputPhonenumber] = useState("");
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPw, setInputPw] = useState('');
+  const [inputNickname, setInputNickname] = useState('');
+  const [inputPhonenumber, setInputPhonenumber] = useState('');
   const navigate = useNavigate();
 
   const handleInputEmail = (e) => {
@@ -63,22 +63,22 @@ const MemberRegister = () => {
   async function onClickJoin(e) {
     e.preventDefault();
 
-    if (inputEmail === "") {
-      alert("아이디를 입력하세요");
-    } else if (inputPw === "") {
-      alert("비밀번호를 입력하세요");
+    if (inputEmail === '') {
+      alert('아이디를 입력하세요');
+    } else if (inputPw === '') {
+      alert('비밀번호를 입력하세요');
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/join", {
+        .post('http://10.10.10.17:8000/user-service/users/v1/join', {
           email: inputEmail,
           nickname: inputNickname,
           password: inputPw,
           phone_number: inputPhonenumber,
         })
         .then(function (response) {
-          alert("가입완료!");
+          alert('가입완료!');
           console.log(response);
-          navigate("/login", { replace: true });
+          navigate('/login', { replace: true });
         })
         .catch(function (error) {
           console.log(error);
