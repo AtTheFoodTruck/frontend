@@ -2,18 +2,70 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import OrderPageMenu from "./OrderPageMenu";
+import Cart from "../CartPage/Cart";
+import { CartContext } from "../../context/CartContext";
+import axios from "axios";
 
 const OrderPage = () => {
   let params = useParams();
   const [details, setDetails] = useState({});
+  const [cart, setCart] = useState([]);
+  const [number, setNumber] = useState(0);
 
-  const fetchDetails = async () => {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/movie/${params.name}?api_key=e2604cc00e2d6cf3166131fbe7c76bd7&language=en-US&page=1`
-    );
-    const detailData = await data.json();
-    setDetails(detailData);
-    console.log(detailData);
+  //토큰
+  const accessToken = localStorage.getItem("Authorization");
+
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
+  };
+
+  //axios
+  async function fetchDetails() {
+    try {
+      const detailData = await axios.get(
+        `https://api.themoviedb.org/3/movie/${params.name}?api_key=e2604cc00e2d6cf3166131fbe7c76bd7&language=en-US&page=1`
+      );
+      // console.log(movies);
+      // console.log(movies.data);
+
+      console.log(detailData.data.results);
+      setDetails(detailData);
+      console.log(detailData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  //fetch
+  // const fetchDetails = async () => {
+  //   const data = await fetch(
+  //     `https://api.themoviedb.org/3/movie/${params.name}?api_key=e2604cc00e2d6cf3166131fbe7c76bd7&language=en-US&page=1`
+  //   );
+  //   const detailData = await data.json();
+  //   setDetails(detailData);
+  //   console.log(detailData);
+  // };
+
+  const handleClick = (item) => {
+    //indexOf() 메서드는 배열에서 지정된 요소를 찾을 수 있는 첫 번째
+    //인덱스를 반환하고 존재하지 않으면 -1을 반환합니다.
+    if (cart.indexOf(item) !== -1) return;
+    setCart([...cart, item]);
+    console.log(item);
+    console.log(cart);
+  };
+
+  const increaseNumber = () => {
+    //메뉴 갯수 1개 증가
+    setNumber(number + 1);
+  };
+  const decreaseNumber = () => {
+    //메뉴 갯수 1개 감소
+    if (number <= 0) {
+      setNumber(0);
+    } else {
+      setNumber(number - 1);
+    }
   };
 
   useEffect(() => {
@@ -71,11 +123,24 @@ const OrderPage = () => {
         <div className="MenuList row gx-4 gx-lg-5  row-cols-md-3 row-cols-xl-4  text-center">
           {details.genres &&
             details.genres.map((genre) => {
-              return <OrderPageMenu key={genre.id} genre={genre} />;
+              return (
+                <OrderPageMenu
+                  key={genre.id}
+                  genre={genre}
+                  handleClick={handleClick}
+                  increaseNumber={increaseNumber}
+                  decreaseNumber={decreaseNumber}
+                  number={number}
+                />
+              );
             })}
+          <Cart cart={cart} setCart={setCart}></Cart>
         </div>
       </section>
     </StoreWrapper>
+    //   <CartContext.Provider value={{ cart, setCart }}>
+    //   <Cart />
+    // </CartContext.Provider>
   );
 };
 

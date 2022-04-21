@@ -4,11 +4,6 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import OrderPage from "../OrderPage/OrderPage";
 
-const ImgSize = styled.img`
-  height: 15rem;
-  object-fit: cover;
-`;
-
 const HomeMenu = ({ movie }) => {
   return (
     <motion.section
@@ -51,5 +46,10 @@ const HomeMenu = ({ movie }) => {
     </motion.section>
   );
 };
+
+const ImgSize = styled.img`
+  height: 15rem;
+  object-fit: cover;
+`;
 
 export default HomeMenu;

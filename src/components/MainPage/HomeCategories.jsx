@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const Nav1 = styled.nav`
-  margin-top: 70px;
-  text-align: center;
-`;
 const HomeCategories = ({
   setActiveGenre,
   activeGenre,
@@ -85,5 +81,10 @@ const HomeCategories = ({
     </Nav1>
   );
 };
+
+const Nav1 = styled.nav`
+  margin-top: 70px;
+  text-align: center;
+`;
 
 export default HomeCategories;

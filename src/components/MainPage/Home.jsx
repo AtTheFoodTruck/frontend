@@ -4,17 +4,7 @@ import HomeMenu from "./HomeMenu";
 import HomePagination from "./HomePagination";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
-
-const Input1 = styled.input`
-  margin-top: 11%;
-  width: 35%;
-  height: 40px;
-`;
-
-const Header1 = styled.header`
-  align-items: center;
-  /* background: black; */
-`;
+import axios from "axios";
 
 const Home = () => {
   const [popular, setPopular] = useState([]);
@@ -24,18 +14,41 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1); //현재 페이지
   const [postsPerPage] = useState(8); //페이지당 게시물
 
-  useEffect(() => {
-    fetchPopular();
-  }, []);
-
-  const fetchPopular = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/movie/popular?api_key=e2604cc00e2d6cf3166131fbe7c76bd7&language=en-US&page=1"
-    );
-    const movies = await data.json();
-    setPopular(movies.results);
-    setFiltered(movies.results);
+  const headers = {
+    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0b3duZXJAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfTUFOQUdFUiIsImV4cCI6MTY1MDgwNTYxOX0.1fVLo4bsRExaC0NzP7PjyYH3tq-eYFsm-vL0ba33BhTHiLUBPyqgkLdHoRsE4heojjSfa-dtv3Z8OkEDQAzhdg`,
   };
+
+  // axios
+  // https://apifood.blacksloop.com/
+  async function fetchPopular() {
+    try {
+      const foodtruck = await axios.get(
+        `http://localhost:8000/item-service/items/v1/customer/stores?page=0&size=10`,
+        {
+          headers: headers,
+        }
+      );
+
+      console.log(foodtruck);
+      // console.log(movies.data);
+      // console.log(movies.data.results);
+      // setPopular(movies.data.results);
+      // setFiltered(movies.data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // // fetch;
+  // const fetchPopular = async () => {
+  //   const data = await fetch(
+  //     "https://api.themoviedb.org/3/movie/popular?api_key=e2604cc00e2d6cf3166131fbe7c76bd7&language=en-US&page=1"
+  //   );
+  //   console.log(data);
+  //   const movies = await data.json();
+  //   setPopular(movies.results);
+  //   setFiltered(movies.results);
+  // };
 
   // pagination
   const indexOfLastPost = currentPage * postsPerPage;
@@ -43,6 +56,10 @@ const Home = () => {
   const currentPosts = filtered.slice(indexOfFirstPost, indexOfLastPost);
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    fetchPopular();
+  }, []);
 
   return (
     <div className="container">
@@ -88,4 +105,14 @@ const Home = () => {
   );
 };
 
+const Input1 = styled.input`
+  margin-top: 11%;
+  width: 35%;
+  height: 40px;
+`;
+
+const Header1 = styled.header`
+  align-items: center;
+  /* background: black; */
+`;
 export default Home;

@@ -3,14 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DropDown from "../MyPage/DropDown";
 
-const NavR = styled.div`
-  display: flex;
-  justify-content: end;
-  margin-right: 90px;
-
-  //네비게이션 메뉴바 오른쪽 정렬
-`;
-
 const HeaderNav = () => {
   const [dropdown, setDropdown] = useState(false);
 
@@ -72,4 +64,11 @@ const HeaderNav = () => {
   );
 };
 
+const NavR = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-right: 90px;
+
+  //네비게이션 메뉴바 오른쪽 정렬
+`;
 export default HeaderNav;
