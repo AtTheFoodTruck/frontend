@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styled from "styled-components";
-import { useSearchContext } from "../Context/SearchContext";
+import { useSearchContext } from "../../Context/SearchContext";
 import SearchResult from "./SearchResult";
 const SearchWrapper = styled.div`
   position: absolute;
@@ -60,7 +60,7 @@ const SearchList = () => {
   const [data, setData] = useState([]);
   const { search } = useSearchContext();
   //
-
+  console.log("SearchList_search" + search);
   useEffect(() => {
     axios
       .get(
