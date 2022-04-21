@@ -5,30 +5,16 @@ import CartList from './CartList';
 import axios from 'axios';
 
 const Cart = () => {
-  // 변수 선언부
   const [data, setData] = useState([]);
   const dataId = useRef(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const accessToken = localStorage.getItem('Authorization');
-  let cartArray = [];
+  // let cartArray = [];
 
   // headers
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
-
-  // 데이터 조작 시작
-  // const onAdd = (store_name, menu, image, price) => {
-  //   const newItem = {
-  //     store_name,
-  //     menu,
-  //     image,
-  //     price,
-  //     id: dataId.current,
-  //   };
-  //   dataId.current += 1;
-  //   setData([newItem, ...data]);
-  // };
 
   // 아이템 삭제 버튼 클릭 이벤트
   const onRemove = (targetId) => {
@@ -80,19 +66,20 @@ const Cart = () => {
       )
       .then((response) => {
         console.log(response);
+        setData(response.data.data);
         // return 받은 데이터를 newCart 객체로 담기
-        const newCart = {
-          orderItemId: response.data.data.orderItemId,
-          storeName: response.data.data.storeName,
-          itemId: response.data.data.itemId,
-          itemName: response.data.data.itemName,
-          itemImgUrl: response.data.data.itemImgUrl,
-          count: response.data.data.count,
-          totalPrice: response.data.data.totalPrice,
-        };
+        // const newCart = {
+        //   orderItemId: response.data.data.orderItemId,
+        //   storeName: response.data.data.storeName,
+        //   itemId: response.data.data.itemId,
+        //   itemName: response.data.data.itemName,
+        //   itemImgUrl: response.data.data.itemImgUrl,
+        //   count: response.data.data.count,
+        //   totalPrice: response.data.data.totalPrice,
+        // };
 
         // 위에서 선언한 cartArray에 newCart를 담기, cartArray에 담긴 객체를 화면에 출력해줘야함!!!!
-        cartArray.push(newCart);
+        // cartArray.push(newCart);
       })
       .catch(function (error) {
         console.log(error);
