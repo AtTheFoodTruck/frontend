@@ -7,7 +7,7 @@ const SearchBar = ({ card }) => {
   // console.log(card);
   const { id, category, item, store_img, store_name, rating } = card;
   return (
-    <Row className="d-inline-flex p-2 mt-5">
+    <Row className="d-inline-flex p-2 mt-5" key={id}>
       <Col>
         <Card style={{ width: "13rem" }}>
           <Card.Img variant="top" src={store_img} />
