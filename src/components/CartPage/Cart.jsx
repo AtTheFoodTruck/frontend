@@ -89,7 +89,7 @@ const Cart = () => {
   //주문생성 및 주문 완료 버튼
   async function handleClick() {
     axios.post(
-      'http://localhost:8000/order-service/orders/v1/customer/order',
+      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
       {
         //body
         user_id: 1,
