@@ -134,7 +134,7 @@ const MemberRegister = () => {
         .then(function (response) {
           alert("가입완료!");
           console.log(response);
-          navigate("/login", { replace: true });
+          // navigate("/login", { replace: true });
         })
         .catch(function (error) {
           console.log(error);
