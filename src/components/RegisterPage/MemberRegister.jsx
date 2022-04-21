@@ -69,7 +69,7 @@ const MemberRegister = () => {
       alert('비밀번호를 입력하세요');
     } else {
       axios
-        .post('http://api-gateway/user-service/users/v1/join', {
+        .post('https://apifood.blacksloop.com/user-service/users/v1/join', {
           email: inputEmail,
           username: inputNickname,
           password: inputPw,
