@@ -1,61 +1,85 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
 import OrderList from './OrderList';
 
-// fetch('https://jsonplaceholder.typicode.com/photos')
-//   .then((response) => response.json())
-//   .then((json) => console.log(json));
+// const DUMMYDATA = [
+//   {
+//     id: 1,
+//     store_name: '엽기떡볶이',
+//     menu: '엽기떡볶이',
+//     price: 5000,
+//     ordered_date: '2022.02.12',
+//     waiting_num: 13,
+//     menu_img: 'https://via.placeholder.com/150/24f355',
+//   },
+//   {
+//     id: 2,
+//     store_name: '맛나분식',
+//     menu: '김밥',
+//     price: 4000,
+//     ordered_date: '2022.11.12',
+//     waiting_num: 15,
+//     menu_img: 'https://via.placeholder.com/150/24f355',
+//   },
+//   {
+//     id: 3,
+//     store_name: '천재치킨',
+//     menu: '양념치킨',
+//     price: 23000,
+//     ordered_date: '2022.02.10',
+//     waiting_num: 3,
+//     menu_img: 'https://via.placeholder.com/150/24f355',
+//   },
+//   {
+//     id: 4,
+//     store_name: '쉐프의 스테이크',
+//     menu: '오늘의 스테이크',
+//     price: 12200,
+//     ordered_date: '2022.02.03',
+//     waiting_num: 23,
+//     menu_img: 'https://via.placeholder.com/150/24f355',
+//   },
+//   {
+//     id: 5,
+//     store_name: '밥버거',
+//     menu: '제육밥버거',
+//     price: 5200,
+//     ordered_date: '2012.02.22',
+//     waiting_num: 16,
+//     menu_img: 'https://via.placeholder.com/150/24f355',
+//   },
+// ];
 
-const DUMMYDATA = [
-  {
-    id: 1,
-    store_name: '엽기떡볶이',
-    menu: '엽기떡볶이',
-    price: 5000,
-    ordered_date: '2022.02.12',
-    waiting_num: 13,
-    menu_img: 'https://via.placeholder.com/150/24f355',
-  },
-  {
-    id: 2,
-    store_name: '맛나분식',
-    menu: '김밥',
-    price: 4000,
-    ordered_date: '2022.11.12',
-    waiting_num: 15,
-    menu_img: 'https://via.placeholder.com/150/24f355',
-  },
-  {
-    id: 3,
-    store_name: '천재치킨',
-    menu: '양념치킨',
-    price: 23000,
-    ordered_date: '2022.02.10',
-    waiting_num: 3,
-    menu_img: 'https://via.placeholder.com/150/24f355',
-  },
-  {
-    id: 4,
-    store_name: '쉐프의 스테이크',
-    menu: '오늘의 스테이크',
-    price: 12200,
-    ordered_date: '2022.02.03',
-    waiting_num: 23,
-    menu_img: 'https://via.placeholder.com/150/24f355',
-  },
-  {
-    id: 5,
-    store_name: '밥버거',
-    menu: '제육밥버거',
-    price: 5200,
-    ordered_date: '2012.02.22',
-    waiting_num: 16,
-    menu_img: 'https://via.placeholder.com/150/24f355',
-  },
-];
+// https://jsonplaceholder.typicode.com/photos
 
 const OrderListPage = () => {
+  const [data, setData] = useState([]);
+  const dataId = useRef(0);
+
+  const getData = async () => {
+    const res = await fetch('https://jsonplaceholder.typicode.com/photos').then(
+      (res) => res.json()
+    );
+
+    const initData = res.slice(0, 20).map((list) => {
+      return {
+        store_name: list.title,
+        menu: list.title,
+        price: 5000,
+        ordered_date: '2022.12.23',
+        waiting_num: list.albumId,
+        menu_img: list.thumbnailUrl,
+        id: dataId.current++,
+      };
+    });
+    setData(initData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <OrderListWrapper>
       <Container className='text-center'>
@@ -82,7 +106,7 @@ const OrderListPage = () => {
         </Row>
         <hr />
 
-        <OrderList orderList={DUMMYDATA} />
+        <OrderList orderList={data} />
       </Container>
     </OrderListWrapper>
   );

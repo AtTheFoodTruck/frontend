@@ -13,9 +13,12 @@ const OrderListItem = ({
   return (
     <Row key={id} className='d-flex align-items-center mb-5'>
       <Col className='MenuImg'>
-        <Card style={{ width: '10rem', height: '10rem' }}>
+        <Card
+          className='d-flex align-items-center'
+          style={{ width: '10rem', height: '10rem' }}
+        >
           <Card.Img
-            style={{ width: '9rem', height: '9rem' }}
+            style={{ width: '9.5rem', height: '9.5rem' }}
             variant='top'
             src={menu_img}
           />
