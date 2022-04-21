@@ -38,7 +38,7 @@ const MemberRegister = () => {
   const [inputPw, setInputPw] = useState("");
   const [inputUsername, setInputUsername] = useState("");
   const [inputPhonenumber, setInputPhonenumber] = useState("");
-  const [mailDuplicate, setMailDuplicate] = useState(true);
+  const [mailDuplicate, setMailDuplicate] = useState(false);
   const [nameDuplicate, setNameDuplicate] = useState(true);
   const navigate = useNavigate();
 
@@ -134,7 +134,7 @@ const MemberRegister = () => {
         .then(function (response) {
           alert("가입완료!");
           console.log(response);
-          // navigate("/login", { replace: true });
+          navigate("/login", { replace: true });
         })
         .catch(function (error) {
           console.log(error);
