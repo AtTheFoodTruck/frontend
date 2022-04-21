@@ -1,48 +1,24 @@
 import React from "react";
 
-const HomePagination = () => {
+const HomePagination = ({ postsPerPage, totalPosts, paginate }) => {
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   return (
-    <>
-      <div>
-        <ul class="pagination pagination-lg justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#">
-              &laquo;
+    <nav>
+      <ul className="pagination pagination-lg justify-content-center">
+        {pageNumbers.map((number) => (
+          <li key={number} className="page-item ">
+            <a onClick={() => paginate(number)} href="#!" className="page-link">
+              {number}
             </a>
           </li>
-          <li class="page-item active">
-            <a class="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              4
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              5
-            </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">
-              &raquo;
-            </a>
-          </li>
-        </ul>
-      </div>
-    </>
+        ))}
+      </ul>
+    </nav>
   );
 };
 
