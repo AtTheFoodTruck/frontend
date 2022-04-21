@@ -71,9 +71,9 @@ const MemberRegister = () => {
       axios
         .post('http://localhost:8000/user-service/users/v1/join', {
           email: inputEmail,
-          nickname: inputNickname,
+          username: inputNickname,
           password: inputPw,
-          phone_number: inputPhonenumber,
+          phone_num: inputPhonenumber,
         })
         .then(function (response) {
           alert('가입완료!');
