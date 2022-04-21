@@ -16,12 +16,6 @@ const Cart = () => {
     Authorization: `Bearer ${accessToken}`,
   };
 
-  // 아이템 삭제 버튼 클릭 이벤트
-  const onRemove = (targetId) => {
-    const newCartList = data.filter((list) => list.id !== targetId);
-    setData(newCartList);
-  };
-
   // 총 가격
   const handTotalPrice = (price) => setTotalPrice(totalPrice + price);
 
@@ -84,6 +78,22 @@ const Cart = () => {
       .catch(function (error) {
         console.log(error);
       });
+  };
+
+  // 아이템 삭제 버튼 클릭 이벤트
+  const onRemove = async (targetId) => {
+    axios.delete(
+      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+      {
+        user_id: 1,
+        order_item_id: targetId,
+      },
+      {
+        headers: headers,
+      }
+    );
+    const newCartList = data.filter((list) => list.id !== targetId);
+    setData(newCartList);
   };
 
   //주문생성 및 주문 완료 버튼
