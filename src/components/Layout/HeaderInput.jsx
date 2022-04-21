@@ -34,19 +34,21 @@ const HeaderInput = () => {
 
   //onChange
   const handleInput = (e) => {
-    console.log("핸들인풋");
     if (e.target.value != "") {
       let input = e.target.value;
-      setWord(input);
       // inputDebounce(input);
+      setWord(input);
     }
   };
-
+  const onReset = () => {
+    setWord("");
+  };
   //handleMessage
   const handleSearch = () => {
     if (word != "") {
       setSearch(word);
       navigate("/search-list");
+      onReset();
     } else {
       return alert("검색어를 입력해주세요!");
     }
@@ -57,18 +59,6 @@ const HeaderInput = () => {
     if (e.key === "Enter") {
       handleSearch();
     }
-
-    // if (e.target.value === "") {
-    //   alert("검색어를 입력하세요!");
-    //   return;
-    // }
-    // if (e.key === "Enter") {
-    //   console.log("Enter 입력");
-    //   handleSearch();
-    // } else {
-    //   setSearch(word);
-    //   navigate("/search-list");
-    // }
   };
   console.log(word);
   return (
@@ -80,16 +70,15 @@ const HeaderInput = () => {
         placeholder="Search"
         onKeyUp={handleKeyPress}
         onChange={handleInput}
-        // value={search} //0.3초 마다 입력됨
+        value={word} //0.3초 마다 입력됨
       />
 
-      {/* 버튼으로 만든다 */}
       <button
         // to="/search-list"
         type="button"
         className="btn btn-secondary my-2 my-sm-0"
         name="search_btn"
-        onClick={handleKeyPress}
+        onClick={handleSearch}
       >
         Search{" "}
       </button>
