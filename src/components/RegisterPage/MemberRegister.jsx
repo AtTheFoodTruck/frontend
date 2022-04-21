@@ -39,7 +39,7 @@ const MemberRegister = () => {
   const [inputUsername, setInputUsername] = useState("");
   const [inputPhonenumber, setInputPhonenumber] = useState("");
   const [mailDuplicate, setMailDuplicate] = useState(false);
-  const [nameDuplicate, setNameDuplicate] = useState(true);
+  const [nameDuplicate, setNameDuplicate] = useState(false);
   const navigate = useNavigate();
 
   // 메일 입력시 상태값 변경
