@@ -69,12 +69,15 @@ const MemberRegister = () => {
       alert('비밀번호를 입력하세요');
     } else {
       axios
-        .post('http://discovery:8000/user-service/users/v1/join', {
-          email: inputEmail,
-          username: inputNickname,
-          password: inputPw,
-          phone_num: inputPhonenumber,
-        })
+        .post(
+          'https://foodtruck.blacksloop.com:8000/user-service/users/v1/join',
+          {
+            email: inputEmail,
+            username: inputNickname,
+            password: inputPw,
+            phone_num: inputPhonenumber,
+          }
+        )
         .then(function (response) {
           alert('가입완료!');
           console.log(response);
