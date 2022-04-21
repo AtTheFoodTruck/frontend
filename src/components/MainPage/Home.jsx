@@ -20,24 +20,36 @@ const Home = () => {
 
   // axios
   // https://apifood.blacksloop.com/
-  async function fetchPopular() {
-    try {
-      const foodtruck = await axios.get(
-        `http://localhost:8000/item-service/items/v1/customer/stores?page=0&size=10`,
-        {
-          headers: headers,
-        }
-      );
+  const fetchPopular = async () => {
+    axios
+      .get(
+        `http://localhost:8000/item-service/items/v1/customer/stores`,
+        { headers },
+        { store_id: 1 }
+      )
+      .then(function (response) {
+        console.log(response);
+      });
+  };
 
-      console.log(foodtruck);
-      // console.log(movies.data);
-      // console.log(movies.data.results);
-      // setPopular(movies.data.results);
-      // setFiltered(movies.data.results);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function fetchPopular() {
+  //   try {
+  //     const foodtruck = await axios.get(
+  //       `http://localhost:8000/item-service/items/v1/customer/stores?page=0&size=10`,
+  //       {
+  //         headers: headers,
+  //       }
+  //     );
+
+  //     console.log(foodtruck);
+  //     // console.log(movies.data);
+  //     // console.log(movies.data.results);
+  //     // setPopular(movies.data.results);
+  //     // setFiltered(movies.data.results);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   // // fetch;
   // const fetchPopular = async () => {
