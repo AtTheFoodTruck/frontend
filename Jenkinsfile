@@ -4,7 +4,7 @@ pipeline {
     stage('Front Build') {
       steps {
         script {
-          frontend = docker.build("goalgoru/frontend-hyoyoug")
+          frontend = docker.build("goalgoru/frontend-hyoyoung")
         }
 
       }
@@ -25,7 +25,9 @@ pipeline {
 
     stage('Docker Compose') {
       steps {
-        sh 'cd /project && docker-compose down'
+        sh '''docker stop $(docker ps -a -q)
+'''
+        sh 'docker rm $(docker ps -a -q)'
         sh 'cd /project/hyoyoung && docker-compose up -d'
       }
     }
