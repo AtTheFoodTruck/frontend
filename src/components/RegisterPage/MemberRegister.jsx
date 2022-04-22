@@ -41,10 +41,11 @@ const MemberRegisterContainer = styled.form`
 const MemberRegister = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
+  const [inputpwVerification, setPwVerification] = useState("");
   const [inputUsername, setInputUsername] = useState("");
   const [inputPhonenumber, setInputPhonenumber] = useState("");
-  const [mailDuplicate, setMailDuplicate] = useState(false);
-  const [nameDuplicate, setNameDuplicate] = useState(false);
+  const [mailDuplicate, setMailDuplicate] = useState(true);
+  const [nameDuplicate, setNameDuplicate] = useState(true);
   const navigate = useNavigate();
 
   // 메일 입력시 상태값 변경
@@ -55,6 +56,10 @@ const MemberRegister = () => {
   // 비밀번호 입력시 상태값 변경
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
+  };
+
+  const pwVerification = (e) => {
+    setPwVerification(e.target.value);
   };
 
   // 이름 입력시 상태값 변경
@@ -132,6 +137,8 @@ const MemberRegister = () => {
       alert("비밀번호를 입력하세요");
     } else if (mailDuplicate) {
       alert("메일 중복확인을 해주세요");
+    } else if (inputPw !== inputpwVerification) {
+      alert("입력하신 비밀번호가 동일하지 않습니다.");
     } else if (nameDuplicate) {
       alert("이름 중복확인을 해주세요");
     } else {
@@ -200,12 +207,12 @@ const MemberRegister = () => {
         <div className="form-floating">
           <input
             type="password"
-            name="input_pw"
-            value={inputPw}
+            name="input_pwVerification"
+            value={inputpwVerification}
             className="form-control"
-            id="input_pw"
-            placeholder="비밀번호를 입력하세요."
-            onChange={handleInputPw}
+            id="input_pwVerification"
+            placeholder="비밀번호 확인 입력하세요."
+            onChange={pwVerification}
           />
           <label for="floatingPassword">Password</label>
         </div>
