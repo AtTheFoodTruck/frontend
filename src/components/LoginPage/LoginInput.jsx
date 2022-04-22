@@ -53,7 +53,11 @@ const LoginInput = () => {
       alert("비밀번호를 입력하세요");
     } else {
       axios
+<<<<<<< HEAD
         .post("http://localhost:8761/user-service/users/v1/logins", {
+=======
+        .post("https://apifood.blacksloop.com/user-service/users/v1/logins", {
+>>>>>>> feature-login
           email: inputId,
           password: inputPw,
         })
@@ -62,7 +66,7 @@ const LoginInput = () => {
           setAccessToken(response.data.data.accessToken);
           setRefreshToken(response.data.data.refreshToken);
           setUserId(response.data.data.userId);
-          // navigate('/', { replace: true });
+          navigate("/", { replace: true });
         })
         .catch(function (error) {
           console.log(error);
