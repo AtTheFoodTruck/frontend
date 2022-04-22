@@ -25,10 +25,16 @@ pipeline {
 
     stage('Docker Compose') {
       steps {
+<<<<<<< HEAD
         sh '''docker stop $(docker ps -a -q)
 '''
         sh 'docker rm $(docker ps -a -q)'
         sh 'cd /project/hyoyoung && docker-compose up -d'
+=======
+        sh 'docker stop $(docker ps -a -q)'
+        sh 'docker rm $(docker ps -a -q)'
+        sh 'cd /project && docker-compose up -d'
+>>>>>>> develop
       }
     }
 
