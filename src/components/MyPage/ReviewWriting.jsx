@@ -10,26 +10,37 @@ import axios from "axios";
 const ReviewWritinghWrapper = styled.div`
   position: absolute;
   align-items: center;
-  width: 40%;
+  width: 55%;
   top: 20%;
   left: 30%;
+  border: 1px white solid;
+  header {
+    border: 1px white solid;
+  }
+  button {
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
 `;
 const Card = styled.div`
   img {
-    width: 250px;
+    width: 230px;
     height: 200px;
     margin-bottom: 15px;
   }
 `;
 
-const ReviewWriting = () => {
+//TODO
+//주문내역 props ( orderId,Store_name,menu) 받아서 출력
+//img파일 formData 넘어가는지 확인
+
+const ReviewWriting = ({ store_name, menu }) => {
   const navigate = useNavigate();
   const contnetInput = useRef();
 
-  //order_id,user_id 포함해야함!
   const [state, setState] = useState({
-    // user_id: 1,
-    // order_id: 1,
+    user_id: null,
+
     content: "",
     img_url: "",
     img_file: "img/default_image.png",
@@ -38,30 +49,30 @@ const ReviewWriting = () => {
   //image 상태
   const [loaded, setLoaded] = useState(false);
 
-  console.log(state);
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
+  const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
 
   //${accessToken}
   const headers = {
-    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0SkhAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MTAyMzgxMH0.l6ciZhzih-0m8DBwypBojnNXAKQDhSunyTbOztnjl0OA2vy_F_l7W6HEfeRZ2lq_7pgYzuMrr2DKNweqL_2-1g`,
+    Authorization: `Bearer ${authorization}`,
   };
 
   const onCreate = (content, img_file, rating) => {
+    console.log("Headers => authorization : ", authorization);
+    console.log("Params => userId : ", userId);
+    // console.log("Params => orderId : ", orderId);
     axios
       .post(
-        "http://localhost:8000/order-service/orders/v1/customer/reviews",
-
-        //data (user/order_id 변수로 )
+        url,
         {
-          //변수처리
-          // user_id: 1,
-          // order_id: 1,
+          user_id: userId,
+          order_id: 1,
           rating: rating,
           //이미지 파일 오류
           // review_img_url: img_file,
           review_img_url: "img파일",
           content: content,
-          user_id: 1,
-          order_id: 1,
         },
         { headers }
       )
@@ -128,13 +139,6 @@ const ReviewWriting = () => {
           <h1>리뷰 작성하기</h1>
           {/* TODO  */}
           {/* 퍼블리싱 */}
-          <button
-            type="button"
-            class="btn btn-primary"
-            onClick={() => navigate(-1)}
-          >
-            X
-          </button>
         </header>
 
         <Row className="mt-5">
@@ -147,8 +151,8 @@ const ReviewWriting = () => {
         </Row>
         <hr />
         <Row className="mb-5">
-          <Col>동대문엽기떡볶이</Col>
-          <Col>엽기떡볶이</Col>
+          <Col>{store_name}</Col>
+          <Col>{menu}</Col>
         </Row>
 
         {/* 리뷰 입력 줄 */}
@@ -185,23 +189,34 @@ const ReviewWriting = () => {
             </div>
           </Col>
         </Row>
-        <Row className="mt-5">
-          <p>별점을 매겨주세요</p>
-          <p className="text-warning">
-            {/* <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar /> */}
-            <Rating getRating={getRating} />
-          </p>
+        <Row
+          className="d-flex flex-column justify-content-center mt-5"
+          id="rating"
+        >
+          <div>
+            <p>별점을 매겨주세요</p>
+          </div>
+          <Rating className="rating" getRating={getRating} />
         </Row>
 
         {/* 리뷰등록버튼 */}
         <Row className="d-inline-flex mt-5">
-          <Button size="lg" variant="outline-secondary" onClick={handleSubmit}>
+          <button
+            size="mg"
+            class="btn btn-outline-secondary"
+            variant="outline-secondary"
+            onClick={handleSubmit}
+          >
             리뷰등록
-          </Button>{" "}
+          </button>{" "}
+          <button
+            id="cancle_btn"
+            type="button"
+            class="btn btn-outline-danger"
+            onClick={() => navigate(-1)}
+          >
+            취소
+          </button>
         </Row>
       </Container>
     </ReviewWritinghWrapper>
