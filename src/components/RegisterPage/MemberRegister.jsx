@@ -17,6 +17,11 @@ const MemberRegisterContainer = styled.form`
     text-align-last: left;
   }
 
+  .passwordVerification {
+    margin-top: 0.5em;
+    text-align-last: left;
+  }
+
   .username {
     margin-top: 0.5em;
     text-align-last: left;
@@ -177,6 +182,21 @@ const MemberRegister = () => {
       </div>
 
       <div className="password">
+        <div className="form-floating">
+          <input
+            type="password"
+            name="input_pw"
+            value={inputPw}
+            className="form-control"
+            id="input_pw"
+            placeholder="비밀번호를 입력하세요."
+            onChange={handleInputPw}
+          />
+          <label for="floatingPassword">Password</label>
+        </div>
+      </div>
+
+      <div className="passwordVerification">
         <div className="form-floating">
           <input
             type="password"
