@@ -21,8 +21,16 @@ const Nav = styled.nav`
   }
 `;
 
-export default function ReviewPage({ getData, totalPage, page, setPage }) {
-  const numPages = totalPage + 1;
+export default function ReviewPage({
+  currentPage,
+  setCurrentPage,
+  totalPage,
+  reviewList,
+  getData,
+}) {
+  console.log("currentPage : " + currentPage);
+  console.log("totalPage : " + totalPage);
+  console.log(reviewList);
 
   return (
     <Nav>
@@ -30,15 +38,14 @@ export default function ReviewPage({ getData, totalPage, page, setPage }) {
         type="button"
         className="btn btn-outline-dark "
         onClick={() => {
-          setPage(page - 1);
-          getData();
+          setCurrentPage(currentPage - 1);
         }}
-        disabled={page === 1}
+        disabled={currentPage === 0}
       >
         &lt;
       </button>
 
-      {Array(numPages)
+      {Array(totalPage + 1)
         .fill()
         .map((_, i) => (
           <button
@@ -46,10 +53,9 @@ export default function ReviewPage({ getData, totalPage, page, setPage }) {
             className="btn btn-outline-dark"
             key={i + 1}
             onClick={() => {
-              setPage(i + 1);
-              getData();
+              setCurrentPage(i);
             }}
-            aria-current={page === i + 1 ? "page" : null}
+            aria-current={currentPage === i ? "page" : null}
           >
             {i + 1}
           </button>
@@ -59,10 +65,9 @@ export default function ReviewPage({ getData, totalPage, page, setPage }) {
         type="button"
         className="btn btn-outline-dark"
         onClick={() => {
-          setPage(page + 1);
-          getData();
+          setCurrentPage(currentPage + 1);
         }}
-        disabled={page === numPages}
+        disabled={currentPage === totalPage}
       >
         &gt;
       </button>

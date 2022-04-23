@@ -6,6 +6,7 @@ import Star from "./star";
 import { FaStar } from "react-icons/fa";
 import ReviewPagination from "./ReviewPagination";
 import { toContainHTML } from "@testing-library/jest-dom/dist/matchers";
+import { useNavigate } from "react-router-dom";
 const ReviewHistoryWrapper = styled.div`
   position: absolute;
   align-items: center;
@@ -15,88 +16,82 @@ const ReviewHistoryWrapper = styled.div`
 `;
 
 const ReviewHistory = () => {
+  const navigate = useNavigate();
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
-
   //develop MERGE 전 https://apifood.blacksloop.com/
   //리뷰 리스트
   const [reviewList, setReviewList] = useState([]);
   //page 당 게시글 수
-  const [limit, setLimit] = useState(4);
+  const size = 4;
   //페이지 [현재 페이지,총 페이지 수]
-  const [page, setPage] = useState({
-    currentPage: 0,
-    totalPage: 0,
-  });
-
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
 
   useEffect(() => {
-    console.log("Headers => authorization : ", authorization);
-    console.log("Params => userId : ", userId);
-    console.log("getTotalPage => 실행 ");
-
     const getTotalPage = async () => {
       await axios
         .get(
-          `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}`,
+          `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
-          console.log(
-            "res.data.data.page.totalPage : ",
-            res.data.data.page.totalPage
-          );
-          setPage({
-            ...page,
-            totalPage: res.data.data.page.totalPage,
-          });
+          console.log(res);
+          setTotalPage(res.data.data.page.totalPage);
         })
         .catch((err) => console.log(err));
     };
     getTotalPage();
-
-    getData();
   }, []);
 
-  const getData = async () => {
-    axios
-      .get(
-        `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}`,
-        // { user_id: userId },
-        // {
-        //   params: {
-        //     userId: userId,
-        //     page: page.currentPage,
-        //     size: limit,
-        //   },
-        // },
-        { headers }
-      )
-      .then((res) => {
-        setReviewList(res.data.data.reviewHistoryDtoList);
-      })
-      .catch((err) => console.log(err));
+  useEffect(() => {
+    const getData = async () => {
+      console.log(`getData() 함수 불러오기 전 currentPage : ` + currentPage);
+      console.log(`getData() 함수 불러오기 전 totalPage : ` + totalPage);
+      await axios
+        .get(
+          `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
+          { headers }
+        )
+        .then((res) => {
+          setReviewList(res.data.data.reviewHistoryDtoList);
+        })
+        .catch((err) => console.log(err));
+      console.log("getData() complete");
+    };
+    getData();
+  }, [currentPage]);
+
+  const deleteReview = async (e) => {
+    if (window.confirm("리뷰를 삭제하시겠습니까?")) {
+      const data = {
+        user_id: userId,
+        review_id: e.target.value,
+      };
+      console.log(userId, e.target.value);
+      axios
+        .delete(
+          "http://localhost:8000/order-service/orders/v1/customer/reviews",
+          { headers, data }
+        )
+        .then((res) => {
+          console.log(res);
+          navigate(0);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
-  const deleteReview = async () => {
-    await axios
-      .delete(
-        `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}`,
-        {
-          user_id: "1",
-          review_id: "18",
-        }
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-  console.log(reviewList);
   //배열내에 고유한 값을 가지고 있는 변수 예> id , 가 있다면 굳이 idx를 쓰기보다는
   //그 값을 쓰는게 좋다 이유는 삭제 수정을 하면서 약간씩 오류가 발생할 수 있기 때문
-  return (
+
+  console.log(
+    `현재 url : http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`
+  );
+  http: return (
     <>
       <ReviewHistoryWrapper>
         <Container className="ReviewPage text-center mt-5">
@@ -133,7 +128,11 @@ const ReviewHistory = () => {
                     <h5>{it.reviewTime}</h5>
                   </Col>
                   <Col className="deleteBtn">
-                    <Button variant="outline-secondary" onClick={deleteReview}>
+                    <Button
+                      value={it.reviewId}
+                      variant="outline-secondary"
+                      onClick={deleteReview}
+                    >
                       삭제
                     </Button>
                   </Col>
@@ -151,11 +150,11 @@ const ReviewHistory = () => {
           ))}
           {/*페이징 처리*/}
           <ReviewPagination
-            page={page}
-            setPage={setPage}
-            totalPage={page.totalPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPage={totalPage}
             reviewList={reviewList}
-            getData={getData}
+            size={size}
           />
         </Container>
       </ReviewHistoryWrapper>
