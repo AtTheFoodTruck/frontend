@@ -21,8 +21,8 @@ const Nav = styled.nav`
   }
 `;
 
-export default function ReviewPage({ getData, endPage, page, setPage }) {
-  const numPages = endPage + 1;
+export default function ReviewPage({ getData, totalPage, page, setPage }) {
+  const numPages = totalPage + 1;
 
   return (
     <Nav>
