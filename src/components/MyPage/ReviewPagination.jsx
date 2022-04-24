@@ -26,7 +26,7 @@ export default function ReviewPage({
   setCurrentPage,
   totalPage,
   reviewList,
-  getData,
+  size,
 }) {
   console.log("currentPage : " + currentPage);
   console.log("totalPage : " + totalPage);
@@ -45,7 +45,7 @@ export default function ReviewPage({
         &lt;
       </button>
 
-      {Array(totalPage + 1)
+      {Array(totalPage)
         .fill()
         .map((_, i) => (
           <button

@@ -1,9 +1,8 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import styled from "styled-components";
 
-function Rating({ rating }) {
+function StarRating({ rating }) {
   const rendering = () => {
     const result = [];
     for (let i = 1; i <= rating; i++) {
@@ -14,7 +13,7 @@ function Rating({ rating }) {
   return <Stars>{rendering()}</Stars>;
 }
 
-export default Rating;
+export default StarRating;
 
 const Stars = styled.div`
   display: flex;
