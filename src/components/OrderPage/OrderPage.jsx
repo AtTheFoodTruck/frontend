@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import OrderPageMenu from "./OrderPageMenu";
 import Cart from "../CartPage/Cart";
-import { CartContext } from "../../context/CartContext";
 import axios from "axios";
 
 const OrderPage = () => {
