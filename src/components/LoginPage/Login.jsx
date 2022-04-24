@@ -3,17 +3,6 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-<<<<<<< HEAD
-    <>
-      로그인 페이지 입니다
-      <Link to="/member-register">
-        <button>개인 회원가입</button>
-      </Link>
-      <Link to="/owner-register">
-        <button>사장님 회원가입</button>
-      </Link>
-    </>
-=======
     <div className='container Login mt-5'>
       <section className='title text-center'>
         <h1>Login</h1>
@@ -69,7 +58,6 @@ const Login = () => {
         <div className='col'></div>
       </section>
     </div>
->>>>>>> feature-login
   );
 };
 

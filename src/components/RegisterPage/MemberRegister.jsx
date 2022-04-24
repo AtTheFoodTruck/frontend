@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-const MemberRegister = () => {
-  return <div>개인 회원 가입 페이지</div>;
-=======
 // import { useRef } from 'react';
 
 // //ref로 사용자 입력 가져옴, onchange로 변경해볼까 고민중..
@@ -105,7 +99,6 @@ const MemberRegister = () => {
       </section>
     </>
   );
->>>>>>> feature-join
 };
 
 export default MemberRegister;
