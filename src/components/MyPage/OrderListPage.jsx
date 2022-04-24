@@ -5,50 +5,49 @@ import OrderList from './OrderList';
 import axios from 'axios';
 
 const OrderListPage = () => {
-  const [data, setData] = useState([]);
-  const dataId = useRef(0);
-  const accessToken = localStorage.getItem('Authorization');
-
+  const [orderList, setOrderList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const authorization = localStorage.getItem('Authorization');
+  const userId = localStorage.getItem('userId');
+  const size = 4;
   const headers = {
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${authorization}`,
   };
 
-  // const getData = async () => {
-  //   const res = await fetch(
-  //     'https://apifood.blacksloop.com/orders/v1/customer/order'
-  //   ).then((res) => res.json());
-
-  //   const initData = res.slice(0, 20).map((list) => {
-  //     return {
-  //       store_name: list.title,
-  //       menu: list.title,
-  //       price: 5000,
-  //       ordered_date: '2022.12.23',
-  //       waiting_num: list.albumId,
-  //       menu_img: list.thumbnailUrl,
-  //       id: dataId.current++,
-  //     };
-  //   });
-  //   setData(initData);
-  // };
+  useEffect(() => {
+    const getTotalPage = async () => {
+      await axios
+        .get(
+          `http://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
+          { headers }
+        )
+        .then((res) => {
+          console.log(res);
+          setTotalPage(res.data.data.page.totalPage);
+        })
+        .catch((err) => console.log(err));
+    };
+    getTotalPage();
+  }, []);
 
   useEffect(() => {
-    axios
-      .get(
-        'https://apifood.blacksloop.com/orders/v1/customer/order',
-        {
-          store_id: 1,
-          item_id: dataId,
-        },
-        {
-          headers: headers,
-        }
-      )
-      .then(function (response) {
-        console.log(response);
-        setData(response.data.data);
-      });
-  }, []);
+    const getData = async () => {
+      console.log(`getData() 함수 불러오기 전 currentPage : ` + currentPage);
+      console.log(`getData() 함수 불러오기 전 totalPage : ` + totalPage);
+      await axios
+        .get(
+          `https://apifood.blacksloop.com/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
+          { headers }
+        )
+        .then((res) => {
+          setOrderList(res.data.orderHistoryList);
+        })
+        .catch((err) => console.log(err));
+      console.log('getData() complete');
+    };
+    getData();
+  }, [currentPage]);
 
   return (
     <OrderListWrapper>
@@ -76,7 +75,7 @@ const OrderListPage = () => {
         </Row>
         <hr />
 
-        <OrderList orderList={data} />
+        <OrderList orderList={orderList} />
       </Container>
     </OrderListWrapper>
   );
