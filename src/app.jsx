@@ -35,7 +35,6 @@ function App() {
           <Route path="/member-register" element={<MemberRegister />} />
           <Route path="/owner-register" element={<OwnerRegister />} />
           <Route path="/search-list" element={<SearchList />} />
-          <Route path="/search-list" element={<SearchList />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

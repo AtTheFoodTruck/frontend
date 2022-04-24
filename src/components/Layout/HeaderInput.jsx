@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link, Navigate } from "react-router-dom";
 import _ from "lodash";
 import { useSearchContext } from "../../Context/SearchContext";
-import useLocalStorage from "../../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 const Section = styled.section`
   display: flex;
@@ -13,14 +12,12 @@ const Section = styled.section`
   width: 15%;
   //input창 중앙으로
 `;
-const headers = {
-  Authorization: `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0SkhAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY1MTAzOTc2M30.l93_vKFRvZRZhBe_9QOh4_EcwR4xekssEezfnLhrUe1HIcM01goDmQ6_uKK21_O1SPuBJompsouF5fGK7Py2Pw`,
-};
+
 const HeaderInput = () => {
   const [word, setWord] = useState("");
-  // const [word, setWord] = useLocalStorage("word", "");
   const { setSearch } = useSearchContext();
   const navigate = useNavigate();
+
   // useEffect(() => {
   //   const word = search.split(" ");
   //   console.log(word);
@@ -30,19 +27,24 @@ const HeaderInput = () => {
     // const word = input.split(" ");
     // setSearch(word);
     setWord(input);
-  }, 500);
+  }, 400);
 
   //onChange
   const handleInput = (e) => {
-    if (e.target.value != "") {
-      let input = e.target.value;
-      // inputDebounce(input);
-      setWord(input);
-    }
+    let value = e?.target?.value;
+    setWord(value);
+    // inputDebounce(value);
+    // if (e.target.value != "") {
+    //   let input = e.target.value;
+    //   inputDebounce(input);
+    //   // setWord(input);
+    // }
   };
+
   const onReset = () => {
     setWord("");
   };
+
   //handleMessage
   const handleSearch = () => {
     if (word != "") {
@@ -60,7 +62,7 @@ const HeaderInput = () => {
       handleSearch();
     }
   };
-  console.log(word);
+
   return (
     <Section className="d-flex">
       <input
