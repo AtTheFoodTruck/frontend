@@ -52,7 +52,7 @@ const OrderListPage = () => {
   return (
     <OrderListWrapper>
       <Container className='text-center'>
-        <h1>주문내역</h1>
+        <h1>주문내역test</h1>
 
         <Row className='mt-5 d-flex justify-content-center'>
           <Col />
