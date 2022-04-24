@@ -37,7 +37,7 @@ const OrderListPage = () => {
       console.log(`getData() 함수 불러오기 전 totalPage : ` + totalPage);
       await axios
         .get(
-          `https://apifood.blacksloop.com/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/v1/customer/order/list/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
