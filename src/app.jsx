@@ -21,6 +21,7 @@ import OrderPage from "./components/OrderPage/OrderPage";
 =======
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import 'bootswatch/dist/sketchy/bootstrap.css';
 import './App.css';
 import 'bootswatch/dist/sketchy/bootstrap.min.css';
 import Home from './components/MainPage/Home';
