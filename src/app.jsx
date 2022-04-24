@@ -17,7 +17,6 @@ import ReviewHistory from "./components/MyPage/ReviewHistory";
 import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
-import OrderPage from "./components/OrderPage/OrderPage";
 
 function App() {
   return (
