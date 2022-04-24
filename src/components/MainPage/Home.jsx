@@ -8,6 +8,7 @@ import dummy from "./HomeDummy.json";
 
 const Home = () => {
   const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [activeMenuList, setActiveactiveMenuList] = useState();
@@ -17,20 +18,20 @@ const Home = () => {
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
-  console.log(headers);
+  // console.log(headers);
 
   // axios
   // https://apifood.blacksloop.com/ dvelop푸시할때 변경하기
   async function fetchPopular() {
     const foodtruck = await axios.get(
       `http://localhost:8000/item-service/items/v1/main?page=0&size=20`,
-      // { headers }
-      {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlckBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTYwMzM0fQ.2A8AYlGJcmwpJatYDbnP7cNBMTDxBZTZOwC9aGnDYSO7zs3CLFbrG5iT9j8hYiU3K6V2fcbhILLEKw-FaxX1AQ`,
-        },
-        // `http://localhost:8000/item-service/items/v1/stores?page=0&size=10`, //임시
-      }
+      { headers }
+      // {
+      //   headers: {
+      //     Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlckBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTYwMzM0fQ.2A8AYlGJcmwpJatYDbnP7cNBMTDxBZTZOwC9aGnDYSO7zs3CLFbrG5iT9j8hYiU3K6V2fcbhILLEKw-FaxX1AQ`,
+      //   },
+      //   // `http://localhost:8000/item-service/items/v1/stores?page=0&size=10`, //임시
+      // }
     );
 
     setPopular(foodtruck.data.data.storeList);
