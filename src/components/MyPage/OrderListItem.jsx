@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Button, Card } from 'react-bootstrap';
 
 const OrderListItem = ({
-  id,
-  store_name,
-  menu,
-  price,
-  ordered_date,
-  waiting_num,
-  menu_img,
+  orderId,
+  storeName,
+  orderItems,
+  storeImgUrl,
+  totalPrice,
+  orderTime,
+  storeId,
 }) => {
   return (
-    <Row key={id} className='d-flex align-items-center mb-5'>
+    <Row key={orderId} className='d-flex align-items-center mb-5'>
       <Col className='MenuImg'>
         <Card
           className='d-flex align-items-center'
@@ -20,24 +20,24 @@ const OrderListItem = ({
           <Card.Img
             style={{ width: '9.5rem', height: '9.5rem' }}
             variant='top'
-            src={menu_img}
+            src={storeImgUrl}
           />
         </Card>
       </Col>
       <Col className='StoreName'>
-        <p>{store_name}</p>
+        <p>{storeName}</p>
       </Col>
       <Col className='MenuName'>
-        <p>{menu}</p>
+        <p>{orderItems.itemName}</p>
       </Col>
       <Col className='Price'>
-        <p>{price}</p>
+        <p>{totalPrice}</p>
       </Col>
       <Col className='Date'>
-        <p>{ordered_date}</p>
+        <p>{orderTime}</p>
       </Col>
       <Col className='Waiting'>
-        <p>{waiting_num}</p>
+        <p>{storeId}</p>
       </Col>
       <Col className='ReviewBtn'>
         <Link to='/review-writing'>
