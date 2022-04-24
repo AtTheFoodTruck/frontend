@@ -2,55 +2,51 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const HomeCategories = ({
-  setActiveGenre,
-  activeGenre,
+  setActiveactiveMenuList,
+  activeMenuList,
   setFiltered,
   popular,
-  paginate,
 }) => {
   useEffect(() => {
-    if (activeGenre === 0) {
+    if (activeMenuList === "전체") {
       setFiltered(popular);
+      console.log(activeMenuList);
       return;
     }
-    const filtered = popular.filter((movie) =>
-      movie.genre_ids.includes(activeGenre)
+    const filtered = popular.filter((item) =>
+      item.categoryName.includes(activeMenuList)
     );
+    console.log(activeMenuList);
     setFiltered(filtered);
-  });
+  }, [activeMenuList]);
 
   //리팩터링 필요함
   function handleClick() {
-    paginate(1);
-    setActiveGenre(0);
+    // paginate(1);
+    setActiveactiveMenuList("전체");
   }
   function handleClick2() {
-    paginate(1);
-    setActiveGenre(28);
+    // paginate(1);
+    setActiveactiveMenuList("치킨");
   }
   function handleClick3() {
-    paginate(1);
-    setActiveGenre(35);
+    // paginate(1);
+    setActiveactiveMenuList("피자");
   }
   function handleClick4() {
-    paginate(1);
-    setActiveGenre(0);
+    setActiveactiveMenuList("햄버거");
   }
   function handleClick5() {
-    paginate(1);
-    setActiveGenre(28);
+    setActiveactiveMenuList("스테이크");
   }
   function handleClick6() {
-    paginate(1);
-    setActiveGenre(35);
+    setActiveactiveMenuList("닭강정");
   }
   function handleClick7() {
-    paginate(1);
-    setActiveGenre(28);
+    setActiveactiveMenuList("핫도그");
   }
   function handleClick8() {
-    paginate(1);
-    setActiveGenre(35);
+    setActiveactiveMenuList("아이스크림");
   }
   return (
     <Nav1>
@@ -58,25 +54,25 @@ const HomeCategories = ({
         전체
       </button>
       <button onClick={handleClick2} className="btn btn-outline-primary m-3">
-        스테이크
-      </button>
-      <button onClick={handleClick3} className="btn btn-outline-primary m-3">
-        닭강정
-      </button>
-      <button onClick={handleClick4} className="btn btn-outline-primary m-3">
         치킨
       </button>
-      <button onClick={handleClick5} className="btn btn-outline-primary m-3">
+      <button onClick={handleClick3} className="btn btn-outline-primary m-3">
         피자
       </button>
+      <button onClick={handleClick4} className="btn btn-outline-primary m-3">
+        햄버거
+      </button>
+      <button onClick={handleClick5} className="btn btn-outline-primary m-3">
+        스테이크
+      </button>
       <button onClick={handleClick6} className="btn btn-outline-primary m-3">
-        닭꼬치
+        닭강정
       </button>
       <button onClick={handleClick7} className="btn btn-outline-primary m-3">
-        떡볶이
+        핫도그
       </button>
       <button onClick={handleClick8} className="btn btn-outline-primary m-3">
-        츄러스
+        아이스크림
       </button>
     </Nav1>
   );

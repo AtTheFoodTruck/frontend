@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 
 const OrderPageMenu = ({
-  genre,
+  item,
   handleClick,
   increaseNumber,
   decreaseNumber,
@@ -12,14 +12,15 @@ const OrderPageMenu = ({
     <>
       <div className="MenuItems col">
         <div className="MenuItem card">
-          {/* <img
-              src={"https://image.tmdb.org/t/p/w500" + genre.backdrop_path}
-              className="card-img-top"
-              alt="menuimage"
-            /> */}
+          <img
+            // src={item.itemImg}
+            src="/img/pizza.jpg"
+            className="card-img-top"
+            alt="menuimage"
+          />
           <div className="card-body">
-            <h5>{genre.id}아이디</h5>
-            <h6>${genre.name}</h6>
+            <h5>{item.itemName}</h5>
+            <h6>${item.price}</h6>
             <div
               className="btn-group"
               role="group"
@@ -46,7 +47,7 @@ const OrderPageMenu = ({
                 -
               </button>
               <button
-                onClick={() => handleClick(genre)}
+                onClick={() => handleClick(item)}
                 className="btn btn-outline-primary"
               >
                 <FaCartPlus />
