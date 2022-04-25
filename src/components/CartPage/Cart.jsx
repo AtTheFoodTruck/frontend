@@ -42,7 +42,7 @@ const Cart = () => {
       console.log(`getData() 함수 불러오기 전 totalPage : ` + totalPage);
       await axios
         .get(
-          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
