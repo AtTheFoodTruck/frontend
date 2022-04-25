@@ -50,7 +50,7 @@ const OrderListPage = () => {
         .then((res) => {
           console.log('response 데이터 ' + res.data);
           setOrderList(res.data.data.orderHistoryList);
-          console.log('orderHistoryList 데이터 ' + orderList[0]);
+          console.log('orderHistoryList의 데이터 ' + orderList[0]);
         })
         .catch((err) => console.log(err));
       console.log('getData() complete');
