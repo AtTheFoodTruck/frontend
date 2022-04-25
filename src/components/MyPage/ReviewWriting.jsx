@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { AiFillStar } from "react-icons/ai";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Rating from "./star/Rating";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import _ from "lodash";
 import axios from "axios";
-
+import ImgUpload from "./ImgUpload";
 const ReviewWritinghWrapper = styled.div`
   position: absolute;
   align-items: center;
@@ -22,13 +21,6 @@ const ReviewWritinghWrapper = styled.div`
     font-size: 0.95rem;
   }
 `;
-const Card = styled.div`
-  img {
-    width: 230px;
-    height: 200px;
-    margin-bottom: 15px;
-  }
-`;
 
 //TODO
 //주문내역 props ( orderId,Store_name,menu) 받아서 출력
@@ -37,7 +29,7 @@ const Card = styled.div`
 const ReviewWriting = ({ store_name, menu }) => {
   const navigate = useNavigate();
   const contnetInput = useRef();
-
+  const [loaded, setLoaded] = useState(false);
   const [state, setState] = useState({
     user_id: null,
 
@@ -47,7 +39,6 @@ const ReviewWriting = ({ store_name, menu }) => {
     rating: 0,
   });
   //image 상태
-  const [loaded, setLoaded] = useState(false);
 
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
@@ -96,7 +87,8 @@ const ReviewWriting = ({ store_name, menu }) => {
     const text = e.target.value;
     inputDebounce(text);
   };
-
+  //
+  //img input
   //img input
   const handleImgInput = (e) => {
     e.preventDefault();
@@ -114,7 +106,9 @@ const ReviewWriting = ({ store_name, menu }) => {
       setLoaded(true);
     };
   };
-
+  //img input
+  //img input
+  //
   const getRating = (score) => {
     setState({
       ...state,
@@ -158,22 +152,13 @@ const ReviewWriting = ({ store_name, menu }) => {
         {/* 리뷰 입력 줄 */}
         <Row className="mt-5">
           <Col className="d-flex align-items-center">
-            <Form.Group controlId="formFile" className="mb-3 ">
-              <Card class="card">
-                {loaded === false || loaded === true ? (
-                  <img src={state.img_file}></img>
-                ) : (
-                  <span>이미지 불러오는 중</span>
-                )}
-              </Card>
-              <Form.Control
-                type="file"
-                accept="image/*"
-                name="img_url"
-                onChange={handleImgInput}
-              />
-            </Form.Group>
+            {/*  */}
+            <ImgUpload setState={setState} />
+            {/* 이미지 처리 -> S3 Upload */}
+            {/* 이미지 S3 컴포넌트 */}
           </Col>
+          {/* 이미지 처리 -> S3 Upload */}
+          {/*  */}
           <Col lg={8}>
             <div class="form-group">
               <textarea
