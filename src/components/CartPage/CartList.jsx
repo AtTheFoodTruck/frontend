@@ -2,6 +2,10 @@ import CartListItem from './CartListItem';
 
 // Q. 받아와야 할 장바구니 아이템 데이터: 메뉴이미지, 메뉴 단가, 메뉴명
 const CartList = ({ cartlist, handTotalPrice, onRemove }) => {
+  console.log('cartList ' + cartlist);
+  console.log('handTotalPrice ' + handTotalPrice);
+  console.log('cartList ' + cartlist);
+
   return (
     <span className='list'>
       {cartlist.map((cartlist) => (

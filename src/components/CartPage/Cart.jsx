@@ -9,6 +9,7 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+  const [storeName, setStoreName] = useState('');
   const authorization = localStorage.getItem('Authorization');
   const userId = localStorage.getItem('userId');
   const size = 4;
@@ -46,6 +47,7 @@ const Cart = () => {
         )
         .then((res) => {
           console.log('response 데이터 ' + res.data);
+          setStoreName(res.data.data.storeName);
           setCartList(res.data.data.cartList);
           console.log('orderHistoryList 데이터 ' + cartList);
         })
@@ -91,10 +93,7 @@ const Cart = () => {
     <CartWrapper>
       <Container className='mt-5'>
         <h1 className='text-center'>Cart</h1>
-        {cartList.map((it) => (
-          <h4 key={it.storeName}>{it.storeName}</h4>
-        ))}
-
+        <h4> {storeName} </h4>
         <Row className='d-flex justify-content-evenly mt-5'>
           <Col lg={5}></Col>
           <Col className='d-flex justify-content-center p-0 ms-5 me-4'>
