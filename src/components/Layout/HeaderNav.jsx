@@ -73,8 +73,10 @@ const HeaderNav = () => {
         </li>
 
         {!isAuthorized ? (
-          <li>
-            test
+          <li className="nav-item">
+              <div onClick={onClickLogout}>
+                logout
+              </div>
           </li>
         ) : (
           <li className="nav-item">
