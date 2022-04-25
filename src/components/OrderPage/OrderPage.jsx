@@ -22,8 +22,7 @@ const OrderPage = () => {
   //Axios 가게 정보 GET
   async function fetchDetails() {
     const foodtruck = await axios.get(
-      // `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
-      `https://apifood.blacksloop.com/`,
+      `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
       { headers }
     );
     setDetails(foodtruck.data.data);
@@ -32,8 +31,7 @@ const OrderPage = () => {
   //Axios가게 메뉴 목록 GET
   async function fetchDetailsMenu() {
     const foodtruck = await axios.get(
-      // `  http://localhost:8000/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
-      `https://apifood.blacksloop.com/`,
+      `https://apifood.blacksloop.com/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
       { headers }
     );
     setDetailsMenu(foodtruck.data.data);
