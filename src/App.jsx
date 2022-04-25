@@ -18,9 +18,12 @@ import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
 import OrderPage from "./components/OrderPage/OrderPage";
+import SearchList from "./components/SearchListPage/SearchList";
+import { SearchContextProvider } from "./Context/SearchContext";
 
 function App() {
   return (
+    // <SearchContextProvider>
     <Routes>
       <Route path="/profile" element={<ProFile />} />
       <Route element={<Layout />}>
@@ -35,9 +38,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/member-register" element={<MemberRegister />} />
         <Route path="/owner-register" element={<OwnerRegister />} />
+        <Route path="/search-list" element={<SearchList />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
+    // </SearchContextProvider>
   );
 }
 
