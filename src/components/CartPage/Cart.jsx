@@ -3,6 +3,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import CartList from './CartList';
 import axios from 'axios';
+import _, { toInteger } from 'lodash';
 
 const Cart = () => {
   const [cartList, setCartList] = useState([]);
@@ -24,10 +25,12 @@ const Cart = () => {
     setInitPrice(initPrice + price);
   };
 
-  const initPriceHandle = (initPriceParam) =>
-    setInitPrice(initPrice + initPriceParam);
+  // 총 가격 세팅
+  const initPriceHandle = (initPriceParam) => {
+    setInitPrice(prev => prev +initPriceParam);
+  }
 
-  useEffect(() => {
+  useEffect(() => { 
     const getTotalPage = async () => {
       await axios
         .get(
@@ -35,7 +38,6 @@ const Cart = () => {
           { headers }
         )
         .then((res) => {
-          console.log(res);
           setTotalPage(res.data.data.page.totalPage);
         })
         .catch((err) => console.log(err));
@@ -51,6 +53,7 @@ const Cart = () => {
           { headers }
         )
         .then((res) => {
+          console.log(res.data);
           setStoreName(res.data.data.storeName);
           setCartList(res.data.data.cartList);
         })
@@ -124,6 +127,7 @@ const Cart = () => {
           <Row className='text-end mt-5'>
             {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
             <h4>총 금액 : {initPrice.toLocaleString()}</h4>
+            
           </Row>
         </Row>
 

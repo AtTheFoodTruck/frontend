@@ -16,8 +16,10 @@ const CartListItem = ({
   const userId = localStorage.getItem('userId');
   // const orderItemId = orderItemId;
   const [number, setNumber] = useState(count);
-  const [unitPrice, setUnitPrice] = useState(totalPrice);
+  const [unitPrices, setUnitPrices] = useState(totalPrice);
+  const [itemUnitPrices, setItemUnitPrices] = useState(unitPrice);
   const [price, setPrice] = useState(0);
+  const [initPrice, setInitPrice] = useState(0);
   const accessToken = localStorage.getItem('Authorization');
 
   const headers = {
@@ -40,10 +42,9 @@ const CartListItem = ({
         headers: headers,
       }
     );
-    setNumber(number + 1);
-    setPrice(price + unitPrice);
-    console.log('토탈 프라이스 ' + price);
-    handTotalPrice(unitPrice);
+    setNumber(number + 1); // 수량 증가
+    setUnitPrices(prev => prev + itemUnitPrices); // totalPrice 값 증가
+    handTotalPrice(itemUnitPrices);  // 총 금액 조정 함수 호출
   };
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
@@ -61,9 +62,9 @@ const CartListItem = ({
       setNumber(0);
       setPrice(0);
     } else {
-      setNumber(number - 1);
-      setPrice(price - unitPrice);
-      handTotalPrice.handTotalPrice(-1 * unitPrice);
+      setNumber(number - 1); // 수량 감소
+      setUnitPrices(prev => prev - itemUnitPrices); // totalPrice 값 증가
+      handTotalPrice(-1 * itemUnitPrices);  // 총 금액 조정 함수 호출
     }
   };
 
@@ -108,7 +109,7 @@ const CartListItem = ({
           </Col>
           <Col className='d-flex align-items-center ms-5'>
             {/* {price.toLocaleString()} */}
-            {totalPrice}
+            {unitPrices}
           </Col>
           <Col>
             <Button onClick={handleClickRemove}>삭제</Button>

@@ -41,7 +41,11 @@ const OrderListItem = ({
         <p>{storeId}</p>
       </Col>
       <Col className='ReviewBtn'>
-        <Link to='/review-writing'>
+        {/* <Link to='/review-writing'> */}
+        <Link to='/review-writing' state={{
+            orderId: orderId,
+            storeName: storeName,
+            itemName: orderItems[0].itemName}}>
           <Button variant='outline-secondary'>리뷰쓰기</Button>{' '}
         </Link>
       </Col>
