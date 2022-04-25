@@ -4,7 +4,8 @@ const HomePagination = ({ postsPerPage, totalPosts, paginate }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
+    pageNumbers.push(i); //totalPosts 100 / postsPerPage 8
+    //Math.ceil() 함수는 주어진 숫자보다 크거나 같은 숫자 중 가장 작은 숫자를 integer 로 반환합니다.
   }
 
   return (

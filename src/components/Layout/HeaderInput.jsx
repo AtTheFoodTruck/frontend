@@ -88,4 +88,13 @@ const HeaderInput = () => {
   );
 };
 
+const Inputform = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 51%;
+  width: 15%;
+  //input창 중앙으로
+`;
+
 export default HeaderInput;
