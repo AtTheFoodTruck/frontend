@@ -80,13 +80,13 @@ const ReviewWriting = ({ store_name, menu }) => {
     };
   };
   //이미지 업로드 진행
-  const handleImgUpload = (e) => {
-    const file = e.target.files[0];
+  const handleImgUpload = (file) => {
+    // const file = e.target.files[0];
     const upload = new AWS.S3.ManagedUpload({
       params: {
         ACL: "public-read",
         Body: file,
-        Bucket: "test-img-jh",
+        Bucket: process.env.REACT_APP_S3_BUCKET,
         Key: "upload/" + file.name,
       },
     });
@@ -95,6 +95,7 @@ const ReviewWriting = ({ store_name, menu }) => {
 
     promise.then(
       function (data) {
+        console.log(data.Location);
         console.log("이미지 업로드에 성공했습니다.");
       },
       function (err) {
@@ -115,7 +116,7 @@ const ReviewWriting = ({ store_name, menu }) => {
           rating: rating,
           //이미지 파일 오류
           // review_img_url: img_file,
-          review_img_url: "img파일",
+          review_img_url: `https://[버킷명].s3.ap-northeast-2.amazonaws.com/[파일명].jpg`,
           content: content,
         },
         { headers }
@@ -123,7 +124,7 @@ const ReviewWriting = ({ store_name, menu }) => {
       .then((response) => {
         console.log(response);
         console.log("저장 성공");
-        navigate(-1);
+        // navigate(-1);
       })
       .catch((err) => console.log(err.response));
   };
@@ -230,7 +231,7 @@ const ReviewWriting = ({ store_name, menu }) => {
             size="mg"
             class="btn btn-outline-secondary"
             variant="outline-secondary"
-            onClick={handleSubmit}
+            onClick={() => handleSubmit(imgURL)}
           >
             리뷰등록
           </button>{" "}
