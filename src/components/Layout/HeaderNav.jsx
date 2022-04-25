@@ -14,6 +14,15 @@ const NavR = styled.div`
 const HeaderNav = () => {
   const [dropdown, setDropdown] = useState(false);
 
+  const Authorization = localStorage.getItem("Authorization");
+  
+
+  const onClickLogout = () => {
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("userId");
+    window.location.replace("/");
+  };
+
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
       setDropdown(false);
@@ -62,11 +71,18 @@ const HeaderNav = () => {
           </Link>
           {dropdown && <DropDown />}
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">
-            login
-          </Link>
-        </li>
+        
+        {!isAuthorized ? (
+          <li>
+            test
+          </li>
+        ) : (
+          <li className="nav-item">
+            <Link className="nav-link" to="/login">
+              login
+            </Link>
+          </li>)
+        }
       </ul>
     </NavR>
   );
