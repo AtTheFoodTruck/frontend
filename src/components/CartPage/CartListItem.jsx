@@ -75,14 +75,14 @@ const CartListItem = (cartlist, handTotalPrice, onRemove) => {
           <Card style={{ width: '8rem', height: '8rem' }}>
             <Card.Img
               variant='top'
-              src={cartlist.itemImgUrl}
+              src={cartlist[0].itemImgUrl}
               style={{ width: '7.5rem', height: '7.5rem' }}
             />
           </Card>
         </Col>
         <Col lg={6} className='d-flex justify-content-start'>
           <Col className='d-flex align-items-center me-5'>
-            {cartlist.itemName}
+            {cartlist[0].itemName}
           </Col>
           <Col className='d-flex align-items-center ms-3 me-5'>
             <Button onClick={decreaseNumber} variant='outline-secondary'>
