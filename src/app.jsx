@@ -15,6 +15,8 @@ import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import SearchList from "./components/SearchListPage/SearchList";
 import { SearchContextProvider } from "./Context/SearchContext";
+import MemberRegister from "./components/RegisterPage/MemberRegister";
+import OwnerRegister from "./components/RegisterPage/OwnerRegister";
 
 function App() {
   return (
