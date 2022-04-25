@@ -12,6 +12,14 @@ const OrderPage = () => {
   const [cart, setCart] = useState([]);
   const [getcount, setGetCount] = useState({});
 
+  //Load more
+  const [postsPerPage, setPostsPerPage] = useState(4); //페이지당 게시물
+  const [filteredMenu, setFilteredMenu] = useState([]);
+  const currentPosts = filteredMenu.slice(0, postsPerPage);
+  const loadMore = () => {
+    setPostsPerPage(postsPerPage + 4);
+  };
+
   //토큰
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
@@ -35,10 +43,10 @@ const OrderPage = () => {
       `  http://localhost:8000/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
       { headers }
     );
-    setDetailsMenu(foodtruck.data.data);
-    console.log(foodtruck);
-    console.log(foodtruck.data);
-    console.log(foodtruck.data.data);
+    setDetailsMenu(foodtruck.data.data.itemsDto);
+    setFilteredMenu(foodtruck.data.data.itemsDto);
+
+    console.log(foodtruck.data.data.itemsDto);
 
     // console.log(foodtruck.data.data.itemsDto);
   }
@@ -142,8 +150,8 @@ const OrderPage = () => {
       <section className="Menus container mt-4">
         <h4>Menu</h4>
         <div className="MenuList row gx-4 gx-lg-5  row-cols-md-3 row-cols-xl-4  text-center">
-          {detailsMenu.itemsDto &&
-            detailsMenu.itemsDto.map((item) => {
+          {currentPosts &&
+            currentPosts.map((item) => {
               return (
                 <OrderPageMenu
                   key={item.itemId}
@@ -153,12 +161,11 @@ const OrderPage = () => {
                 />
               );
             })}
-          <Cart cart={cart} setCart={setCart}></Cart>
         </div>
       </section>
       {/* TODO - LOAD MORE Button */}
       <button
-        // onClick={() => loadMore()}
+        onClick={() => loadMore()}
         className="btn btn-dark d-block w-100 mt-5 mb-5"
       >
         Load More

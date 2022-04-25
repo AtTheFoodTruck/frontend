@@ -46,7 +46,7 @@ const OrderPageMenu = ({ storeId, item, handleClick }) => {
 
   return (
     <>
-      <div className="MenuItems col">
+      <div className="MenuItems col mb-3">
         <div className="MenuItem card">
           <img
             // src={item.itemImg}
