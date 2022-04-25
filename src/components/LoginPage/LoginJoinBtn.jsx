@@ -12,6 +12,7 @@ const LoginBtnContainer = styled.div`
 const LoginJoinBtn = () => {
   return (
     <LoginBtnContainer>
+<<<<<<< HEAD
           <Link to='/member-register'>
               <button className='btn btn-outline-secondary'>
               개인 가입
@@ -23,6 +24,15 @@ const LoginJoinBtn = () => {
               사장 가입
               </button>
           </Link>
+=======
+      <Link to="/member-register">
+        <button className="btn btn-outline-secondary">개인 가입</button>
+      </Link>
+
+      <Link to="/owner-register">
+        <button className="btn btn-outline-secondary">사장 가입</button>
+      </Link>
+>>>>>>> origin/feature-review_history
     </LoginBtnContainer>
   );
 };
