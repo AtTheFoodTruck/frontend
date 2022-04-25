@@ -14,7 +14,7 @@ const NavR = styled.div`
 const HeaderNav = () => {
   const [dropdown, setDropdown] = useState(false);
 
-  const Authorization = localStorage.getItem("Authorization");
+  const isAuthorized = localStorage.getItem("Authorization");
   
 
   const onClickLogout = () => {
@@ -71,7 +71,7 @@ const HeaderNav = () => {
           </Link>
           {dropdown && <DropDown />}
         </li>
-        
+
         {!isAuthorized ? (
           <li>
             test
