@@ -10,47 +10,57 @@ const OrderPage = () => {
   const [details, setDetails] = useState({});
   const [detailsMenu, setDetailsMenu] = useState({});
   const [cart, setCart] = useState([]);
-  const [number, setNumber] = useState(0);
+  const [getcount, setGetCount] = useState({});
 
-  // //토큰
-  // const accessToken = localStorage.getItem("Authorization");
-
-  // const headers = {
-  //   Authorization: `Bearer ${accessToken}`,
-  // };
+  //토큰
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${authorization}`,
+  };
 
   // TODO - https://apifood.blacksloop.com/ dvelop푸시할때 변경하기
   //Axios 가게 정보 GET
   async function fetchDetails() {
     const foodtruck = await axios.get(
-      `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=10`,
-      {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlckBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTYwMzM0fQ.2A8AYlGJcmwpJatYDbnP7cNBMTDxBZTZOwC9aGnDYSO7zs3CLFbrG5iT9j8hYiU3K6V2fcbhILLEKw-FaxX1AQ`,
-        },
-      }
+      `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
+      { headers }
     );
     setDetails(foodtruck.data.data);
-    // console.log(foodtruck.data.data);
   }
+
   //Axios가게 메뉴 목록 GET
   async function fetchDetailsMenu() {
     const foodtruck = await axios.get(
-      // `http://localhost:8000/item-service/items/v1/owner/item/1?page=0&size=2`,
-      `  http://localhost:8000/item-service/items/v1/owner/item/${params.storeId}?page=0&size=8`,
-      {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0b3duZXJAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfTUFOQUdFUiIsImV4cCI6MTY1MDgwNTYxOX0.1fVLo4bsRExaC0NzP7PjyYH3tq-eYFsm-vL0ba33BhTHiLUBPyqgkLdHoRsE4heojjSfa-dtv3Z8OkEDQAzhdg`,
-        },
-      }
+      `  http://localhost:8000/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
+      { headers }
     );
     setDetailsMenu(foodtruck.data.data);
     console.log(foodtruck);
     console.log(foodtruck.data);
     console.log(foodtruck.data.data);
 
-    console.log(foodtruck.data.data.itemsDto);
+    // console.log(foodtruck.data.data.itemsDto);
   }
+  /**
+   * Promise는 프로미스가 생성된 시점에는 알려지지 않았을 수도 있는 값을 위한 대리자로,
+   * 비동기 연산이 종료된 이후에 결과 값과 실패 사유를 처리하기 위한 처리기를 연결할 수 있습니다.
+   * await연산자는 Promise를 기다리기 위해 사용됩니다. 연산자는 async function 내부에서만 사용할 수 있습니다.
+   * await 키워드를 만나면 프라미스가 처리(settled)될 때까지 기다립니다. 결과는 그 이후 반환됩니다.
+   * async가 붙은 함수는 반드시 프라미스를 반환하고, 프라미스가 아닌 것은 프라미스로 감싸 반환합니다.
+   * 프라미스가 처리가 완료되어 resolve(값) 되면 값만 따로 추출해서 리턴한다.
+   */
+  //TODO장바구니 가져오기
+  async function getCart() {
+    const foodtruck = await axios.get(
+      `http://localhost:8000/order-service/orders/v1/customer/carts/${params.storeId}?page=0&size=20`,
+      { headers }
+    );
+    setGetCount(foodtruck.data.data.cartList);
+    console.log("장바구니 가져오기 =" + foodtruck);
+    console.log(foodtruck.data.data.cartList);
+  }
+
   //fetch  예제 소스
   // const fetchDetails = async () => {
   //   const data = await fetch(
@@ -66,22 +76,13 @@ const OrderPage = () => {
     //인덱스를 반환하고 존재하지 않으면 -1을 반환합니다.
     if (cart.indexOf(item) !== -1) return;
     setCart([...cart, item]);
-    console.log(item);
+
     console.log(cart);
   };
-
-  const increaseNumber = () => {
-    //메뉴 갯수 1개 증가
-    setNumber(number + 1);
-  };
-  const decreaseNumber = () => {
-    //메뉴 갯수 1개 감소
-    if (number <= 0) {
-      setNumber(0);
-    } else {
-      setNumber(number - 1);
-    }
-  };
+  // //Load More
+  // const loadMore = () => {
+  //   setPostsPerPage(postsPerPage + 4);
+  // };
 
   useEffect(() => {
     fetchDetails(params.storeId);
@@ -105,8 +106,12 @@ const OrderPage = () => {
 
       {/* Navigation Bar */}
       <section className="Navbar container text-center mt-5">
-        <button type="button" className="btn btn-outline-secondary">
-          notice
+        <button
+          type="button"
+          onClick={getCart}
+          className="btn btn-outline-secondary"
+        >
+          장바구니 가져오기
         </button>
         <button type="button" className="btn btn-outline-secondary ms-4 me-4">
           menu
@@ -134,7 +139,6 @@ const OrderPage = () => {
       </section>
 
       {/* MenuList */}
-
       <section className="Menus container mt-4">
         <h4>Menu</h4>
         <div className="MenuList row gx-4 gx-lg-5  row-cols-md-3 row-cols-xl-4  text-center">
@@ -145,9 +149,7 @@ const OrderPage = () => {
                   key={item.itemId}
                   item={item}
                   handleClick={handleClick}
-                  increaseNumber={increaseNumber}
-                  decreaseNumber={decreaseNumber}
-                  number={number}
+                  storeId={details.storeId}
                 />
               );
             })}
@@ -155,11 +157,13 @@ const OrderPage = () => {
         </div>
       </section>
       {/* TODO - LOAD MORE Button */}
-      {/* <button>하이</button> */}
+      <button
+        // onClick={() => loadMore()}
+        className="btn btn-dark d-block w-100 mt-5 mb-5"
+      >
+        Load More
+      </button>
     </StoreWrapper>
-    //   <CartContext.Provider value={{ cart, setCart }}>
-    //   <Cart />
-    // </CartContext.Provider>
   );
 };
 

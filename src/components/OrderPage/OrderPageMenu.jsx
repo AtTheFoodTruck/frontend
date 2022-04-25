@@ -1,13 +1,49 @@
 import React, { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
+import axios from "axios";
 
-const OrderPageMenu = ({
-  item,
-  handleClick,
-  increaseNumber,
-  decreaseNumber,
-  number,
-}) => {
+const OrderPageMenu = ({ storeId, item, handleClick }) => {
+  //컴포넌트마다 가지고 있어야하는 상태
+  const [number, setNumber] = useState(0);
+
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
+  const headers = {
+    Authorization: `Bearer ${authorization}`,
+  };
+
+  //TODO장바구니 추가
+  async function postCart(item) {
+    const data = {
+      user_id: userId,
+      store_id: storeId,
+      item_id: item.itemId,
+      price: item.price,
+      count: number,
+    };
+
+    await axios.post(
+      "http://localhost:8000/order-service/orders/v1/customer/carts",
+      data,
+      { headers }
+    );
+    console.log(data);
+  }
+
+  //메뉴 갯수 1개 증가
+  const increaseNumber = (num) => {
+    setNumber(num + 1);
+  };
+
+  //메뉴 갯수 1개 감소
+  const decreaseNumber = (num) => {
+    if (num <= 0) {
+      setNumber(0);
+    } else {
+      setNumber(num - 1);
+    }
+  };
+
   return (
     <>
       <div className="MenuItems col">
@@ -47,7 +83,7 @@ const OrderPageMenu = ({
                 -
               </button>
               <button
-                onClick={() => handleClick(item)}
+                onClick={() => postCart(item)}
                 className="btn btn-outline-primary"
               >
                 <FaCartPlus />
