@@ -15,7 +15,7 @@ const Section = styled.section`
 
 const HeaderInput = () => {
   const [word, setWord] = useState("");
-  const { setSearch } = useSearchContext();
+  // const { setSearch } = useSearchContext();
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -48,7 +48,7 @@ const HeaderInput = () => {
   //handleMessage
   const handleSearch = () => {
     if (word != "") {
-      setSearch(word);
+      // setSearch(word);
       navigate("/search-list");
       onReset();
     } else {
