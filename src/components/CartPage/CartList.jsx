@@ -22,8 +22,8 @@ const CartList = ({ cartList, handTotalPrice, onRemove }) => {
   );
 };
 
-CartList.defaultProps = {
-  cartList: [],
-};
+// CartList.defaultProps = {
+//   cartList: [],
+// };
 
 export default CartList;
