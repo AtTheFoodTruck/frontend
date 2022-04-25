@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-const CartListItem = (props, id) => {
+const CartListItem = (cartlist, handTotalPrice, onRemove) => {
+  const userId = localStorage.getItem('userId');
+  const orderItemId = cartlist.orderItemId;
   const [number, setNumber] = useState(0);
-  const [unitPrice, setUnitPrice] = useState(props.price);
+  const [unitPrice, setUnitPrice] = useState(cartlist.totalPrice);
   const [price, setPrice] = useState(0);
   const accessToken = localStorage.getItem('Authorization');
 
@@ -15,10 +17,9 @@ const CartListItem = (props, id) => {
   const increaseNumber = () => {
     //메뉴 갯수 1개 증가
     axios.patch(
-      `http://localhost:8000/user-service/orders/v1/customer/carts`,
+      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
       {
-        order_id: id,
-        order_item_id: 2,
+        order_item_id: orderItemId,
         plus_minus: true,
       },
       {
@@ -27,15 +28,14 @@ const CartListItem = (props, id) => {
     );
     setNumber(number + 1);
     setPrice(price + unitPrice);
-    props.handTotalPrice(unitPrice);
+    handTotalPrice.handTotalPrice(unitPrice);
   };
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
     axios.patch(
-      `http://localhost:8000/user-service/orders/v1/customer/carts`,
+      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
       {
-        order_id: id,
-        order_item_id: 2,
+        order_item_id: orderItemId,
         plus_minus: false,
       },
       {
@@ -48,24 +48,23 @@ const CartListItem = (props, id) => {
     } else {
       setNumber(number - 1);
       setPrice(price - unitPrice);
-      props.handTotalPrice(-1 * unitPrice);
+      handTotalPrice.handTotalPrice(-1 * unitPrice);
     }
   };
 
   //메뉴 삭제
   const handleClickRemove = () => {
     axios.delete(
-      `http://localhost:8000/user-service/orders/v1/customer/carts`,
+      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
       {
-        user_id: 1,
-        order_item_id: id,
+        user_id: userId,
+        order_item_id: orderItemId,
       },
       {
         //header
         headers: headers,
       }
     );
-    // onpointermove(id);
   };
 
   return (
@@ -76,13 +75,15 @@ const CartListItem = (props, id) => {
           <Card style={{ width: '8rem', height: '8rem' }}>
             <Card.Img
               variant='top'
-              src={props.image}
+              src={cartlist.itemImgUrl}
               style={{ width: '7.5rem', height: '7.5rem' }}
             />
           </Card>
         </Col>
         <Col lg={6} className='d-flex justify-content-start'>
-          <Col className='d-flex align-items-center me-5'>{props.menu}</Col>
+          <Col className='d-flex align-items-center me-5'>
+            {cartlist.itemName}
+          </Col>
           <Col className='d-flex align-items-center ms-3 me-5'>
             <Button onClick={decreaseNumber} variant='outline-secondary'>
               -
