@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DropDown from "../MyPage/DropDown";
@@ -8,11 +8,24 @@ const NavR = styled.div`
   justify-content: end;
   margin-right: 90px;
 
+  .logout{
+    cursor: pointer;
+  }
+
   //네비게이션 메뉴바 오른쪽 정렬
 `;
 
 const HeaderNav = () => {
   const [dropdown, setDropdown] = useState(false);
+
+  let isAuthorized = localStorage.getItem("Authorization");
+  
+
+  const onClickLogout = () => {
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("userId");
+    window.location.replace("/");
+  };
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -62,11 +75,21 @@ const HeaderNav = () => {
           </Link>
           {dropdown && <DropDown />}
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/login">
-            login
-          </Link>
-        </li>
+        
+        {!isAuthorized ? (
+          <li className="nav-item">
+            <Link className="nav-link" to="/login">
+              login
+            </Link>
+          </li>  
+        ) : (
+          <li className="nav-item">
+            <div onClick={onClickLogout} className="nav-link logout">
+            logout
+            </div>
+          </li>
+        )}
+             
       </ul>
     </NavR>
   );

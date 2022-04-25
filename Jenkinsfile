@@ -15,8 +15,6 @@ pipeline {
         script {
           docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
             frontend.push("latest")
-            frontend.push("${BUILD_NUMBER}")
-
           }
         }
 
