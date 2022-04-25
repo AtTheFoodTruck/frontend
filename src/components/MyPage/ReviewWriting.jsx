@@ -41,8 +41,7 @@ const ReviewWriting = ({ store_name, menu }) => {
   const [state, setState] = useState({
     user_id: null,
     content: "",
-    // img_url: "",
-    // img_file: "img/default_image.png",
+    review_img_url: "",
     rating: 0,
   });
 
@@ -96,6 +95,11 @@ const ReviewWriting = ({ store_name, menu }) => {
     promise.then(
       function (data) {
         console.log(data.Location);
+        const reviewImgUrl = data.Location;
+        setState({
+          ...state,
+          review_img_url: reviewImgUrl,
+        });
         console.log("이미지 업로드에 성공했습니다.");
       },
       function (err) {
@@ -105,18 +109,17 @@ const ReviewWriting = ({ store_name, menu }) => {
     );
   };
 
-  const onCreate = (content, rating) => {
+  const onCreate = (content, rating, reviewImgUrl) => {
     // console.log("Params => orderId : ", orderId);
     axios
       .post(
         url,
         {
           user_id: userId,
+          //TODO 변수 확인
           order_id: 39,
           rating: rating,
-          //이미지 파일 오류
-          // review_img_url: img_file,
-          review_img_url: `https://[버킷명].s3.ap-northeast-2.amazonaws.com/[파일명].jpg`,
+          review_img_url: reviewImgUrl,
           content: content,
         },
         { headers }
@@ -124,7 +127,7 @@ const ReviewWriting = ({ store_name, menu }) => {
       .then((response) => {
         console.log(response);
         console.log("저장 성공");
-        // navigate(-1);
+        navigate(-1);
       })
       .catch((err) => console.log(err.response));
   };
@@ -154,10 +157,10 @@ const ReviewWriting = ({ store_name, menu }) => {
   const handleSubmit = (imgURL) => {
     if (state.content.length < 1) {
       contentInput.current.focus();
-      return;
+      return alert("리뷰 내용을 입력해주세요!");
     }
     handleImgUpload(imgURL);
-    onCreate(state.content, state.img_file, state.rating);
+    onCreate(state.content, state.rating, state.review_img_url);
     // console.log(state);
   };
 
