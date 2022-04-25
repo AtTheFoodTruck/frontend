@@ -7,13 +7,13 @@ const CartList = ({ cartList, handTotalPrice, onRemove }) => {
 
   return (
     <span className='list'>
-      {cartList.map((cartList2) => (
+      {cartList.map((cartList) => (
         <CartListItem
-          key={cartList2.orderItemId}
-          id={cartList2.orderItemId}
-          image={cartList2.itemImgUrl}
-          menu={cartList2.itemName}
-          price={cartList2.totalPrice}
+          key={cartList.orderItemId}
+          id={cartList.orderItemId}
+          image={cartList.itemImgUrl}
+          menu={cartList.itemName}
+          price={cartList.totalPrice}
           handTotalPrice={handTotalPrice}
           onRemove={onRemove}
         />
