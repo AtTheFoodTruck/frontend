@@ -1,20 +1,33 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { AiFillStar } from "react-icons/ai";
+import StarRating from "../MyPage/StarRating";
 import styled from "styled-components";
 
-const SearchBar = ({ card }) => {
+const SearchResult = ({ store }) => {
   // store list
   // console.log(card);
-  const { id, category, item, store_img, store_name, rating } = card;
+  const { storeId, storeImgUrl, storeName, avgRating } = store;
+  // console.log("storeId = " + storeId);
+  // console.log("storeImgUrl = " + storeImgUrl);
+  // console.log("storeName = " + storeName);
+  // console.log("avgRating = " + avgRating);
+  // console.log("----------");
   return (
-    <Row className="d-inline-flex p-2 mt-5" key={id}>
+    <Row className="d-inline-flex p-2 mt-5" key={storeId}>
       <Col>
         <Card style={{ width: "13rem" }}>
-          <Card.Img variant="top" src={store_img} />
+          <Card.Img
+            variant="top"
+            src={
+              storeImgUrl == ""
+                ? "https://nenechicken.com/17_new/images/menu/30037.jpg"
+                : storeImgUrl
+            }
+          />
           <Card.Body className="text-center">
-            <Card.Title>{store_name}</Card.Title>
+            <Card.Title>{storeName}</Card.Title>
             <Card.Text>
-              <AiFillStar className="text-warning" /> {rating}
+              <StarRating rating={avgRating} />
             </Card.Text>
           </Card.Body>
         </Card>
@@ -23,4 +36,4 @@ const SearchBar = ({ card }) => {
   );
 };
 
-export default SearchBar;
+export default SearchResult;

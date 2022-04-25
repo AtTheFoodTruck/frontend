@@ -3,8 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styled from "styled-components";
-import { useSearchContext } from "../Context/SearchContext";
+import { useSearchContext } from "../../Context/SearchContext";
 import SearchResult from "./SearchResult";
+import SearchPagination from "./SearchPagination";
 const SearchWrapper = styled.div`
   position: absolute;
   align-items: center;
@@ -14,69 +15,66 @@ const SearchWrapper = styled.div`
 `;
 
 const SearchList = () => {
-  const storeList = [
-    {
-      id: 1,
-      store_name: "aa분식",
-      category: "분식",
-      item: "떡볶이",
-      store_img: "https://dummyimage.com/600x400/000/0011ff.jpg&text=test",
-      rating: 3,
-    },
-    {
-      id: 2,
-      store_name: "bb분식",
-      category: "양식",
-      item: "튀김",
-      store_img: "https://dummyimage.com/600x400/000/2734f2.jpg&text=test",
-      rating: 4,
-    },
-    {
-      id: 3,
-      store_name: "cc분식",
-      category: "한식",
-      item: "순대",
-      store_img: "https://dummyimage.com/600x400/000/6a86eb.jpg&text=test",
-      rating: 5,
-    },
-    {
-      id: 4,
-      store_name: "dd분식",
-      category: "경양식",
-      item: "김밥",
-      store_img: "https://dummyimage.com/600x400/000/befa99.jpg&text=test",
-      rating: 4,
-    },
-    {
-      id: 5,
-      store_name: "ee분식",
-      category: "샐러드",
-      item: "어묵",
-      store_img: "https://dummyimage.com/600x400/000/fffaa1.jpg&text=test",
-      rating: 3,
-    },
-  ];
-  // 검색어,리스트 데이터
-  const [data, setData] = useState([]);
-  const { search } = useSearchContext();
-  //
+  const authorization = localStorage.getItem("Authorization");
+  const headers = {
+    Authorization: `Bearer ${authorization}`,
+  };
 
-  useEffect(() => {
-    axios
-      .get(
-        "http://localhost:8000/item-service/items/v1/search/stores?page=0&size=10 ",
-        { name: data, lattitude: "1782.93", longitutde: "168.156" }
+  // 검색어 가져오기,리스트 데이터
+  const { search } = useSearchContext();
+  const [data, setData] = useState([]);
+  const latitude = localStorage.getItem("latitude");
+  const longitude = localStorage.getItem("longitude");
+
+  //페이징
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const size = 1;
+
+  console.log("검색어 : " + search);
+  //리스트 갯수 확인
+  useEffect(async () => {
+    await axios
+      .post(
+        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
+        {
+          latitude: "1600.93", //localStorage.getItem("latitude");
+          longitude: "150.156", //localStorage.getItem("longitude")
+          name: search,
+        },
+        { headers }
       )
       .then((res) => {
-        setData(res);
+        console.log(res.data);
+        setTotalPage(res.data.data.page.endPage);
       })
       .catch((err) => console.log(err.response));
-  });
+  }, []);
+
+  //가게 리스트 받아오기
+  useEffect(async () => {
+    await axios
+      .post(
+        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
+        {
+          latitude: "1600.93", //localStorage.getItem("latitude");
+          longitude: "150.156", //localStorage.getItem("longitude")
+          name: search,
+        },
+        { headers }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data.data.stores);
+      })
+      .catch((err) => console.log(err.response));
+  }, [search]);
   //
-  const renderList = storeList.map((g) => {
+
+  const renderList = data.map((g) => {
     return (
       <div className="card_container">
-        <SearchResult card={g} />
+        <SearchResult store={g} />
       </div>
     );
   });
@@ -91,6 +89,14 @@ const SearchList = () => {
             <h3 className="mb-5">검색 결과가 없습니다</h3>
           )}
         </article>
+        {/*페이징 처리*/}
+        <SearchPagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPage={totalPage}
+          storeList={data}
+          size={size}
+        />
       </Container>
     </SearchWrapper>
   );

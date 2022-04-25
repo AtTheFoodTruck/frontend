@@ -10,7 +10,12 @@ function StarRating({ rating }) {
     }
     return result;
   };
-  return <Stars>{rendering()}</Stars>;
+  return (
+    <Stars>
+      {rendering()}
+      {rating}점
+    </Stars>
+  );
 }
 
 export default StarRating;
