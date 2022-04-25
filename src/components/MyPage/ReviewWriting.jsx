@@ -1,61 +1,76 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { AiFillStar } from "react-icons/ai";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Rating from "./star/Rating";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import _ from "lodash";
 import axios from "axios";
-
+import ImgUpload from "./ImgUpload";
 const ReviewWritinghWrapper = styled.div`
   position: absolute;
   align-items: center;
-  width: 40%;
+  width: 55%;
   top: 20%;
   left: 30%;
-`;
-const Card = styled.div`
-  img {
-    width: 250px;
-    height: 200px;
-    margin-bottom: 15px;
+  border: 1px white solid;
+  header {
+    border: 1px white solid;
+  }
+  button {
+    font-weight: bold;
+    font-size: 0.95rem;
   }
 `;
 
-const ReviewWriting = () => {
+//TODO
+//주문내역 props ( orderId,Store_name,menu) 받아서 출력
+//img파일 formData 넘어가는지 확인
+
+const ReviewWriting = ({ store_name, menu }) => {
   const navigate = useNavigate();
   const contnetInput = useRef();
-  const imgurlInput = useRef();
-  // const date = new Date().getTime();
-  //dataId = useRef(0)
-
+  const [loaded, setLoaded] = useState(false);
   const [state, setState] = useState({
+    user_id: null,
+
     content: "",
     img_url: "",
     img_file: "img/default_image.png",
     rating: 0,
-    created_date: new Date().getTime(),
-    // created_date: new Date(date).toLocaleString(),
   });
-
   //image 상태
-  const [loaded, setLoaded] = useState(false);
 
-  const onCreate = async (content, img_url, img_file, rating, created_date) => {
-    const newData = {
-      content: content,
-      img_url: img_url,
-      img_file: img_file,
-      rating: rating,
-      
-      // id : dataId.current
-    };
-    console.log(newData);
-    const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
-    await axios
-      .post(url, newData)
-      .then((res) => {
-        console.log(res);
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
+  const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
+
+  //${accessToken}
+  const headers = {
+    Authorization: `Bearer ${authorization}`,
+  };
+
+  const onCreate = (content, img_file, rating) => {
+    console.log("Headers => authorization : ", authorization);
+    console.log("Params => userId : ", userId);
+    // console.log("Params => orderId : ", orderId);
+    axios
+      .post(
+        url,
+        {
+          user_id: userId,
+          order_id: 1,
+          rating: rating,
+          //이미지 파일 오류
+          // review_img_url: img_file,
+          review_img_url: "img파일",
+          content: content,
+        },
+        { headers }
+      )
+      .then((response) => {
+        console.log(response);
+        alert("저장 성공");
+        navigate(-1);
       })
       .catch((err) => console.log(err.response));
   };
@@ -72,31 +87,28 @@ const ReviewWriting = () => {
     const text = e.target.value;
     inputDebounce(text);
   };
-
+  //
+  //img input
+  //img input
   const handleImgInput = (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
-    const imgFile = e.target.files[0];
-    if (imgFile) {
+    if (e.target.files[0]) {
       setLoaded("loading");
-      fileReader.readAsDataURL(imgFile);
+      fileReader.readAsDataURL(e.target.files[0]);
     }
     fileReader.onload = () => {
       setState({
         ...state,
-        [e.target.name]: imgFile,
+        [e.target.name]: e.target.files[0],
         img_file: fileReader.result,
       });
       setLoaded(true);
     };
-
-    // const url = imgFile.name;
-    // console.log(url);
-    // setState({
-    //   ...state,
-    //   [e.target.name]: url,
-    // });
   };
+  //img input
+  //img input
+  //
   const getRating = (score) => {
     setState({
       ...state,
@@ -110,21 +122,8 @@ const ReviewWriting = () => {
       return;
     }
 
-    if (!state.img_url) {
-      imgurlInput.current.focus();
-      return;
-    }
-
-    onCreate(
-      state.content,
-      state.img_url,
-      state.img_file,
-      state.rating,
-      state.created_date
-    );
+    onCreate(state.content, state.img_file, state.rating);
     // console.log(state);
-    alert("저장 성공");
-    navigate(-1);
   };
 
   return (
@@ -134,13 +133,6 @@ const ReviewWriting = () => {
           <h1>리뷰 작성하기</h1>
           {/* TODO  */}
           {/* 퍼블리싱 */}
-          <button
-            type="button"
-            class="btn btn-primary"
-            onClick={() => navigate(-1)}
-          >
-            X
-          </button>
         </header>
 
         <Row className="mt-5">
@@ -153,30 +145,20 @@ const ReviewWriting = () => {
         </Row>
         <hr />
         <Row className="mb-5">
-          <Col>동대문엽기떡볶이</Col>
-          <Col>엽기떡볶이</Col>
+          <Col>{store_name}</Col>
+          <Col>{menu}</Col>
         </Row>
 
         {/* 리뷰 입력 줄 */}
         <Row className="mt-5">
           <Col className="d-flex align-items-center">
-            <Form.Group controlId="formFile" className="mb-3 ">
-              <Card class="card">
-                {loaded === false || loaded === true ? (
-                  <img src={state.img_file}></img>
-                ) : (
-                  <span>이미지 불러오는 중</span>
-                )}
-              </Card>
-              <Form.Control
-                type="file"
-                ref={imgurlInput}
-                accept="image/*"
-                name="img_url"
-                onChange={handleImgInput}
-              />
-            </Form.Group>
+            {/*  */}
+            <ImgUpload setState={setState} />
+            {/* 이미지 처리 -> S3 Upload */}
+            {/* 이미지 S3 컴포넌트 */}
           </Col>
+          {/* 이미지 처리 -> S3 Upload */}
+          {/*  */}
           <Col lg={8}>
             <div class="form-group">
               <textarea
@@ -192,23 +174,34 @@ const ReviewWriting = () => {
             </div>
           </Col>
         </Row>
-        <Row className="mt-5">
-          <p>별점을 매겨주세요</p>
-          <p className="text-warning">
-            {/* <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar /> */}
-            <Rating getRating={getRating} />
-          </p>
+        <Row
+          className="d-flex flex-column justify-content-center mt-5"
+          id="rating"
+        >
+          <div>
+            <p>별점을 매겨주세요</p>
+          </div>
+          <Rating className="rating" getRating={getRating} />
         </Row>
 
         {/* 리뷰등록버튼 */}
         <Row className="d-inline-flex mt-5">
-          <Button size="lg" variant="outline-secondary" onClick={handleSubmit}>
+          <button
+            size="mg"
+            class="btn btn-outline-secondary"
+            variant="outline-secondary"
+            onClick={handleSubmit}
+          >
             리뷰등록
-          </Button>{" "}
+          </button>{" "}
+          <button
+            id="cancle_btn"
+            type="button"
+            class="btn btn-outline-danger"
+            onClick={() => navigate(-1)}
+          >
+            취소
+          </button>
         </Row>
       </Container>
     </ReviewWritinghWrapper>
