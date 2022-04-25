@@ -34,7 +34,7 @@ const ReviewHistory = () => {
     const getTotalPage = async () => {
       await axios
         .get(
-          `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -50,7 +50,7 @@ const ReviewHistory = () => {
     const getData = async () => {
       await axios
         .get(
-          `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -71,7 +71,7 @@ const ReviewHistory = () => {
       };
       axios
         .delete(
-          "http://localhost:8000/order-service/orders/v1/customer/reviews",
+          "https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews",
           { headers, data }
         )
         .then((res) => {
