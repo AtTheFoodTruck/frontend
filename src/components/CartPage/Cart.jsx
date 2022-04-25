@@ -48,8 +48,8 @@ const Cart = () => {
         .then((res) => {
           console.log('response 데이터 ' + res.data);
           setStoreName(res.data.data.storeName);
-          setCartList(res.data.data.cartList);
-          console.log('orderHistoryList 데이터 ' + cartList);
+          setCartList(res.data.data.cartList[0]);
+          console.log('orderHistoryList 데이터 ' + res.data.data.cartList);
         })
         .catch((err) => console.log(err));
       console.log('getData() complete');
