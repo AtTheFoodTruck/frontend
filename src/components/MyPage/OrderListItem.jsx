@@ -10,6 +10,7 @@ const OrderListItem = ({
   orderTime,
   storeId,
 }) => {
+  console.log(orderItems);
   return (
     <Row key={orderId} className='d-flex align-items-center mb-5'>
       <Col className='MenuImg'>
@@ -28,7 +29,7 @@ const OrderListItem = ({
         <p>{storeName}</p>
       </Col>
       <Col className='MenuName'>
-        <p>{orderItems.itemName}</p>
+        <p>{orderItems[0].itemName}</p>
       </Col>
       <Col className='Price'>
         <p>{totalPrice}</p>
