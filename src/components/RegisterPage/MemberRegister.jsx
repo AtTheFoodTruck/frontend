@@ -3,38 +3,74 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-const MemberRegisterContainer = styled.form`
+const MemberRegisterContainer = styled.div`
   padding-top: 250px;
-  width: 20em;
+  width: 25em;
   margin: auto;
-  text-align-last: center;
+    
+  .container{
+    display: grid;
+    grid-template-rows: 1fr 0.2fr;
+    grid-template-columns: 1fr 0.2fr;
+
+    grid-template-areas:
+      "head ."
+      "email mailDuplicate"
+      "password ."
+      "passwordVerification ."
+      "username usernameDuplicate"
+      "phonenumber ."
+      "join .";
+    }
+
+  .head {
+    grid-area: head;
+    margin-top: 0.5em;
+    text-align-last: center;
+  }
 
   .email {
-    text-align-last: left;
-  }
-  .password {
+    grid-area: email;
     margin-top: 0.5em;
-    text-align-last: left;
   }
 
-  .passwordVerification {
-    margin-top: 0.5em;
-    text-align-last: left;
+  .mailDuplicate {
+    grid-area: mailDuplicate;    
   }
 
   .username {
+    grid-area: username;
     margin-top: 0.5em;
-    text-align-last: left;
   }
 
-  .phonenumber {
+  .usernameDuplicate {
+    grid-area: usernameDuplicate;  
+  }
+  
+  .join{
+    grid-area: join;
     margin-top: 0.5em;
-    text-align-last: left;
+  }
+  
+  .phonenumber{
+    grid-area: phonenumber;
+    margin-top: 0.5em;
   }
 
-  btn {
-    margin-top: 2em;
-    width: 100%;
+  .password {
+    grid-area: password;
+    margin-top: 0.5em;
+  }
+
+  .passwordVerification {
+    grid-area: passwordVerification;
+    margin-top: 0.5em;
+  }
+
+  .btn {
+    margin-top: 0.5em;
+    width:100%
+
   }
 `;
 
@@ -89,7 +125,7 @@ const MemberRegister = () => {
           // 입력한 값이 DB에 저장되어 있다면 0(=false)를 반환한다.
           if (response.data.data.userId !== inputEmail) {
             setMailDuplicate(false);
-            alert("사용가능합니다!");
+            console.log(response);                      
           } else {
             alert("다른 메일로 설정 해주세요");
           }
@@ -150,9 +186,12 @@ const MemberRegister = () => {
           phone_num: inputPhonenumber,
         })
         .then(function (response) {
-          alert("가입완료!");
-          console.log(response);
-          navigate("/login", { replace: true });
+          if(response.data.result==="fail"){
+            console.log(response.data.error[0].message);
+          } else {
+            alert("가입 성공")
+            navigate("/login", { replace: true });
+          }        
         })
         .catch(function (error) {
           console.log(error);
@@ -162,8 +201,11 @@ const MemberRegister = () => {
 
   return (
     <MemberRegisterContainer>
-      <h1>Sign up</h1>
-
+      <form className="container">
+      <div className="head">
+        <h1>Sign up</h1>
+      </div>
+      
       <div className="email">
         <div className="form-floating">
           <input
@@ -176,16 +218,17 @@ const MemberRegister = () => {
             onChange={handleInputEmail}
           />
           <label for="floatingInput">Email address</label>
-        </div>
-        <div className="mailDuplicate">
+        </div>        
+      </div>
+
+      <div className="mailDuplicate">
           <button
             type="submit"
             className=" btn btn-lg btn-outline-secondary"
             onClick={mailDuplicateCheck}
           >
-            중복 검사
+            check
           </button>
-        </div>
       </div>
 
       <div className="password">
@@ -214,7 +257,7 @@ const MemberRegister = () => {
             placeholder="비밀번호 확인 입력하세요."
             onChange={pwVerification}
           />
-          <label for="floatingPassword">Password</label>
+          <label for="floatingPassword">Password Check</label>
         </div>
       </div>
 
@@ -231,17 +274,17 @@ const MemberRegister = () => {
           />
           <label for="floatingPassword">Username</label>
         </div>
+      </div>
 
-        <div className="usernameDuplicate">
+      <div className="usernameDuplicate">
           <button
             type="submit"
             className=" btn btn-lg btn-outline-secondary"
             onClick={usernameDuplicateCheck}
           >
-            중복 검사
+            check
           </button>
         </div>
-      </div>
 
       <div className="phonenumber">
         <div className="form-floating">
@@ -263,9 +306,10 @@ const MemberRegister = () => {
           className=" btn btn-lg btn-outline-secondary"
           onClick={onClickJoin}
         >
-          회원가입
+          Join
         </button>
       </div>
+    </form>
     </MemberRegisterContainer>
   );
 };
