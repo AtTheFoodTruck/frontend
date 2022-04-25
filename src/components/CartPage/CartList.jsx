@@ -10,12 +10,13 @@ const CartList = ({ cartList, handTotalPrice, onRemove }) => {
       {cartList.map((cartList) => (
         <CartListItem
           key={cartList.orderItemId}
-          id={cartList.orderItemId}
-          image={cartList.itemImgUrl}
-          menu={cartList.itemName}
-          price={cartList.totalPrice}
-          handTotalPrice={handTotalPrice}
-          onRemove={onRemove}
+          {...cartList}
+          // id={cartList.orderItemId}
+          // image={cartList.itemImgUrl}
+          // menu={cartList.itemName}
+          // price={cartList.totalPrice}
+          // handTotalPrice={handTotalPrice}
+          // onRemove={onRemove}
         />
       ))}
     </span>
