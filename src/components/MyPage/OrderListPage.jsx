@@ -4,6 +4,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 import OrderList from './OrderList';
 import axios from 'axios';
 
+const OrderListWrapper = styled.div`
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  top: 20%;
+`;
+
 const OrderListPage = () => {
   const [orderList, setOrderList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -41,7 +48,8 @@ const OrderListPage = () => {
           { headers }
         )
         .then((res) => {
-          setOrderList(res.data.orderHistoryList);
+          console.log('response 데이터 ' + res);
+          setOrderList(res.data.data.orderHistoryList);
         })
         .catch((err) => console.log(err));
       console.log('getData() complete');
@@ -80,12 +88,5 @@ const OrderListPage = () => {
     </OrderListWrapper>
   );
 };
-
-const OrderListWrapper = styled.div`
-  position: absolute;
-  align-items: center;
-  width: 100%;
-  top: 20%;
-`;
 
 export default OrderListPage;
