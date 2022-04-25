@@ -1,4 +1,4 @@
-import { React, useEffect, useRef, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import CartList from './CartList';
@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const Cart = () => {
   const [cartList, setCartList] = useState([]);
+  const [initPrice, setInitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
@@ -18,7 +19,13 @@ const Cart = () => {
   };
 
   // 총 가격
-  const handTotalPrice = (price) => setTotalPrice(totalPrice + price);
+  const handTotalPrice = (price) => {
+    // setTotalPrice(totalPrice + price);
+    setInitPrice(initPrice + price);
+  };
+
+  const initPriceHandle = (initPriceParam) =>
+    setInitPrice(initPrice + initPriceParam);
 
   useEffect(() => {
     const getTotalPage = async () => {
@@ -38,21 +45,16 @@ const Cart = () => {
 
   useEffect(() => {
     const getData = async () => {
-      console.log(`getData() 함수 불러오기 전 currentPage : ` + currentPage);
-      console.log(`getData() 함수 불러오기 전 totalPage : ` + totalPage);
       await axios
         .get(
           `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
-          console.log('response 데이터 ' + res.data);
           setStoreName(res.data.data.storeName);
           setCartList(res.data.data.cartList);
-          console.log('orderHistoryList 데이터 ' + cartList[0]);
         })
         .catch((err) => console.log(err));
-      console.log('getData() complete');
     };
     getData();
   }, [currentPage]);
@@ -117,9 +119,11 @@ const Cart = () => {
             cartlists={cartList}
             onRemove={onRemove}
             handTotalPrice={handTotalPrice}
+            initPriceHandle={initPriceHandle}
           />
           <Row className='text-end mt-5'>
-            <h4>총 금액 : {totalPrice.toLocaleString()}</h4>
+            {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
+            <h4>총 금액 : {initPrice.toLocaleString()}</h4>
           </Row>
         </Row>
 

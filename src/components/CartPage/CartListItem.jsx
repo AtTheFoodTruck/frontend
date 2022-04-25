@@ -1,18 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-const CartListItem = (cartList, handTotalPrice, onRemove) => {
+const CartListItem = ({
+  orderItemId,
+  count,
+  totalPrice,
+  itemImgUrl,
+  itemName,
+  unitPrice,
+  handTotalPrice,
+  onRemove,
+  initPriceHandle,
+}) => {
   const userId = localStorage.getItem('userId');
-  const orderItemId = cartList.orderItemId;
-  const [number, setNumber] = useState(0);
-  const [unitPrice, setUnitPrice] = useState(cartList.totalPrice);
+  // const orderItemId = orderItemId;
+  const [number, setNumber] = useState(count);
+  const [unitPrice, setUnitPrice] = useState(totalPrice);
   const [price, setPrice] = useState(0);
   const accessToken = localStorage.getItem('Authorization');
 
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
+
+  useEffect(() => {
+    initPriceHandle(totalPrice);
+  }, [totalPrice]);
 
   const increaseNumber = () => {
     //메뉴 갯수 1개 증가
@@ -28,7 +42,8 @@ const CartListItem = (cartList, handTotalPrice, onRemove) => {
     );
     setNumber(number + 1);
     setPrice(price + unitPrice);
-    handTotalPrice.handTotalPrice(unitPrice);
+    console.log('토탈 프라이스 ' + price);
+    handTotalPrice(unitPrice);
   };
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
@@ -69,21 +84,19 @@ const CartListItem = (cartList, handTotalPrice, onRemove) => {
 
   return (
     <>
-      <Row>
+      <Row key={orderItemId}>
         {' '}
         <Col lg={6} className='d-flex justify-content-start'>
           <Card style={{ width: '8rem', height: '8rem' }}>
             <Card.Img
               variant='top'
-              src={cartList[0].itemImgUrl}
+              src={itemImgUrl}
               style={{ width: '7.5rem', height: '7.5rem' }}
             />
           </Card>
         </Col>
         <Col lg={6} className='d-flex justify-content-start'>
-          <Col className='d-flex align-items-center me-5'>
-            {cartList[0].itemName}
-          </Col>
+          <Col className='d-flex align-items-center me-5'>{itemName}</Col>
           <Col className='d-flex align-items-center ms-3 me-5'>
             <Button onClick={decreaseNumber} variant='outline-secondary'>
               -
@@ -94,7 +107,8 @@ const CartListItem = (cartList, handTotalPrice, onRemove) => {
             </Button>{' '}
           </Col>
           <Col className='d-flex align-items-center ms-5'>
-            {price.toLocaleString()}
+            {/* {price.toLocaleString()} */}
+            {totalPrice}
           </Col>
           <Col>
             <Button onClick={handleClickRemove}>삭제</Button>
