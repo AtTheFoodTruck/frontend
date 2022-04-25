@@ -63,6 +63,7 @@ const LoginInput = () => {
           setRefreshToken(response.data.data.refreshToken);
           setUserId(response.data.data.userId);
           navigate("/", { replace: true });
+          window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
