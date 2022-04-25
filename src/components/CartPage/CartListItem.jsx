@@ -43,8 +43,8 @@ const CartListItem = ({
       }
     );
     setNumber(number + 1); // 수량 증가
-    setUnitPrices(prev => prev + itemUnitPrices); // totalPrice 값 증가
-    handTotalPrice(itemUnitPrices);  // 총 금액 조정 함수 호출
+    setUnitPrices((prev) => prev + itemUnitPrices); // totalPrice 값 증가
+    handTotalPrice(itemUnitPrices); // 총 금액 조정 함수 호출
   };
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
@@ -63,8 +63,8 @@ const CartListItem = ({
       setPrice(0);
     } else {
       setNumber(number - 1); // 수량 감소
-      setUnitPrices(prev => prev - itemUnitPrices); // totalPrice 값 증가
-      handTotalPrice(-1 * itemUnitPrices);  // 총 금액 조정 함수 호출
+      setUnitPrices((prev) => prev - itemUnitPrices); // totalPrice 값 증가
+      handTotalPrice(-1 * itemUnitPrices); // 총 금액 조정 함수 호출
     }
   };
 
@@ -87,7 +87,7 @@ const CartListItem = ({
     <>
       <Row key={orderItemId}>
         {' '}
-        <Col lg={6} className='d-flex justify-content-start'>
+        <Col lg={4} className='d-flex justify-content-start'>
           <Card style={{ width: '8rem', height: '8rem' }}>
             <Card.Img
               variant='top'
@@ -96,9 +96,11 @@ const CartListItem = ({
             />
           </Card>
         </Col>
-        <Col lg={6} className='d-flex justify-content-start'>
-          <Col className='d-flex align-items-center me-5'>{itemName}</Col>
-          <Col className='d-flex align-items-center ms-3 me-5'>
+        <Col className='d-flex justify-content-start text-center'>
+          <Col lg={3} className='d-flex align-items-center me-2'>
+            {itemName}
+          </Col>
+          <Col lg={3} className='d-flex align-items-center'>
             <Button onClick={decreaseNumber} variant='outline-secondary'>
               -
             </Button>{' '}
@@ -107,11 +109,11 @@ const CartListItem = ({
               +
             </Button>{' '}
           </Col>
-          <Col className='d-flex align-items-center ms-5'>
+          <Col lg={3} className='d-flex align-items-center ms-5'>
             {/* {price.toLocaleString()} */}
             {unitPrices}
           </Col>
-          <Col>
+          <Col lg={3} className='d-flex align-items-center ms-3'>
             <Button onClick={handleClickRemove}>삭제</Button>
           </Col>
         </Col>

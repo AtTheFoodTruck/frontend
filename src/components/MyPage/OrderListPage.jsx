@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
 import OrderList from './OrderList';
@@ -61,24 +61,24 @@ const OrderListPage = () => {
   return (
     <OrderListWrapper>
       <Container className='text-center'>
-        <h1>주문내역</h1>
+        <h1>My Orders</h1>
 
         <Row className='mt-5 d-flex justify-content-center'>
           <Col />
-          <Col className='TitleStoreName'>
-            <h4>매장명</h4>
+          <Col className='TitleStoreName fs-5 mt-5'>
+            <p>매장명</p>
           </Col>
-          <Col className='TitleMenuName'>
-            <h4>메뉴명</h4>
+          <Col className='TitleMenuName fs-5 mt-5'>
+            <p>메뉴명</p>
           </Col>
-          <Col className='TitlePrice'>
-            <h4>가격</h4>
+          <Col className='TitlePrice fs-5 mt-5'>
+            <p>가격</p>
           </Col>
-          <Col className='TitleDate'>
-            <h4>주문일</h4>
+          <Col className='TitleDate fs-5 mt-5'>
+            <p>주문일</p>
           </Col>
-          <Col className='TitleWaiting'>
-            <h4>대기번호</h4>
+          <Col className='TitleWaiting fs-5 mt-5'>
+            <p>대기번호</p>
           </Col>
           <Col />
         </Row>

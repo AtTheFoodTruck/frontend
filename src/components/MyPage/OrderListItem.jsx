@@ -11,6 +11,7 @@ const OrderListItem = ({
   storeId,
 }) => {
   console.log(orderItems);
+
   return (
     <Row key={orderId} className='d-flex align-items-center mb-5'>
       <Col className='MenuImg'>
@@ -42,10 +43,14 @@ const OrderListItem = ({
       </Col>
       <Col className='ReviewBtn'>
         {/* <Link to='/review-writing'> */}
-        <Link to='/review-writing' state={{
+        <Link
+          to='/review-writing'
+          state={{
             orderId: orderId,
             storeName: storeName,
-            itemName: orderItems[0].itemName}}>
+            itemName: orderItems[0].itemName,
+          }}
+        >
           <Button variant='outline-secondary'>리뷰쓰기</Button>{' '}
         </Link>
       </Col>
