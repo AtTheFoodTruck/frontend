@@ -82,11 +82,24 @@ const MemberRegister = () => {
   const [inputPhonenumber, setInputPhonenumber] = useState("");
   const [mailDuplicate, setMailDuplicate] = useState(true);
   const [nameDuplicate, setNameDuplicate] = useState(true);
+
+  const [isEmail, setIsEmail] = useState(false)
+
+
   const navigate = useNavigate();
 
   // 메일 입력시 상태값 변경
   const handleInputEmail = (e) => {
     setInputEmail(e.target.value);
+    
+    const emailRegex =
+    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+
+    if (!emailRegex.test(inputEmail)) {
+      setIsEmail(false)
+    } else {
+      setIsEmail(true)
+    }
   };
 
   // 비밀번호 입력시 상태값 변경
@@ -111,8 +124,11 @@ const MemberRegister = () => {
   // 메일 중복 확인
   async function mailDuplicateCheck(e) {
     e.preventDefault();
+
     if (inputEmail === "") {
       alert("이메일을 입력하세요");
+    } else if(!isEmail) {
+      alert("메일형식을 지켜주세요 (ex. abc@abc.com");
     } else {
       axios
         .post(
