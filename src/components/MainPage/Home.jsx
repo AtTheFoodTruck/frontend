@@ -24,7 +24,8 @@ const Home = () => {
   // https://apifood.blacksloop.com/ dvelop푸시할때 변경하기
   async function fetchPopular() {
     const foodtruck = await axios.get(
-      `http://localhost:8000/item-service/items/v1/main?page=0&size=20`,
+      // `http://localhost:8000/item-service/items/v1/main?page=0&size=20`,
+      `https://apifood.blacksloop.com/`,
       { headers }
       // {
       //   headers: {
@@ -67,18 +68,18 @@ const Home = () => {
   // }
 
   return (
-    <div className='container'>
-      <Header1 class='masthead d-flex '>
-        <div class='container  px-4 px-lg-5 text-center'>
-          <div class='mb-3'>
+    <div className="container">
+      <Header1 class="masthead d-flex ">
+        <div class="container  px-4 px-lg-5 text-center">
+          <div class="mb-3">
             <Input1
-              type='text'
-              class='form-control'
+              type="text"
+              class="form-control"
               placeholder="Recipient's username"
               aria-label="Recipient's username"
-              aria-describedby='button-addon2'
+              aria-describedby="button-addon2"
             />
-            <button class='btn btn-primary' type='button' id='button-addon2'>
+            <button class="btn btn-primary" type="button" id="button-addon2">
               Button
             </button>
           </div>

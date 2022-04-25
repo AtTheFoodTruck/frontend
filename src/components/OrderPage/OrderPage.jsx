@@ -10,7 +10,6 @@ const OrderPage = () => {
   const [details, setDetails] = useState({});
   const [detailsMenu, setDetailsMenu] = useState({});
   const [cart, setCart] = useState([]);
-  const [getcount, setGetCount] = useState({});
 
   //토큰
   const authorization = localStorage.getItem("Authorization");
@@ -23,7 +22,8 @@ const OrderPage = () => {
   //Axios 가게 정보 GET
   async function fetchDetails() {
     const foodtruck = await axios.get(
-      `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
+      // `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
+      `https://apifood.blacksloop.com/`,
       { headers }
     );
     setDetails(foodtruck.data.data);
@@ -32,7 +32,8 @@ const OrderPage = () => {
   //Axios가게 메뉴 목록 GET
   async function fetchDetailsMenu() {
     const foodtruck = await axios.get(
-      `  http://localhost:8000/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
+      // `  http://localhost:8000/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
+      `https://apifood.blacksloop.com/`,
       { headers }
     );
     setDetailsMenu(foodtruck.data.data);
@@ -50,16 +51,16 @@ const OrderPage = () => {
    * async가 붙은 함수는 반드시 프라미스를 반환하고, 프라미스가 아닌 것은 프라미스로 감싸 반환합니다.
    * 프라미스가 처리가 완료되어 resolve(값) 되면 값만 따로 추출해서 리턴한다.
    */
-  //TODO장바구니 가져오기
-  async function getCart() {
-    const foodtruck = await axios.get(
-      `http://localhost:8000/order-service/orders/v1/customer/carts/${params.storeId}?page=0&size=20`,
-      { headers }
-    );
-    setGetCount(foodtruck.data.data.cartList);
-    console.log("장바구니 가져오기 =" + foodtruck);
-    console.log(foodtruck.data.data.cartList);
-  }
+  // //장바구니 가져오기
+  // async function getCart() {
+  //   const foodtruck = await axios.get(
+  //     `http://localhost:8000/order-service/orders/v1/customer/carts/${params.storeId}?page=0&size=20`,
+  //     { headers }
+  //   );
+  //   setGetCount(foodtruck.data.data.cartList);
+  //   console.log("장바구니 가져오기 =" + foodtruck);
+  //   console.log(foodtruck.data.data.cartList);
+  // }
 
   //fetch  예제 소스
   // const fetchDetails = async () => {
@@ -106,12 +107,8 @@ const OrderPage = () => {
 
       {/* Navigation Bar */}
       <section className="Navbar container text-center mt-5">
-        <button
-          type="button"
-          onClick={getCart}
-          className="btn btn-outline-secondary"
-        >
-          장바구니 가져오기
+        <button type="button" className="btn btn-outline-secondary">
+          Notice
         </button>
         <button type="button" className="btn btn-outline-secondary ms-4 me-4">
           menu
@@ -153,7 +150,6 @@ const OrderPage = () => {
                 />
               );
             })}
-          <Cart cart={cart} setCart={setCart}></Cart>
         </div>
       </section>
       {/* TODO - LOAD MORE Button */}
