@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import OrderPageMenu from "./OrderPageMenu";
 import Cart from "../CartPage/Cart";
 import axios from "axios";
+import ReviewStorePage from "../MyPage/ReviewStorePage";
 
 const OrderPage = () => {
   let params = useParams();
@@ -127,6 +128,12 @@ const OrderPage = () => {
         <button type="button" className="btn btn-outline-secondary">
           reviews
         </button>
+        <Link
+          className="btn btn-outline-secondary"
+          to={"/review-sotrepage/" + params.storeId}
+        >
+          주문하기
+        </Link>
       </section>
 
       {/* Notice */}
@@ -170,6 +177,7 @@ const OrderPage = () => {
       >
         Load More
       </button>
+      <ReviewStorePage />
     </StoreWrapper>
   );
 };
