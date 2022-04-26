@@ -1,21 +1,22 @@
 import CartListItem from './CartListItem';
 
-const CartItemList = (props) => {
+// Q. 받아와야 할 장바구니 아이템 데이터: 메뉴이미지, 메뉴 단가, 메뉴명
+const CartList = ({ cartlists, handTotalPrice, onRemove, initPriceHandle }) => {
+  console.log('cartList :' + JSON.stringify(cartlists));
+
   return (
     <span className='list'>
-      {props.cartlists.map((cartlist) => (
+      {cartlists.map((cartlists) => (
         <CartListItem
-          key={cartlist.id}
-          id={cartlist.id}
-          store_name={cartlist.store_name}
-          image={cartlist.image}
-          menu={cartlist.menu}
-          price={cartlist.price}
-          handTotalPrice={props.handTotalPrice}
+          key={cartlists.orderItemId}
+          {...cartlists}
+          handTotalPrice={handTotalPrice}
+          onRemove={onRemove}
+          initPriceHandle={initPriceHandle}
         />
       ))}
     </span>
   );
 };
 
-export default CartItemList;
+export default CartList;

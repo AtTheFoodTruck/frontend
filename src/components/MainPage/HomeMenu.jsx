@@ -2,13 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import OrderPage from "../OrderPage/OrderPage";
 
-const ImgSize = styled.img`
-  height: 15rem;
-  object-fit: cover;
-`;
-
-const HomeMenu = ({ movie }) => {
+const HomeMenu = ({ item }) => {
   return (
     <motion.section
       layout
@@ -21,23 +17,28 @@ const HomeMenu = ({ movie }) => {
         <div className="card h-100 ">
           <ImgSize
             className="card-img-top img-fluid"
-            src={"https://image.tmdb.org/t/p/w500" + movie.backdrop_path}
+            src="/img/pizza.jpg"
+            // src={item.storeImgUrl}
             alt="..."
           />
           <div className="card-body p-4">
             <div className="text-center">
               {/* <!-- Product name--> */}
-              <h5 className="fw-bolder">{movie.title}</h5>
+              <h5 className="fw-bolder">{item.storeName}</h5>
               <div className="d-flex justify-content-center small  mb-2">
                 <div className="bi-star-fill text-warning"></div>&ensp;
-                {movie.vote_average}
+                {item.rateAvg}
               </div>
+              <div>store Id = {item.storeId}</div>
             </div>
           </div>
           {/* <!-- Product actions--> */}
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div className="text-center">
-              <Link className="btn btn-outline-dark mt-auto" to="/order-page">
+              <Link
+                className="btn btn-outline-dark mt-auto"
+                to={"/order-page/" + item.storeId}
+              >
                 주문하기
               </Link>
             </div>
@@ -47,5 +48,10 @@ const HomeMenu = ({ movie }) => {
     </motion.section>
   );
 };
+
+const ImgSize = styled.img`
+  height: 15rem;
+  object-fit: cover;
+`;
 
 export default HomeMenu;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import "bootswatch/dist/sketchy/bootstrap.min.css";
 import Home from "./components/MainPage/Home";
 import Layout from "./components/Layout/Layout";
 import NotFound from "./components/NotFound/NotFound";
@@ -8,13 +8,14 @@ import Login from "./components/LoginPage/Login";
 import ProFile from "./components/ProFilePage/ProFile";
 import Cart from "./components/CartPage/Cart";
 import Store from "./components/StorePage/Store";
-
+import MemberRegister from "./components/RegisterPage/MemberRegister";
+import OwnerRegister from "./components/RegisterPage/OwnerRegister";
 import OrderList from "./components/MyPage/OrderList";
 import ReviewHistory from "./components/MyPage/ReviewHistory";
 import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import SearchList from "./components/SearchListPage/SearchList";
-import { SearchContextProvider } from "./Context/SearchContext";
+import { SearchContextProvider } from "./components/Context/SearchContext";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/member-register" element={<MemberRegister />} />
           <Route path="/owner-register" element={<OwnerRegister />} />
+          <Route path="/search-list" element={<SearchList />} />
           <Route path="/search-list" element={<SearchList />} />
         </Route>
         <Route path="*" element={<NotFound />} />

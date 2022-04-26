@@ -15,6 +15,8 @@ pipeline {
         script {
           docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
             frontend.push("latest")
+            frontend.push("${BUILD_NUMBER}")
+
           }
         }
 
@@ -25,7 +27,7 @@ pipeline {
       steps {
         sh 'docker stop $(docker ps -a -q)'
         sh 'docker rm $(docker ps -a -q)'
-        sh 'cd /project && docker-compose up -d'
+        sh 'cd /project/hyoyoung && docker-compose up -d'
       }
     }
 
