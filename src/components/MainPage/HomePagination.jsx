@@ -1,26 +1,76 @@
-import React from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import styled from "styled-components";
+const Nav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 
-const HomePagination = ({ postsPerPage, totalPosts, paginate }) => {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i); //totalPosts 100 / postsPerPage 8
-    //Math.ceil() 함수는 주어진 숫자보다 크거나 같은 숫자 중 가장 작은 숫자를 integer 로 반환합니다.
+  button:hover {
+    cursor: pointer;
+    transform: translateY(-1.7px);
+    background: #6e6e6e;
   }
+  button[disabled] {
+    cursor: revert;
+    transform: revert;
+  }
+  button[aria-current] {
+    background: #555555;
+    color: white;
+  }
+`;
+
+export default function HomePagination({
+  currentPage,
+  setCurrentPage,
+  totalPage,
+  popular,
+  size,
+}) {
+  console.log("currentPage : " + currentPage);
+  console.log("totalPage : " + totalPage);
+  console.log(popular);
 
   return (
-    <nav>
-      <ul className="pagination pagination-lg justify-content-center">
-        {pageNumbers.map((number) => (
-          <li key={number} className="page-item ">
-            <a onClick={() => paginate(number)} href="#!" className="page-link">
-              {number}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
+    <Nav>
+      <button
+        type="button"
+        className="btn btn-outline-dark "
+        onClick={() => {
+          setCurrentPage(currentPage - 1);
+        }}
+        disabled={currentPage === 0}
+      >
+        &lt;
+      </button>
 
-export default HomePagination;
+      {Array(totalPage)
+        .fill()
+        .map((_, i) => (
+          <button
+            type="button"
+            className="btn btn-outline-dark"
+            key={i + 1}
+            onClick={() => {
+              setCurrentPage(i);
+            }}
+            aria-current={currentPage === i ? "page" : null}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+      <button
+        type="button"
+        className="btn btn-outline-dark"
+        onClick={() => {
+          setCurrentPage(currentPage + 1);
+        }}
+        disabled={currentPage === totalPage}
+      >
+        &gt;
+      </button>
+    </Nav>
+  );
+}

@@ -18,7 +18,7 @@ import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
 import SearchList from "./components/SearchListPage/SearchList";
-import { SearchContextProvider } from "./Context/SearchContext";
+import { SearchContextProvider } from "./components/Context/SearchContext";
 import OrderPage from "./components/OrderPage/OrderPage";
 import ReviewStorePage from "./components/MyPage/ReviewStorePage";
 
@@ -32,15 +32,15 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/order-list" element={<OrderListPage />} />
-          <Route path="/order-page:storeId" element={<OrderPage />} />
           <Route path="/review-history" element={<ReviewHistory />} />
           <Route path="/review-writing" element={<ReviewWriting />} />
-          <Route path="/review-storepage/:storeId" element={<ReviewStorePage />} />
+          <Route path="/review-storepage" element={<ReviewStorePage />} />
           <Route path="/userinfo-config" element={<UserInfoConfig />} />
           <Route path="/login" element={<Login />} />
           <Route path="/member-register" element={<MemberRegister />} />
           <Route path="/owner-register" element={<OwnerRegister />} />
           <Route path="/search-list" element={<SearchList />} />
+          <Route path="/order-page" element={<OrderPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

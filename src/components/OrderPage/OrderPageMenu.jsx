@@ -18,7 +18,8 @@ const OrderPageMenu = ({ storeId, item, handleClick }) => {
       user_id: userId,
       store_id: storeId,
       item_id: item.itemId,
-      price: item.price,
+      itemImgUrl: item.itemImgUrl,
+      price: item.itemPrice,
       count: number,
     };
 

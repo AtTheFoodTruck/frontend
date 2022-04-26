@@ -1,5 +1,5 @@
 import { Card, Container, Button, Col, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,10 +7,12 @@ import StarRating from "./StarRating";
 import ReviewPagination from "./ReviewPagination";
 
 const ReviewStorePage = () => {
+  const location = useLocation();
+  const storeId = location.state.storeId;
+
   //axios
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
-  let params = useParams();
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
@@ -31,12 +33,11 @@ const ReviewStorePage = () => {
     const getTotalPage = async () => {
       await axios
         .post(
-          // `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}?page=0&size=${size}`,
-          `http://localhost:8000/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
           //http://localhost:8000/  https://apifood.blacksloop.com/
           {
             user_id: userId,
-            store_id: params.storeId,
+            store_id: storeId,
           },
           { headers }
         )
@@ -54,11 +55,10 @@ const ReviewStorePage = () => {
     const getData = async () => {
       await axios
         .post(
-          // `http://localhost:8000/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
-          `http://localhost:8000/order-service/orders/v1/owner/reviews`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews`,
           {
             user_id: userId,
-            store_id: params.storeId,
+            store_id: storeId,
           },
           { headers }
         )
@@ -81,7 +81,7 @@ const ReviewStorePage = () => {
             <Row
               className="mt-5 mb-5 d-flex align-items-center justify-content-center"
               // key={it.item_id}
-              key={it.reviewId}
+              key={it.storeId}
             >
               <Col className="d-flex justify-content-center">
                 <Card style={{ width: "8rem", height: "8rem" }}>
@@ -97,9 +97,6 @@ const ReviewStorePage = () => {
                 <Row>
                   <Col className="MenuName">
                     <h5>{it.userName}</h5>
-                  </Col>
-                  <Col className="Price">
-                    <h5>{it.oderPrice}</h5>
                   </Col>
                   <Col className="Rating text-warning">
                     <StarRating rating={it.rating} />
@@ -121,7 +118,7 @@ const ReviewStorePage = () => {
           ))}
           {/*페이징 처리*/}
           <ReviewPagination
-            key={params.storeId}
+            key={storeId}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPage={totalPage}
