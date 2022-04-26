@@ -5,7 +5,6 @@ const Nav = styled.nav`
   justify-content: center;
   align-items: center;
   gap: 12px;
-
   button:hover {
     cursor: pointer;
     transform: translateY(-1.7px);

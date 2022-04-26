@@ -2,45 +2,67 @@ import React, { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import axios from "axios";
 
-const OrderPageMenu = ({ storeId, item, handleClick }) => {
-  //컴포넌트마다 가지고 있어야하는 상태
-  const [number, setNumber] = useState(0);
+const OrderPageMenu = ({ storeId, item }) => {
 
+  console.log("받아온 storeId의 값은 ? " + storeId);
+
+  // 유저 정보
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
 
-  //TODO장바구니 추가
-  async function postCart(item) {
-    const data = {
-      user_id: userId,
-      store_id: storeId,
-      item_id: item.itemId,
-      price: item.price,
-      count: number,
-    };
+  // 변수 선언
+  // const [storeIds, setStoreIds] = useState(storeId);
+  const [itemId, setItemId] = useState(item.itemId);
+  const [itemImgUrl, setItemImgUrl] = useState(item.itemImgUrl);
+  const [itemName, setItemName] = useState(item.itemName);
+  const [price, setPrice] = useState(item.itemPrice);
+  const [count, setCount] = useState(0);
 
-    await axios.post(
-      "https://apifood.blacksloop.com/order-service/orders/v1/customer/carts",
-      data,
-      { headers }
-    );
-    console.log(data);
+  // 장바구니에 아이템 담기 메서드
+  const postCart = async () => {
+
+    // count가 < 1 일 경우 막는법
+    if( count < 1) {
+      return alert("수량을 확인해주세요");
+    }
+    // console.log(`userId: ${userId}`);
+    // console.log(`storeIds: ${storeId}`);
+    // console.log(`itemId: ${itemId}`);
+    // console.log(`장바구니에 담긴 아이템 개수: ${count}`);
+    // console.log(`장바구니에 담긴 총 가격: ${price}`);
+
+    await axios.post(`https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`, {
+      // user_id: 1, // 테스트용 UserId 픽스
+      user_id: userId, // 배포용, 배포 시 주석 삭제
+      store_id: storeId,
+      item_id: itemId,
+      price: price,
+      count: count
+    }, {
+      headers: headers,
+    })
+    .then(res => {
+      console.log(res.data);
+      setCount(0);
+      alert("장바구니에 담겼습니다.");
+    })
+    .catch(err => console.log("return error" + err))
   }
 
   //메뉴 갯수 1개 증가
-  const increaseNumber = (num) => {
-    setNumber(num + 1);
+  const increaseNumber = () => {
+    setCount(prev => prev + 1); // 수량 증가
   };
 
   //메뉴 갯수 1개 감소
   const decreaseNumber = (num) => {
     if (num <= 0) {
-      setNumber(0);
+      setCount(0);
     } else {
-      setNumber(num - 1);
+      setCount(prev => prev - 1); // 수량 증가
     }
   };
 
@@ -48,15 +70,17 @@ const OrderPageMenu = ({ storeId, item, handleClick }) => {
     <>
       <div className="MenuItems col">
         <div className="MenuItem card">
+          {/* 이미지 출력 */}
           <img
-            // src={item.itemImg}
-            src="/img/pizza.jpg"
+            src={itemImgUrl}
+            // src="/img/pizza.jpg"
             className="card-img-top"
             alt="menuimage"
           />
+          {/* 데이터 출력 부 */}
           <div className="card-body">
-            <h5>{item.itemName}</h5>
-            <h6>${item.price}</h6>
+            <h5>{itemName}</h5>
+            <h6>${item.itemPrice}</h6>
             <div
               className="btn-group"
               role="group"
@@ -64,7 +88,7 @@ const OrderPageMenu = ({ storeId, item, handleClick }) => {
             >
               <button
                 type="button"
-                onClick={() => increaseNumber(number)}
+                onClick={() => increaseNumber()}
                 className="btn btn-outline-primary"
               >
                 +
@@ -73,17 +97,17 @@ const OrderPageMenu = ({ storeId, item, handleClick }) => {
                 type="button"
                 className="btn btn-outline-primary disabled"
               >
-                {number}
+                {count}
               </button>
               <button
                 type="button"
-                onClick={() => decreaseNumber(number)}
+                onClick={() => decreaseNumber(count)}
                 className="btn btn-outline-primary"
               >
                 -
               </button>
               <button
-                onClick={() => postCart(item)}
+                onClick={() => postCart()}
                 className="btn btn-outline-primary"
               >
                 <FaCartPlus />
