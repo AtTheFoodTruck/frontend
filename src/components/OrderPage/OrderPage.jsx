@@ -8,16 +8,17 @@ import { useLocation } from "react-router-dom";
 
 const OrderPage = () => {
 
+  // 이전 화면에서 전달받은 props
   const location = useLocation();
-
   const storeId = location.state.storeId;
 
+  // 변수 선언
   let params = useParams();
   const [details, setDetails] = useState({});
   const [detailsMenu, setDetailsMenu] = useState({});
   const [cart, setCart] = useState([]);
 
-  //토큰
+  // 로그인 정보
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
   const headers = {
@@ -63,10 +64,10 @@ const OrderPage = () => {
   //   setPostsPerPage(postsPerPage + 4);
   // };
 
+  // 최초 렌더링
   useEffect(() => {
-    fetchDetails(params.storeId);
-    fetchDetailsMenu(params.storeId);
-    console.log("선택한 푸드트럭의 ID : " + params.storeId);
+    fetchDetails();
+    fetchDetailsMenu();
   }, []);
 
   return (
@@ -85,12 +86,6 @@ const OrderPage = () => {
 
       {/* Navigation Bar */}
       <section className="Navbar container text-center mt-5">
-        <button type="button" className="btn btn-outline-secondary">
-          Notice
-        </button>
-        <button type="button" className="btn btn-outline-secondary ms-4 me-4">
-          menu
-        </button>
         <button type="button" className="btn btn-outline-secondary">
           reviews
         </button>
