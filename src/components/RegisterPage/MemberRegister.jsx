@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
@@ -84,41 +84,117 @@ const MemberRegister = () => {
   const [nameDuplicate, setNameDuplicate] = useState(true);
 
   const [isEmail, setIsEmail] = useState(false)
+  const [emailMessage, setEmailMessage] = useState("Email")
+
+  const [isPassword, setIsPassword] = useState(false)
+  const [passwordMessage, setPasswordMessage] = useState('Password')
+
+  const [setConfirm, isSetConfirm] = useState(false)
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false)
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('Password Check')
+
+  const [isName, setIsName] = useState(false)
+  const [nameMessage, setNameMessage] = useState('Username')
+
 
 
   const navigate = useNavigate();
 
   // 메일 입력시 상태값 변경
   const handleInputEmail = (e) => {
-    setInputEmail(e.target.value);
-    
+    e.preventDefault();
+    const emailCurrent = e.target.value;
+    setInputEmail(emailCurrent);
+
     const emailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
 
     if (!emailRegex.test(inputEmail)) {
+      document.getElementById('input_email').style.color = "red";
+      setEmailMessage('이메일 형식으로 입력 해주세요')
       setIsEmail(false)
     } else {
+      document.getElementById('input_email').style.color = "green";
+      setEmailMessage('Email')
       setIsEmail(true)
-    }
+    }    
   };
 
   // 비밀번호 입력시 상태값 변경
   const handleInputPw = (e) => {
-    setInputPw(e.target.value);
-  };
+    e.preventDefault();
+    const passwordCurrent = e.target.value;
+    setInputPw(passwordCurrent);
 
-  const pwVerification = (e) => {
-    setPwVerification(e.target.value);
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,1000}$/
+
+    if(!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상')
+      document.getElementById('input_pw').style.color = "red";
+      setIsPassword(false);
+    } else {
+      setPasswordMessage('Password');
+      document.getElementById('input_pw').style.color = "green";      
+      setIsPassword(true);
+    }
+    
+    if(setConfirm && passwordCurrent !== inputpwVerification){
+      setPasswordConfirmMessage('비밀번호가 서로 맞지 않습니다.')
+      document.getElementById('input_pwVerification').style.color = "red";
+      setIsPassword(false);
+    
+    } else {
+      setPasswordConfirmMessage('Password Check')
+      document.getElementById('input_pwVerification').style.color = "green";
+      setIsPassword(true);
+    }
+  }
+
+
+  // 확인 비밀번호 입력시 상태값 변경
+  const onChangePasswordConfirm = (e) => {
+      e.preventDefault();
+      const passwordConfirmCurrent = e.target.value;
+      setPwVerification(passwordConfirmCurrent)      
+      isSetConfirm(true)
+      
+      if (passwordConfirmCurrent === inputPw) {
+        setPasswordConfirmMessage('Password Check')
+        document.getElementById('input_pwVerification').style.color = "green";
+        setIsPasswordConfirm(true)   
+      } else {
+        setPasswordConfirmMessage('비밀번호가 서로 맞지 않습니다.')
+        document.getElementById('input_pwVerification').style.color = "red";
+        setIsPasswordConfirm(false)
+      }
+     
   };
 
   // 이름 입력시 상태값 변경
   const handleInputUsername = (e) => {
+    e.preventDefault();
     setInputUsername(e.target.value);
+    if (e.target.value.length < 2 || e.target.value.length > 20) {
+      setNameMessage('2글자 이상 20글자 미만으로 입력해주세요.')
+      setIsName(false)
+      document.getElementById('input_username').style.color = "red";
+    } else {
+      setNameMessage('Username')
+      setIsName(true)
+      document.getElementById('input_username').style.color = "green";
+    }
   };
 
   // 휴대 전화 번호 입력시 상태값 변경
   const handleInputPhonenumber = (e) => {
+    e.preventDefault();
     setInputPhonenumber(e.target.value);
+
+    const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+
+    if(!regPhone.test(inputPhonenumber)) {
+
+    }
   };
 
   // 메일 중복 확인
@@ -127,8 +203,8 @@ const MemberRegister = () => {
 
     if (inputEmail === "") {
       alert("이메일을 입력하세요");
-    } else if(!isEmail) {
-      alert("메일형식을 지켜주세요 (ex. abc@abc.com");
+    } else if(!isEmail){
+      alert("메일 형식을 지켜주세요")
     } else {
       axios
         .post(
@@ -138,12 +214,13 @@ const MemberRegister = () => {
           }
         )
         .then(function (response) {
-          // 입력한 값이 DB에 저장되어 있다면 0(=false)를 반환한다.
-          if (response.data.data.userId !== inputEmail) {
-            setMailDuplicate(false);
-            console.log(response);                      
+          if(response.data.result === "fail"){
+            alert(response.data.message);
+            console.log(response)
+            document.getElementById("input_email").value = null;
           } else {
-            alert("다른 메일로 설정 해주세요");
+            alert("사용가능합니다!")
+            setMailDuplicate(false);
           }
         })
         .catch(function (error) {
@@ -157,6 +234,8 @@ const MemberRegister = () => {
     e.preventDefault();
     if (inputUsername === "") {
       alert("이름을 입력하세요");
+    } else if(!isName){
+      alert("형식을 지켜주세요");
     } else {
       axios
         .post(
@@ -166,13 +245,13 @@ const MemberRegister = () => {
           }
         )
         .then(function (response) {
-          // 입력한 값이 DB에 저장되어 있다면 0(=false)를 반환한다.
-          if (response.data.data.username !== inputUsername) {
+          if (response.data.result === "fail"){
+            alert(response.data.message);
+            document.getElementById("input_username").value = null;
             setNameDuplicate(false);
-            alert("사용가능합니다!");
           } else {
-            alert("다른 이름으로 설정 해주세요");
-          }
+            alert("사용가능합니다!");
+          }         
         })
         .catch(function (error) {
           console.log(error);
@@ -233,7 +312,7 @@ const MemberRegister = () => {
             placeholder="아이디를 입력하세요."
             onChange={handleInputEmail}
           />
-          <label for="floatingInput">Email address</label>
+          <label for="floatingInput">{emailMessage}</label>
         </div>        
       </div>
 
@@ -256,9 +335,9 @@ const MemberRegister = () => {
             className="form-control"
             id="input_pw"
             placeholder="비밀번호를 입력하세요."
-            onChange={handleInputPw}
+            onChange={handleInputPw}          
           />
-          <label for="floatingPassword">Password</label>
+          <label for="floatingPassword">{passwordMessage}</label>
         </div>
       </div>
 
@@ -271,9 +350,9 @@ const MemberRegister = () => {
             className="form-control"
             id="input_pwVerification"
             placeholder="비밀번호 확인 입력하세요."
-            onChange={pwVerification}
+            onChange={onChangePasswordConfirm}
           />
-          <label for="floatingPassword">Password Check</label>
+          <label for="floatingPassword">{passwordConfirmMessage}</label>
         </div>
       </div>
 
@@ -288,7 +367,7 @@ const MemberRegister = () => {
             placeholder="이름을 입력하세요."
             onChange={handleInputUsername}
           />
-          <label for="floatingPassword">Username</label>
+          <label for="floatingPassword">{nameMessage}</label>
         </div>
       </div>
 
