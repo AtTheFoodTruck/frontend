@@ -1,20 +1,20 @@
-import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import Rating from "./star/Rating";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import _ from "lodash";
-import axios from "axios";
-import ImgUpload from "./ImgUpload";
-import AWS from "aws-sdk";
+import React, { useState, useRef, useEffect } from 'react';
+import styled from 'styled-components';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import Rating from './star/Rating';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import _ from 'lodash';
+import axios from 'axios';
+import ImgUpload from './ImgUpload';
+import AWS from 'aws-sdk';
 
 const ReviewWritinghWrapper = styled.div`
   position: absolute;
   align-items: center;
   width: 55%;
   top: 20%;
-  left: 30%;
+  left: 23%;
   border: 1px white solid;
   header {
     border: 1px white solid;
@@ -43,26 +43,26 @@ export default function ReviewWriting() {
 
   //image 상태
   //s3
-  const [imgURL, setImgURL] = useState("");
+  const [imgURL, setImgURL] = useState('');
   //미리보기
-  const [fileURL, setFileURL] = useState("img/default_image.png");
-  const [reviewLocation, setReviewLocation] = useState("");
+  const [fileURL, setFileURL] = useState('img/default_image.png');
+  const [reviewLocation, setReviewLocation] = useState('');
 
   const contentInput = useRef();
   const [loaded, setLoaded] = useState(false);
   const [state, setState] = useState({
     user_id: 0,
     order_id: orderId,
-    content: "",
-    review_img_url: "",
+    content: '',
+    review_img_url: '',
     storeName: storeName,
     itemName: itemName,
     rating: 0,
   });
   const navigate = useNavigate();
 
-  const authorization = localStorage.getItem("Authorization");
-  const userId = localStorage.getItem("userId");
+  const authorization = localStorage.getItem('Authorization');
+  const userId = localStorage.getItem('userId');
 
   // const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
   const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
@@ -78,7 +78,7 @@ export default function ReviewWriting() {
     const fileReader = new FileReader();
     const file = e.target.files[0];
     if (file) {
-      setLoaded("loading");
+      setLoaded('loading');
       fileReader.readAsDataURL(file);
     }
     fileReader.onload = () => {
@@ -99,10 +99,10 @@ export default function ReviewWriting() {
     const file = e.target.files[0];
     const upload = new AWS.S3.ManagedUpload({
       params: {
-        ACL: "public-read",
+        ACL: 'public-read',
         Body: file,
         Bucket: process.env.REACT_APP_S3_BUCKET,
-        Key: "upload/" + file.name,
+        Key: 'upload/' + file.name,
       },
     });
 
@@ -111,18 +111,18 @@ export default function ReviewWriting() {
     promise.then(
       function (data) {
         setReviewLocation(data.Location);
-        console.log(data.Location + "업로드 성공");
+        console.log(data.Location + '업로드 성공');
       },
 
       function (err) {
         console.log(err);
-        return console.log("오류가 발생했습니다");
+        return console.log('오류가 발생했습니다');
       }
     );
   };
 
   const onCreate = async (content, rating, orderId, reviewLocation) => {
-    console.log("리뷰 이미지 URL" + reviewLocation);
+    console.log('리뷰 이미지 URL' + reviewLocation);
     // console.log("Params => orderId : ", orderId);
     await axios
       .post(
@@ -139,7 +139,7 @@ export default function ReviewWriting() {
       )
       .then((response) => {
         console.log(response);
-        console.log("저장 성공");
+        console.log('저장 성공');
         navigate(-1);
       })
       .catch((err) => console.log(err.response));
@@ -170,7 +170,7 @@ export default function ReviewWriting() {
   const handleSubmit = () => {
     if (state.content.length < 1) {
       contentInput.current.focus();
-      return alert("리뷰 내용을 입력해주세요!");
+      return alert('리뷰 내용을 입력해주세요!');
     }
     // handleImgUpload(imgURL);
 
@@ -182,22 +182,19 @@ export default function ReviewWriting() {
   return (
     <ReviewWritinghWrapper>
       <Container className="text-center">
-        <header>
-          <h1>리뷰 작성하기</h1>
-          {/* TODO  */}
-          {/* 퍼블리싱 */}
-        </header>
+        <h1>Write a review</h1>
 
         <Row className="mt-5">
           <Col>
-            <h3>매장명</h3>
+            <p className="fs-5">매장명</p>
           </Col>
           <Col>
-            <h3>메뉴명</h3>
+            <p className="fs-5">메뉴명</p>
           </Col>
         </Row>
         <hr />
-        <Row className="mb-5">
+
+        <Row className="mb-5 mt-5">
           <Col>{state.storeName}</Col>
           <Col>{state.itemName}</Col>
         </Row>
@@ -233,34 +230,41 @@ export default function ReviewWriting() {
             </div>
           </Col>
         </Row>
+
         <Row
           className="d-flex flex-column justify-content-center mt-5"
           id="rating"
         >
-          <div>
-            <p>별점을 매겨주세요</p>
-          </div>
-          <Rating className="rating" getRating={getRating} />
+          <p>별점을 매겨주세요</p>
         </Row>
 
+        <Container className="d-flex justify-content-center">
+          <Rating className="rating" getRating={getRating} />
+        </Container>
+
         {/* 리뷰등록버튼 */}
-        <Row className="d-inline-flex mt-5">
-          <button
-            size="mg"
-            class="btn btn-outline-secondary"
-            variant="outline-secondary"
-            onClick={() => handleSubmit(imgURL)}
-          >
-            리뷰등록
-          </button>{" "}
-          <button
-            id="cancle_btn"
-            type="button"
-            class="btn btn-outline-danger"
-            onClick={() => navigate(-1)}
-          >
-            취소
-          </button>
+        <Row className="mt-5">
+          <Col />
+          <Col className="d-flex justify-content-end">
+            <button
+              class="btn btn-outline-secondary"
+              variant="outline-secondary"
+              onClick={() => handleSubmit(imgURL)}
+            >
+              리뷰등록
+            </button>{' '}
+          </Col>
+          <Col className="d-flex justify-content-start">
+            <button
+              id="cancle_btn"
+              type="button"
+              class="btn btn-outline-danger"
+              onClick={() => navigate(-1)}
+            >
+              취소
+            </button>
+          </Col>
+          <Col />
         </Row>
       </Container>
     </ReviewWritinghWrapper>
