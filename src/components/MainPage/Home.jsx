@@ -4,45 +4,33 @@ import HomeMenu from "./HomeMenu";
 import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import axios from "axios";
-import dummy from "./HomeDummy.json";
 import HomePagination from "./HomePagination";
 
 const Home = () => {
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
+
   //리스트
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [activeMenuList, setActiveactiveMenuList] = useState();
 
-  // pagination
-  // const [postsPerPage, setPostsPerPage] = useState(16);
   //페이지당 게시물
-  const size = 16;
+  const size = 4;
   //페이지 [현재 페이지,총 페이지 수]
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
 
-  //
-
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
-  // console.log(headers);
 
-  // axios
-  // https://apifood.blacksloop.com/ dvelop푸시할때 변경하기
+  // https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=20
   async function fetchPopular() {
     const foodtruck = await axios
       .get(
         `http://localhost:8000/item-service/items/v1/main?page=0&size=${size}`,
         { headers }
-        // {
-        //   headers: {
-        //     Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlckBuYXZlci5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTYwMzM0fQ.2A8AYlGJcmwpJatYDbnP7cNBMTDxBZTZOwC9aGnDYSO7zs3CLFbrG5iT9j8hYiU3K6V2fcbhILLEKw-FaxX1AQ`,
-        //   },
-        // `http://localhost:8000/item-service/items/v1/stores?page=0&size=10`, //임시
-        // }
       )
       .then((res) => {
         setTotalPage(res.data.data.page.totalPage);
@@ -51,35 +39,27 @@ const Home = () => {
         console.log(res.data.data.storeList);
       })
       .catch((err) => console.log(err));
-
-    // console.log(filtered);
   }
 
-  // //dummy
-  // const dummydata = dummy;
-  // const fetchPopular = () => {
-  //   setPopular(dummydata.dummy);
-  //   setFiltered(dummydata.dummy);
-  // };
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get(
+          `http://localhost:8000/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          { headers }
+        )
+        .then((res) => {
+          setPopular(res.data.data.storeList);
+        })
+        .catch((err) => console.log(err));
+    };
+    getData();
+  }, [currentPage]);
 
-  // // pagination
-  // const indexOfLastPost = currentPage * postsPerPage;
-  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // const currentPosts = filtered.slice(indexOfFirstPost, indexOfLastPost);
-
-  // const currentPosts = filtered.slice(0, postsPerPage);
-  // const loadMore = () => {
-  //   setPostsPerPage(postsPerPage + 4);
-  // };
-  //slice 배열의 일부분 잘라서 새로운 배열로 리턴함 시작:indexOfFirstPost , 끝 indexOfLastPost
-
+  // 최초 페이지 렌더링
   useEffect(() => {
     fetchPopular();
   }, []);
-
-  // if (popular.length > 0) {
-  //   console.log(popular);
-  // }
 
   return (
     <div className="container">
@@ -100,7 +80,8 @@ const Home = () => {
         </div>
         <HomeCategories
           popular={popular}
-          setFiltered={setFiltered}
+          // setFiltered={setFiltered}
+          setFiltered={setPopular}
           activeMenuList={activeMenuList}
           setActiveactiveMenuList={setActiveactiveMenuList}
         />
@@ -115,12 +96,8 @@ const Home = () => {
           </AnimatePresence>
         </motion.div>
       </motion.div>
-      {/* <button
-        onClick={() => loadMore()}
-        className="btn btn-dark d-block w-100 mb-5"
-      >
-        Load More
-      </button> */}
+
+      {/* 페이징 처리 */}
       <HomePagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
