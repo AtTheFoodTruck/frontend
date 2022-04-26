@@ -110,13 +110,11 @@ const SearchList = () => {
       <motion.div layout className="container px-4 px-lg-5 mt-5 ">
         <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <AnimatePresence>
-            <article className="card_list">
-              {renderList.length > 0 && searchWord != "" ? (
-                renderList
-              ) : (
-                <h3 className="mb-5">검색 결과가 없습니다</h3>
-              )}
-            </article>
+            {renderList.length > 0 && searchWord != "" ? (
+              renderList
+            ) : (
+              <h3 className="mb-5">검색 결과가 없습니다</h3>
+            )}
             {/*페이징 처리*/}
             <SearchPagination
               currentPage={currentPage}
