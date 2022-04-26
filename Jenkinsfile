@@ -3,7 +3,6 @@ pipeline {
   stages {
     stage('Front Build') {
       steps {
-        sh 'npm install'
         script {
           frontend = docker.build("goalgoru/frontend")
         }
