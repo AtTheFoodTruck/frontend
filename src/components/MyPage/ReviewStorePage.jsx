@@ -23,18 +23,13 @@ const ReviewStorePage = () => {
   //페이지 [현재 페이지,총 페이지 수]
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  //SELECT * FROM REVIEW
-
-  // ;
-
-  // commit;
-  //develop MERGE 전 https://apifood.blacksloop.com/
+  
+  //
   useEffect(() => {
     const getTotalPage = async () => {
       await axios
         .post(
           `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
-          //http://localhost:8000/  https://apifood.blacksloop.com/
           {
             user_id: userId,
             store_id: storeId,
@@ -107,7 +102,7 @@ const ReviewStorePage = () => {
                 </Row>
 
                 {/* 리뷰텍스트 */}
-                <Row className="mt-3">
+                <Row className="mt-3 ms-5 text-start" >
                   <Card.Body>
                     <Card.Text>{it.content}</Card.Text>
                   </Card.Body>

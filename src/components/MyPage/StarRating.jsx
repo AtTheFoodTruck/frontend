@@ -13,7 +13,7 @@ function StarRating({ rating }) {
   return (
     <Stars>
       {rendering()}
-      {rating}점
+      {/* {rating}점 */}
     </Stars>
   );
 }

@@ -25,7 +25,6 @@ const Home = () => {
     Authorization: `Bearer ${authorization}`,
   };
 
-  // https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=20
   async function fetchPopular() {
     const foodtruck = await axios
       .get(

@@ -12,17 +12,8 @@ const OrderPage = () => {
   const location = useLocation();
   const storeId = location.state.storeId;
 
-  const navigate = useNavigate();
-
-  const reviewNavigate = () => {
-    navigate("/review-storepage", {
-      state: {
-        storeId: storeId,
-      },
-    });
-  };
-
   // 변수 선언
+  const navigate = useNavigate();
   let params = useParams();
   const [details, setDetails] = useState({});
   const [detailsMenu, setDetailsMenu] = useState({});
@@ -35,47 +26,40 @@ const OrderPage = () => {
     Authorization: `Bearer ${authorization}`,
   };
 
+  // 리뷰 페이지로 전달할 props
+  const reviewNavigate = () => {
+    navigate("/review-storepage", {
+      state: {
+        storeId: storeId,
+      },
+    });
+  };
+
   // //Axios 가게 정보 GET
   async function fetchDetails() {
     const foodtruck = await axios
       .get(
-        // `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
-        // `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=10`,
         `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
         { headers }
       )
       .then((res) => {
-        setDetails(res.data.data);
+        setDetails(res.data.data); // 가게 정보 저장 
+        setDetailsMenu(res.data.data); // 메뉴 정보 저장
       });
   }
+  // const handleClick = (item) => {
+  //   //indexOf() 메서드는 배열에서 지정된 요소를 찾을 수 있는 첫 번째
+  //   //인덱스를 반환하고 존재하지 않으면 -1을 반환합니다.
+  //   if (cart.indexOf(item) !== -1) return;
+  //   setCart([...cart, item]);
 
-  //Axios가게 메뉴 목록 GET
-  async function fetchDetailsMenu() {
-    const foodtruck = await axios.get(
-      // `https://apifood.blacksloop.com/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
-      `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
-      { headers }
-    );
-    setDetailsMenu(foodtruck.data.data);
-  }
-
-  const handleClick = (item) => {
-    //indexOf() 메서드는 배열에서 지정된 요소를 찾을 수 있는 첫 번째
-    //인덱스를 반환하고 존재하지 않으면 -1을 반환합니다.
-    if (cart.indexOf(item) !== -1) return;
-    setCart([...cart, item]);
-
-    console.log(cart);
-  };
-  // //Load More
-  // const loadMore = () => {
-  //   setPostsPerPage(postsPerPage + 4);
+  //   console.log(cart);
   // };
 
   // 최초 렌더링
   useEffect(() => {
     fetchDetails();
-    fetchDetailsMenu();
+    // fetchDetailsMenu();
   }, []);
 
   return (
@@ -122,7 +106,6 @@ const OrderPage = () => {
                 <OrderPageMenu
                   key={item.itemId}
                   item={item}
-                  handleClick={handleClick}
                   storeId={details.storeId}
                 />
               );
@@ -130,12 +113,12 @@ const OrderPage = () => {
         </div>
       </section>
       {/* TODO - LOAD MORE Button */}
-      <button
+      {/* <button
         // onClick={() => loadMore()}
         className="btn btn-dark d-block w-100 mt-5 mb-5"
       >
-        Load More
-      </button>
+        장바구니 이동
+      </button> */}
     </StoreWrapper>
   );
 };
