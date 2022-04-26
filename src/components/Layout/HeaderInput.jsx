@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
-import styled from "styled-components";
-import { Link, Navigate } from "react-router-dom";
-import _ from "lodash";
-import { useSearchContext } from "../Context/SearchContext";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
+import { Link, Navigate } from 'react-router-dom';
+import _ from 'lodash';
+import { useSearchContext } from '../Context/SearchContext';
+import { useNavigate } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 const Section = styled.section`
   display: flex;
   justify-content: center;
@@ -14,7 +15,7 @@ const Section = styled.section`
 `;
 
 const HeaderInput = () => {
-  const [word, setWord] = useState("");
+  const [word, setWord] = useState('');
   // const { setSearch } = useSearchContext();
   const navigate = useNavigate();
 
@@ -42,34 +43,34 @@ const HeaderInput = () => {
   };
 
   const onReset = () => {
-    setWord("");
+    setWord('');
   };
 
   //handleMessage
   const handleSearch = () => {
-    if (word != "") {
+    if (word != '') {
       // setSearch(word);
-      navigate("/search-list");
+      navigate('/search-list');
       onReset();
     } else {
-      return alert("검색어를 입력해주세요!");
+      return alert('검색어를 입력해주세요!');
     }
   };
 
   //handleKeyPress
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearch();
     }
   };
 
   return (
-    <Section className="d-flex">
+    <Container className="d-flex justify-content-end">
       <input
-        className="form-control"
+        className="form-control w-25"
         name="search_input"
         type="text"
-        placeholder="Search"
+        placeholder="매장 또는 메뉴명을 검색하세요!"
         onKeyUp={handleKeyPress}
         onChange={handleInput}
         value={word} //0.3초 마다 입력됨
@@ -78,13 +79,13 @@ const HeaderInput = () => {
       <button
         // to="/search-list"
         type="button"
-        className="btn btn-secondary my-2 my-sm-0"
+        className="btn btn-dark my-2 my-sm-0"
         name="search_btn"
         onClick={handleSearch}
       >
-        Search{" "}
+        Search{' '}
       </button>
-    </Section>
+    </Container>
   );
 };
 
