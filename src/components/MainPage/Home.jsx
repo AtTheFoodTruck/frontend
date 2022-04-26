@@ -16,7 +16,7 @@ const Home = () => {
   const [activeMenuList, setActiveactiveMenuList] = useState();
 
   //페이지당 게시물
-  const size = 4;
+  const size = 10;
   //페이지 [현재 페이지,총 페이지 수]
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
@@ -33,13 +33,19 @@ const Home = () => {
         { headers }
       )
       .then((res) => {
+        console.log("최초 렌더링 api 호출")
         setTotalPage(res.data.data.page.totalPage);
         setPopular(res.data.data.storeList);
         setFiltered(res.data.data.storeList);
-        console.log(res.data.data.storeList);
+        console.log("메인페이지 Respone " + res.data.data.storeList[0]);
       })
       .catch((err) => console.log(err));
   }
+
+  // 최초 페이지 렌더링
+  useEffect(() => {
+    fetchPopular();
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -49,17 +55,13 @@ const Home = () => {
           { headers }
         )
         .then((res) => {
+          console.log("페이지 api 호출")
           setPopular(res.data.data.storeList);
         })
         .catch((err) => console.log(err));
     };
     getData();
   }, [currentPage]);
-
-  // 최초 페이지 렌더링
-  useEffect(() => {
-    fetchPopular();
-  }, []);
 
   return (
     <div className="container">
@@ -80,7 +82,6 @@ const Home = () => {
         </div>
         <HomeCategories
           popular={popular}
-          // setFiltered={setFiltered}
           setFiltered={setPopular}
           activeMenuList={activeMenuList}
           setActiveactiveMenuList={setActiveactiveMenuList}

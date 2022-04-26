@@ -19,6 +19,7 @@ import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
 import SearchList from "./components/SearchListPage/SearchList";
 import { SearchContextProvider } from "./components/Context/SearchContext";
+import OrderPage from "./components/OrderPage/OrderPage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/member-register" element={<MemberRegister />} />
           <Route path="/owner-register" element={<OwnerRegister />} />
           <Route path="/search-list" element={<SearchList />} />
+          <Route path="/order-page" element={<OrderPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

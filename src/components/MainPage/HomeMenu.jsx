@@ -3,8 +3,21 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import OrderPage from "../OrderPage/OrderPage";
+import { useNavigate } from "react-router-dom";
 
 const HomeMenu = ({ item }) => {
+
+  const navigate  = useNavigate();
+  
+  const handleClick = () => {
+    navigate("/order-page", {
+      state: {
+        storeId: item.storeId
+      },
+    });
+    
+  }
+
   return (
     <motion.section
       layout
@@ -29,18 +42,24 @@ const HomeMenu = ({ item }) => {
                 <div className="bi-star-fill text-warning"></div>&ensp;
                 {item.rateAvg}
               </div>
-              <div>store Id = {item.storeId}</div>
+              {/* <div>store Id = {item.storeId}</div> */}
             </div>
           </div>
           {/* <!-- Product actions--> */}
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div className="text-center">
-              <Link
+              <button className="btn btn-outline-dark mt-auto" cvariant="outline-secondary" onClick={handleClick}>
+                주문하기
+              </button>
+              {/* <Link
                 className="btn btn-outline-dark mt-auto"
                 to={"/order-page/" + item.storeId}
               >
                 주문하기
               </Link>
+              <Button cvariant="outline-secondary" onClick={handleClick}>
+                주문하기
+              </Button> */}
             </div>
           </div>
         </div>
