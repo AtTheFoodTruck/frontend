@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import { Row, Col, Button, Card } from 'react-bootstrap';
-
+import { useNavigate } from "react-router-dom";
 const OrderListItem = ({
   orderId,
   storeName,
@@ -10,49 +9,53 @@ const OrderListItem = ({
   orderTime,
   storeId,
 }) => {
+  const navigate  = useNavigate();
   console.log(orderItems);
+  const handleClick = () => {
+    navigate("/review-writing", {
+      state: {
+        orderId: orderId,
+        storeName: storeName,
+        itemName: orderItems[0].itemName,
+      },
+    });
+    
+  }
 
   return (
-    <Row key={orderId} className='d-flex align-items-center mb-5'>
-      <Col className='MenuImg'>
+    <Row key={orderId} className="d-flex align-items-center mb-5">
+      <Col className="MenuImg">
         <Card
-          className='d-flex align-items-center'
-          style={{ width: '10rem', height: '10rem' }}
+          className="d-flex align-items-center"
+          style={{ width: "10rem", height: "10rem" }}
         >
           <Card.Img
-            style={{ width: '9.5rem', height: '9.5rem' }}
-            variant='top'
+            style={{ width: "9.5rem", height: "9.5rem" }}
+            variant="top"
             src={storeImgUrl}
           />
         </Card>
       </Col>
-      <Col className='StoreName'>
+      <Col className="StoreName">
         <p>{storeName}</p>
       </Col>
-      <Col className='MenuName'>
+      <Col className="MenuName">
         <p>{orderItems[0].itemName}</p>
       </Col>
-      <Col className='Price'>
+      <Col className="Price">
         <p>{totalPrice}</p>
       </Col>
-      <Col className='Date'>
+      <Col className="Date">
         <p>{orderTime}</p>
       </Col>
-      <Col className='Waiting'>
+      <Col className="Waiting">
         <p>{storeId}</p>
       </Col>
-      <Col className='ReviewBtn'>
+      <Col className="ReviewBtn">
         {/* <Link to='/review-writing'> */}
-        <Link
-          to='/review-writing'
-          state={{
-            orderId: orderId,
-            storeName: storeName,
-            itemName: orderItems[0].itemName,
-          }}
-        >
-          <Button variant='outline-secondary'>리뷰쓰기</Button>{' '}
-        </Link>
+        <Button variant="outline-secondary" onClick={handleClick}>
+          리뷰쓰기
+        </Button>{" "}
       </Col>
     </Row>
   );
