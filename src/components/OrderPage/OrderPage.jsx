@@ -105,37 +105,36 @@ const OrderPage = () => {
       <section className="Title container text-center ">
         <h1>{details.storeName}</h1>
       </section>
-
       {/* Waiting Number */}
       <section className="Waiting container text-center mt-3">
         <button type="button" className="btn btn-secondary disabled">
-          {details.totalWaitingCount}
+          주문 번호 {details.totalWaitingCount}
         </button>
       </section>
-
       {/* Navigation Bar */}
       <section className="Navbar container text-center mt-5">
-        <button
+        {/* <button
           type="button"
           onClick={getCart}
           className="btn btn-outline-secondary"
         >
           장바구니 가져오기
-        </button>
-        <button type="button" className="btn btn-outline-secondary ms-4 me-4">
-          menu
-        </button>
-        <button type="button" className="btn btn-outline-secondary">
-          reviews
-        </button>
+        </button> */}
+
+        {/* <Link
+          className="btn btn-outline-secondary ms-4 me-4"
+          to="/review-history"
+        >
+          재훈이 리뷰 페이지
+        </Link> */}
+
         <Link
           className="btn btn-outline-secondary"
           to={"/review-sotrepage/" + params.storeId}
         >
-          주문하기
+          reviews
         </Link>
       </section>
-
       {/* Notice */}
       <section className="Notice container mt-5">
         <h4>Notice</h4>
@@ -152,7 +151,6 @@ const OrderPage = () => {
           </div>
         </div>
       </section>
-
       {/* MenuList */}
       <section className="Menus container mt-4">
         <h4>Menu</h4>
@@ -177,7 +175,7 @@ const OrderPage = () => {
       >
         Load More
       </button>
-      <ReviewStorePage />
+      {/* <ReviewStorePage /> */}
     </StoreWrapper>
   );
 };

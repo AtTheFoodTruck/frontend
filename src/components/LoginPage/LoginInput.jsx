@@ -53,7 +53,8 @@ const LoginInput = () => {
       alert("비밀번호를 입력하세요");
     } else {
       axios
-        .post("https://apifood.blacksloop.com/user-service/users/v1/logins", {
+        .post("http://localhost:8000/user-service/users/v1/logins", {
+          // https://apifood.blacksloop.com/
           email: inputId,
           password: inputPw,
         })
