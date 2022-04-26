@@ -10,6 +10,7 @@ pipeline {
       }
     }
 
+<<<<<<< HEAD
     stage('Front Push') {
       steps {
         script {
@@ -29,6 +30,8 @@ pipeline {
       }
     }
 
+=======
+>>>>>>> feature-login
   }
   environment {
     registryCredential = 'dockerhub_cred'

@@ -25,6 +25,9 @@ const LoginInput = () => {
   let [userId, setUserId] = useState("");
   const navigate = useNavigate();
 
+  const [mailMessage, setMailMessage] = useState("Email");
+  const [passwordMessage, setPasswordMessage] = useState("Password");
+
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
     console.log(e.target.value);
@@ -59,11 +62,24 @@ const LoginInput = () => {
         })
         .then(function (response) {
           console.log(response);
-          setAccessToken(response.data.data.accessToken);
-          setRefreshToken(response.data.data.refreshToken);
-          setUserId(response.data.data.userId);
-          navigate("/", { replace: true });
-          window.location.reload();
+
+          if (response.data.result === "success") {
+            setAccessToken(response.data.data.accessToken);
+            setRefreshToken(response.data.data.refreshToken);
+            setUserId(response.data.data.userId);
+            navigate("/", { replace: true });
+            console.log(response);
+          } else if (response.data.message === "Bad credentials") {
+            setMailMessage("로그인 실패");
+            setPasswordMessage("Password");
+            document.getElementById("input_id_label").style.color = "red";
+            document.getElementById("input_pw").value = null;
+          } else {
+            setMailMessage("계정이 존재하지 않습니다.");
+            setPasswordMessage("Password");
+            document.getElementById("input_id_label").style.color = "red";
+            document.getElementById("input_pw").value = null;
+          }
         })
         .catch(function (error) {
           console.log(error);
@@ -86,7 +102,9 @@ const LoginInput = () => {
             placeholder="아이디를 입력하세요."
             onChange={handleInputId}
           />
-          <label for="floatingInput">Email address</label>
+          <label id="input_id_label" for="floatingInput">
+            {mailMessage}
+          </label>
         </div>
       </div>
 
@@ -101,7 +119,7 @@ const LoginInput = () => {
             placeholder="비밀번호를 입력하세요."
             onChange={handleInputPw}
           />
-          <label for="floatingPassword">Password</label>
+          <label for="floatingPassword">{passwordMessage}</label>
         </div>
       </div>
 
