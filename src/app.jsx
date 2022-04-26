@@ -16,7 +16,7 @@ import ReviewHistory from "./components/MyPage/ReviewHistory";
 import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import SearchList from "./components/SearchListPage/SearchList";
-import { SearchContextProvider } from "./Context/SearchContext";
+import { SearchContextProvider } from "./components/Context/SearchContext";
 
 function App() {
   return (
