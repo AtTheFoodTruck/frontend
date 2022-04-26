@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Rating from "./star/Rating";
-import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import _ from "lodash";
 import axios from "axios";
 import ImgUpload from "./ImgUpload";
@@ -33,7 +34,17 @@ AWS.config.update({
   region: process.env.REACT_APP_REGION,
 });
 
-const ReviewWriting = () => {
+export default function ReviewWriting() {
+  const location = useLocation();
+
+  console.log("orderId : " + location.state.orderId);
+  console.log("storeName : " + location.state.storeName);
+  console.log("itemName : " + location.state.itemName);
+
+  const orderId = location.state.orderId;
+  const storeName = location.state.storeName;
+  const itemName = location.state.itemName;
+
   //image 상태
   //s3
   const [imgURL, setImgURL] = useState(null);
@@ -45,33 +56,20 @@ const ReviewWriting = () => {
   const [loaded, setLoaded] = useState(false);
   const [state, setState] = useState({
     user_id: null,
-    order_id: null,
+    order_id: orderId,
     content: "",
     review_img_url: "",
-    storeName: "",
-    itemName: "",
+    storeName: storeName,
+    itemName: itemName,
     rating: 0,
   });
   const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const orderId = location.state.orderId;
-    const storeName = location.state.storeName;
-    const itemName = location.state.itemName;
-    setState({
-      ...state,
-      order_id: orderId,
-      storeName: storeName,
-      itemName: itemName,
-    });
-  }, []);
 
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
 
-  // const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
-  const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
+  const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
+  // const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
 
   //${accessToken}
   const headers = {
@@ -271,6 +269,4 @@ const ReviewWriting = () => {
       </Container>
     </ReviewWritinghWrapper>
   );
-};
-
-export default ReviewWriting;
+}
