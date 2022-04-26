@@ -17,7 +17,6 @@ import ReviewHistory from "./components/MyPage/ReviewHistory";
 import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
-import OrderListPage from "./components/OrderPage/OrderPage";
 import SearchList from "./components/SearchListPage/SearchList";
 import { SearchContextProvider } from "./components/Context/SearchContext";
 
@@ -44,5 +43,5 @@ function App() {
     </SearchContextProvider>
   );
 }
-
+ 
 export default App;
