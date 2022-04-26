@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import _ from "lodash";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +42,7 @@ const HeaderInput = () => {
   };
   console.log("word : " + word);
   const onReset = () => {
-    setWord('');
+    setWord("");
   };
 
   //handleKeyPress
@@ -53,7 +54,7 @@ const HeaderInput = () => {
 
   //handleMessage
   const handleSearch = () => {
-    if (word != '') {
+    if (word != "") {
       // setSearch(word);
       navigate("/search-list", {
         state: {
@@ -62,7 +63,7 @@ const HeaderInput = () => {
       });
       onReset();
     } else {
-      return alert('검색어를 입력해주세요!');
+      return alert("검색어를 입력해주세요!");
     }
   };
   return (
@@ -84,7 +85,7 @@ const HeaderInput = () => {
         name="search_btn"
         onClick={handleSearch}
       >
-        Search{' '}
+        Search{" "}
       </button>
     </Container>
   );
