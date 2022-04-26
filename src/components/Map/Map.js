@@ -1,5 +1,6 @@
 /*global kakao*/
 import React, { useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 
 const Map = (props) => {
   useEffect(() => {
@@ -45,9 +46,9 @@ const Map = (props) => {
   });
 
   return (
-    <div>
-      <div id='map' style={{ width: '970px', height: '400px' }}></div>
-    </div>
+    <Container className='d-flex justify-content-center p-0'>
+      <div id='map' style={{ width: '730px', height: '400px' }}></div>
+    </Container>
   );
 };
 

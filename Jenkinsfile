@@ -4,7 +4,7 @@ pipeline {
     stage('Front Build') {
       steps {
         script {
-          frontend = docker.build("goalgoru/frontend")
+          frontend = docker.build("goalgoru/frontend-hyoyoung")
         }
 
       }

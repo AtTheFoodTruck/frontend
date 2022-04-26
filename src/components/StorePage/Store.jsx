@@ -56,7 +56,7 @@ const Store = () => {
     <StoreWrapper className='test w-auto'>
       <Container className='Store text-center mt-5'>
         <Container className='Title mb-5'>
-          <h1>매장찾기</h1>
+          <h1>Store</h1>
         </Container>
 
         {/* 검색창 */}
@@ -81,7 +81,10 @@ const Store = () => {
         </Container>
 
         {/* 지도 api 받아와야함 */}
-        <Container className='Map mt-5' style={{ width: 1000, height: 'auto' }}>
+        <Container
+          className='Map mt-5'
+          style={{ width: 'auto', height: 'auto' }}
+        >
           <Card className='MapApi'>
             <Map address={address} />
           </Card>
