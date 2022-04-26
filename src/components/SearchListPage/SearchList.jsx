@@ -2,8 +2,8 @@ import { render } from "@testing-library/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useSearchContext } from "../Context/SearchContext";
 import SearchResult from "./SearchResult";
 import SearchPagination from "./SearchPagination";
 const SearchWrapper = styled.div`
@@ -21,7 +21,9 @@ const SearchList = () => {
   };
 
   // 검색어 가져오기,리스트 데이터
-  const { search } = useSearchContext();
+  //const { search } = useSearchContext(); //useLocation으로 가져올 데이터
+  const location = useLocation();
+  const searchWord = location.state.searchWord;
   const [data, setData] = useState([]);
   const latitude = localStorage.getItem("latitude");
   const longitude = localStorage.getItem("longitude");
@@ -31,7 +33,7 @@ const SearchList = () => {
   const [totalPage, setTotalPage] = useState(0);
   const size = 1;
 
-  console.log("검색어 : " + search);
+  console.log("검색어 : " + searchWord);
   //리스트 갯수 확인
   useEffect(async () => {
     await axios
@@ -40,7 +42,7 @@ const SearchList = () => {
         {
           latitude: "1600.93", //localStorage.getItem("latitude");
           longitude: "150.156", //localStorage.getItem("longitude")
-          name: search,
+          name: searchWord,
         },
         { headers }
       )
@@ -59,7 +61,7 @@ const SearchList = () => {
         {
           latitude: "1600.93", //localStorage.getItem("latitude");
           longitude: "150.156", //localStorage.getItem("longitude")
-          name: search,
+          name: searchWord,
         },
         { headers }
       )
@@ -68,7 +70,7 @@ const SearchList = () => {
         setData(res.data.data.stores);
       })
       .catch((err) => console.log(err.response));
-  }, [search]);
+  }, [searchWord]);
   //
 
   const renderList = data.map((g) => {
@@ -83,7 +85,7 @@ const SearchList = () => {
     <SearchWrapper>
       <Container className="text-center mt-5">
         <article className="card_list">
-          {renderList.length > 0 && search != "" ? (
+          {renderList.length > 0 && searchWord != "" ? (
             renderList
           ) : (
             <h3 className="mb-5">검색 결과가 없습니다</h3>

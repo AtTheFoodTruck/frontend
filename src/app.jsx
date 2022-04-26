@@ -17,28 +17,28 @@ import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
 import SearchList from "./components/SearchListPage/SearchList";
-import { SearchContextProvider } from "./components/Context/SearchContext";
+// import { SearchContextProvider } from "./components/Context/SearchContext";
 
 function App() {
   return (
-    <SearchContextProvider>
-      <Routes>
-        <Route path="/profile" element={<ProFile />} />
-        <Route element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/review-history" element={<ReviewHistory />} />
-          <Route path="/review-writing" element={<ReviewWriting />} />
-          <Route path="/userinfo-config" element={<UserInfoConfig />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/member-register" element={<MemberRegister />} />
-          <Route path="/owner-register" element={<OwnerRegister />} />
-          <Route path="/search-list" element={<SearchList />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </SearchContextProvider>
+    // <SearchContextProvider>
+    <Routes>
+      <Route path="/profile" element={<ProFile />} />
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/review-history" element={<ReviewHistory />} />
+        <Route path="/review-writing" element={<ReviewWriting />} />
+        <Route path="/userinfo-config" element={<UserInfoConfig />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/member-register" element={<MemberRegister />} />
+        <Route path="/owner-register" element={<OwnerRegister />} />
+        <Route path="/search-list" element={<SearchList />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+    // </SearchContextProvider>
   );
 }
 
