@@ -17,33 +17,30 @@ import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
 import SearchList from "./components/SearchListPage/SearchList";
-import { SearchContextProvider } from "./components/Context/SearchContext";
 import OrderPage from "./components/OrderPage/OrderPage";
 import ReviewStorePage from "./components/MyPage/ReviewStorePage";
-
+import OrderListPage from "./components/MyPage/OrderListPage";
 function App() {
   return (
-    <SearchContextProvider>
-      <Routes>
-        <Route path="/profile" element={<ProFile />} />
-        <Route element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/order-list" element={<OrderListPage />} />
-          <Route path="/review-history" element={<ReviewHistory />} />
-          <Route path="/review-writing" element={<ReviewWriting />} />
-          <Route path="/review-storepage" element={<ReviewStorePage />} />
-          <Route path="/userinfo-config" element={<UserInfoConfig />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/member-register" element={<MemberRegister />} />
-          <Route path="/owner-register" element={<OwnerRegister />} />
-          <Route path="/search-list" element={<SearchList />} />
-          <Route path="/order-page" element={<OrderPage />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </SearchContextProvider>
+    <Routes>
+      <Route path="/profile" element={<ProFile />} />
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/order-list" element={<OrderListPage />} />
+        <Route path="/review-history" element={<ReviewHistory />} />
+        <Route path="/review-writing" element={<ReviewWriting />} />
+        <Route path="/review-storepage" element={<ReviewStorePage />} />
+        <Route path="/userinfo-config" element={<UserInfoConfig />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/member-register" element={<MemberRegister />} />
+        <Route path="/owner-register" element={<OwnerRegister />} />
+        <Route path="/search-list" element={<SearchList />} />
+        <Route path="/order-page" element={<OrderPage />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
