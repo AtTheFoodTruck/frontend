@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import SearchResult from "./SearchResult";
 import SearchPagination from "./SearchPagination";
+import { AnimatePresence, motion } from "framer-motion";
+
 const SearchWrapper = styled.div`
   position: absolute;
   align-items: center;
@@ -85,25 +87,48 @@ const SearchList = () => {
   });
 
   return (
-    <SearchWrapper>
-      <Container className="text-center mt-5">
-        <article className="card_list">
-          {renderList.length > 0 && searchWord != "" ? (
-            renderList
-          ) : (
-            <h3 className="mb-5">검색 결과가 없습니다</h3>
-          )}
-        </article>
-        {/*페이징 처리*/}
-        <SearchPagination
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPage={totalPage}
-          storeList={data}
-          size={size}
-        />
-      </Container>
-    </SearchWrapper>
+    // <SearchWrapper>
+    //   <Container className="text-center mt-5">
+    //     <article className="card_list">
+    //       {renderList.length > 0 && searchWord != "" ? (
+    //         renderList
+    //       ) : (
+    //         <h3 className="mb-5">검색 결과가 없습니다</h3>
+    //       )}
+    //     </article>
+    //     {/*페이징 처리*/}
+    //     {/* <SearchPagination
+    //       currentPage={currentPage}
+    //       setCurrentPage={setCurrentPage}
+    //       totalPage={totalPage}
+    //       storeList={data}
+    //       size={size}
+    //     /> */}
+    //   </Container>
+    // </SearchWrapper>
+    <div className="container">
+      <motion.div layout className="container px-4 px-lg-5 mt-5 ">
+        <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <AnimatePresence>
+            <article className="card_list">
+              {renderList.length > 0 && searchWord != "" ? (
+                renderList
+              ) : (
+                <h3 className="mb-5">검색 결과가 없습니다</h3>
+              )}
+            </article>
+            {/*페이징 처리*/}
+            <SearchPagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPage={totalPage}
+              storeList={data}
+              size={size}
+            />
+          </AnimatePresence>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
