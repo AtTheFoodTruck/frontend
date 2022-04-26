@@ -4,18 +4,19 @@ pipeline {
     stage('Front Build') {
       steps {
         script {
-          frontend = docker.build("goalgoru/frontend")
+          frontend = docker.build("goalgoru/frontend_test")
         }
 
       }
     }
 
-<<<<<<< HEAD
     stage('Front Push') {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
             frontend.push("latest")
+            frontend.push("${BUILD_NUMBER}")
+
           }
         }
 
@@ -24,16 +25,12 @@ pipeline {
 
     stage('Docker Compose') {
       steps {
-        sh 'docker stop $(docker ps -a -q)'
-        sh 'docker rm $(docker ps -a -q)'
         sh 'cd /project && docker-compose up -d'
       }
     }
 
-=======
->>>>>>> feature-login
   }
   environment {
-    registryCredential = 'dockerhub_cred'
+    registryCredential = 'dockerhub_front'
   }
 }
