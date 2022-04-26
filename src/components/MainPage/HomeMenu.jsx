@@ -6,17 +6,15 @@ import OrderPage from "../OrderPage/OrderPage";
 import { useNavigate } from "react-router-dom";
 
 const HomeMenu = ({ item }) => {
+  const navigate = useNavigate();
 
-  const navigate  = useNavigate();
-  
   const handleClick = () => {
     navigate("/order-page", {
       state: {
-        storeId: item.storeId
+        storeId: item.storeId,
       },
     });
-    
-  }
+  };
 
   return (
     <motion.section
@@ -48,7 +46,11 @@ const HomeMenu = ({ item }) => {
           {/* <!-- Product actions--> */}
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div className="text-center">
-              <button className="btn btn-outline-dark mt-auto" cvariant="outline-secondary" onClick={handleClick}>
+              <button
+                className="btn btn-outline-dark mt-auto"
+                cvariant="outline-secondary"
+                onClick={handleClick}
+              >
                 주문하기
               </button>
               {/* <Link

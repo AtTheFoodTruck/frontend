@@ -8,12 +8,16 @@ import SearchResult from "./SearchResult";
 import SearchPagination from "./SearchPagination";
 import { AnimatePresence, motion } from "framer-motion";
 
-const SearchWrapper = styled.div`
-  position: absolute;
+const Input1 = styled.input`
+  margin-top: 11%;
+  width: 35%;
+  height: 40px;
+  visibility: hidden;
+`;
+
+const Header1 = styled.header`
   align-items: center;
-  width: 40%;
-  top: 20%;
-  left: 30%;
+  /* background: black; */
 `;
 
 const SearchList = () => {
@@ -41,8 +45,8 @@ const SearchList = () => {
   useEffect(async () => {
     await axios
       .post(
-        `http://localhost:8000/item-service/items/v1/search/stores?page=0&size=${size}`,
-        // `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
+        //`http://localhost:8000/item-service/items/v1/search/stores?page=0&size=${size}`,
+        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
         {
           latitude: "1600.93", //localStorage.getItem("latitude");
           longitude: "150.156", //localStorage.getItem("longitude")
@@ -61,8 +65,8 @@ const SearchList = () => {
   useEffect(async () => {
     await axios
       .post(
-        `http://localhost:8000/item-service/items/v1/search/stores?page=0&size=${size}`,
-        // `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
+        // `http://localhost:8000/item-service/items/v1/search/stores?page=0&size=${size}`,
+        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
         {
           latitude: "1600.93", //localStorage.getItem("latitude");
           longitude: "150.156", //localStorage.getItem("longitude")
@@ -107,25 +111,38 @@ const SearchList = () => {
     //   </Container>
     // </SearchWrapper>
     <div className="container">
-      <motion.div layout className="container px-4 px-lg-5 mt-5 ">
+      <Header1 class="masthead d-flex ">
+        <div class="container  px-4 px-lg-5 text-center">
+          <div class="mb-3">
+            <Input1
+              type="text"
+              class="form-control"
+              placeholder="Recipient's username"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+            />
+          </div>
+        </div>
+      </Header1>
+      <motion.div layout className="container px-4 px-lg-5 mt-5  text-center">
         <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <AnimatePresence>
             {renderList.length > 0 && searchWord != "" ? (
               renderList
             ) : (
-              <h3 className="mb-5">검색 결과가 없습니다</h3>
+              <h4 className="mb-5">검색 결과가 없습니다</h4>
             )}
-            {/*페이징 처리*/}
-            <SearchPagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPage={totalPage}
-              storeList={data}
-              size={size}
-            />
           </AnimatePresence>
         </motion.div>
       </motion.div>
+      {/*페이징 처리*/}
+      <SearchPagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPage={totalPage}
+        storeList={data}
+        size={size}
+      />
     </div>
   );
 };
