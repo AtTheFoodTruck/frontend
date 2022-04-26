@@ -24,7 +24,7 @@ const Home = () => {
   // https://apifood.blacksloop.com/ dvelop푸시할때 변경하기
   async function fetchPopular() {
     const foodtruck = await axios.get(
-      `http://localhost:8000/item-service/items/v1/main?page=0&size=20`,
+      `https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=20`,
       { headers }
       // {
       //   headers: {

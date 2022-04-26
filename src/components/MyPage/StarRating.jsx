@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import styled from "styled-components";
 
@@ -9,7 +10,12 @@ function StarRating({ rating }) {
     }
     return result;
   };
-  return <Stars>{rendering()}</Stars>;
+  return (
+    <Stars>
+      {rendering()}
+      {rating}점
+    </Stars>
+  );
 }
 
 export default StarRating;

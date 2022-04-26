@@ -23,7 +23,7 @@ const OrderPageMenu = ({ storeId, item, handleClick }) => {
     };
 
     await axios.post(
-      "http://localhost:8000/order-service/orders/v1/customer/carts",
+      "https://apifood.blacksloop.com/order-service/orders/v1/customer/carts",
       data,
       { headers }
     );

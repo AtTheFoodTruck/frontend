@@ -1,14 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import OrderListItem from './OrderListItem';
 
-const OrderList = () => {
+const OrderList = ({ orderList }) => {
   return (
-    <>
-      <div>주문 내역 페이지 입니다.</div>
-      <Link to="/reviewwriting">
-        <button>리뷰 쓰기</button>
-      </Link>
-    </>
+    <span className='list'>
+      {orderList.map((orderItem) => (
+        <OrderListItem key={orderItem.orderId} {...orderItem} />
+      ))}
+    </span>
   );
 };
 

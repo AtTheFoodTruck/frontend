@@ -14,7 +14,6 @@ COPY . .
 # 리액트 빌드
 RUN npm run build
 
-
 FROM nginx:latest
 # nginx의 기본 설정을 삭제하고 앱 소스에서 설정한 파일을 복사
 # 소스 코드에 /conf/conf.d 파일이 있어야함
