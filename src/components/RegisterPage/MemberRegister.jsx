@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { use } from "bcrypt/promises";
 
 const MemberRegisterContainer = styled.div`
   padding-top: 250px;
@@ -90,11 +91,15 @@ const MemberRegister = () => {
 
   const [setConfirm, isSetConfirm] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  const [passwordConfirmMessage, setPasswordConfirmMessage] =
-    useState("Password Check");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState(
+    "Password Check"
+  );
 
   const [isName, setIsName] = useState(false);
   const [nameMessage, setNameMessage] = useState("Username");
+
+  const [isPhone, setIsPhone] = useState(false);
+  const [phoneMessage, setPhoneMessage] = useState("Phone Number");
 
   const navigate = useNavigate();
 
@@ -104,8 +109,7 @@ const MemberRegister = () => {
     const emailCurrent = e.target.value;
     setInputEmail(emailCurrent);
 
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     if (!emailRegex.test(inputEmail)) {
       document.getElementById("input_email").style.color = "red";
@@ -124,8 +128,7 @@ const MemberRegister = () => {
     const passwordCurrent = e.target.value;
     setInputPw(passwordCurrent);
 
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,1000}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,1000}$/;
 
     if (!passwordRegex.test(passwordCurrent)) {
       setPasswordMessage("숫자+영문자+특수문자 조합으로 8자리 이상");
@@ -188,7 +191,14 @@ const MemberRegister = () => {
 
     const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 
-    if (!regPhone.test(inputPhonenumber)) {
+    if (!regPhone.test(e.target.value)) {
+      setPhoneMessage("형식을지켜주세요 (ex. 01x-xxxx-xxx)");
+      setIsPhone(false);
+      document.getElementById("input_phonenumber").style.color = "red";
+    } else {
+      setPhoneMessage("Phone Number");
+      setIsPhone(true);
+      document.getElementById("input_phonenumber").style.color = "green";
     }
   };
 
@@ -208,17 +218,17 @@ const MemberRegister = () => {
             email: inputEmail,
           }
         )
-        .then(function (response) {
+        .then(function(response) {
           if (response.data.result === "fail") {
             alert(response.data.message);
             console.log(response);
             document.getElementById("input_email").value = null;
           } else {
             alert("사용가능합니다!");
-            setMailDuplicate(false);
+            setMailDuplicate(true);
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     }
@@ -239,16 +249,16 @@ const MemberRegister = () => {
             username: inputUsername,
           }
         )
-        .then(function (response) {
+        .then(function(response) {
           if (response.data.result === "fail") {
             alert(response.data.message);
             document.getElementById("input_username").value = null;
-            setNameDuplicate(false);
+            setNameDuplicate(true);
           } else {
             alert("사용가능합니다!");
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     }
@@ -261,12 +271,16 @@ const MemberRegister = () => {
       alert("아이디를 입력하세요");
     } else if (inputPw === "") {
       alert("비밀번호를 입력하세요");
-    } else if (mailDuplicate) {
+    } else if (!mailDuplicate) {
       alert("메일 중복확인을 해주세요");
     } else if (inputPw !== inputpwVerification) {
       alert("입력하신 비밀번호가 동일하지 않습니다.");
-    } else if (nameDuplicate) {
+    } else if (!nameDuplicate) {
       alert("이름 중복확인을 해주세요");
+    } else if (inputPhonenumber === "") {
+      alert("전화번호를 입력해주세요");
+    } else if (isPhone === false) {
+      alert("전화번호 형식을 맞춰주세요");
     } else {
       axios
         .post("https://apifood.blacksloop.com/user-service/users/v1/join", {
@@ -275,7 +289,7 @@ const MemberRegister = () => {
           password: inputPw,
           phone_num: inputPhonenumber,
         })
-        .then(function (response) {
+        .then(function(response) {
           if (response.data.result === "fail") {
             console.log(response.data.error[0].message);
           } else {
@@ -283,7 +297,7 @@ const MemberRegister = () => {
             navigate("/login", { replace: true });
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     }
@@ -387,7 +401,7 @@ const MemberRegister = () => {
               placeholder="휴대전화 번호를 입력하세요."
               onChange={handleInputPhonenumber}
             />
-            <label for="floatingPassword">Phone Number (xxx-xxxx-xxxx)</label>
+            <label for="floatingPassword">{phoneMessage}</label>
           </div>
         </div>
         <div className="join">

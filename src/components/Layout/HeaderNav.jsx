@@ -23,6 +23,7 @@ const HeaderNav = () => {
 
   const onClickLogout = () => {
     localStorage.removeItem("Authorization");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("userId");
     window.location.replace("/");
   };
