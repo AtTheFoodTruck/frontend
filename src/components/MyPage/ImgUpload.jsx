@@ -29,11 +29,11 @@ export default function ImgUpload({
         <Form.Control
           type="file"
           accept="image/jpg,image/jpeg"
-          onChange={handleImgInput}
-          // onChange={(e) => {
-          //   handleImgUpload(e);
-          //   handleImgInput(e);
-          // }}
+          // onChange={handleImgInput}
+          onChange={(e) => {
+            handleImgUpload(e);
+            handleImgInput(e);
+          }}
         />
       </Form.Group>
     </>

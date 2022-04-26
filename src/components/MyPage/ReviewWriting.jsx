@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Rating from "./star/Rating";
@@ -33,34 +33,51 @@ AWS.config.update({
   region: process.env.REACT_APP_REGION,
 });
 
-const ReviewWriting = ({ store_name, menu }) => {
-  const navigate = useNavigate();
-  const contentInput = useRef();
-  const [loaded, setLoaded] = useState(false);
-
-  const [state, setState] = useState({
-    user_id: null,
-    content: "",
-    review_img_url: "",
-    rating: 0,
-  });
-
+const ReviewWriting = () => {
   //image 상태
   //s3
   const [imgURL, setImgURL] = useState(null);
   //미리보기
   const [fileURL, setFileURL] = useState("img/default_image.png");
+  const [reviewLocation, setReviewLocation] = useState("");
+
+  const contentInput = useRef();
+  const [loaded, setLoaded] = useState(false);
+  const [state, setState] = useState({
+    user_id: null,
+    order_id: null,
+    content: "",
+    review_img_url: "",
+    storeName: "",
+    itemName: "",
+    rating: 0,
+  });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const orderId = location.state.orderId;
+    const storeName = location.state.storeName;
+    const itemName = location.state.itemName;
+    setState({
+      ...state,
+      order_id: orderId,
+      storeName: storeName,
+      itemName: itemName,
+    });
+  }, []);
 
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
 
-  const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
-  // const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
+  // const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
+  const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
 
   //${accessToken}
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
+
   //img input
   const handleImgInput = (e) => {
     e.preventDefault();
@@ -78,9 +95,14 @@ const ReviewWriting = ({ store_name, menu }) => {
       setLoaded(true);
     };
   };
+
+  // function updateUrl(url) {
+  //   setReviewLocation(url);
+  // }
+
   //이미지 업로드 진행
-  const handleImgUpload = (file) => {
-    // const file = e.target.files[0];
+  const handleImgUpload = (e) => {
+    const file = e.target.files[0];
     const upload = new AWS.S3.ManagedUpload({
       params: {
         ACL: "public-read",
@@ -94,14 +116,10 @@ const ReviewWriting = ({ store_name, menu }) => {
 
     promise.then(
       function (data) {
-        console.log(data.Location);
-        const reviewImgUrl = data.Location;
-        setState({
-          ...state,
-          review_img_url: reviewImgUrl,
-        });
-        console.log("이미지 업로드에 성공했습니다.");
+        setReviewLocation(data.Location);
+        console.log(data.Location + "업로드 성공");
       },
+
       function (err) {
         console.log(err);
         return console.log("오류가 발생했습니다");
@@ -109,17 +127,18 @@ const ReviewWriting = ({ store_name, menu }) => {
     );
   };
 
-  const onCreate = (content, rating, reviewImgUrl) => {
+  const onCreate = async (content, rating, orderId, reviewLocation) => {
+    console.log("리뷰 이미지 URL" + reviewLocation);
     // console.log("Params => orderId : ", orderId);
-    axios
+    await axios
       .post(
         url,
         {
           user_id: userId,
           //TODO 변수 확인
-          order_id: 39,
+          order_id: orderId,
           rating: rating,
-          review_img_url: reviewImgUrl,
+          review_img_url: reviewLocation,
           content: content,
         },
         { headers }
@@ -154,13 +173,15 @@ const ReviewWriting = ({ store_name, menu }) => {
   };
 
   //리뷰 등록
-  const handleSubmit = (imgURL) => {
+  const handleSubmit = () => {
     if (state.content.length < 1) {
       contentInput.current.focus();
       return alert("리뷰 내용을 입력해주세요!");
     }
-    handleImgUpload(imgURL);
-    onCreate(state.content, state.rating, state.review_img_url);
+    // handleImgUpload(imgURL);
+
+    onCreate(state.content, state.rating, state.order_id, reviewLocation);
+
     // console.log(state);
   };
 
@@ -183,8 +204,8 @@ const ReviewWriting = ({ store_name, menu }) => {
         </Row>
         <hr />
         <Row className="mb-5">
-          <Col>{store_name}</Col>
-          <Col>{menu}</Col>
+          <Col>{state.storeName}</Col>
+          <Col>{state.itemName}</Col>
         </Row>
 
         {/* 리뷰 입력 줄 */}
