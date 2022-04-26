@@ -4,7 +4,7 @@ pipeline {
     stage('Front Build') {
       steps {
         script {
-          frontend = docker.build("goalgoru/frontend_test")
+          frontend = docker.build("goalgoru/frontend")
         }
 
       }
@@ -25,12 +25,14 @@ pipeline {
 
     stage('Docker Compose') {
       steps {
-        sh 'cd /project && docker-compose up -d'
+        sh 'docker stop $(docker ps -a -q)'
+        sh 'docker rm $(docker ps -a -q)'
+        sh 'cd /project/hyoyoung && docker-compose up -d'
       }
     }
 
   }
   environment {
-    registryCredential = 'dockerhub_front'
+    registryCredential = 'dockerhub_cred'
   }
 }
