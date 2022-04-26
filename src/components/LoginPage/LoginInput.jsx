@@ -60,7 +60,7 @@ const LoginInput = () => {
           email: inputId,
           password: inputPw,
         })
-        .then(function (response) {
+        .then(function(response) {
           console.log(response);
 
           if (response.data.result === "success") {
@@ -68,6 +68,7 @@ const LoginInput = () => {
             setRefreshToken(response.data.data.refreshToken);
             setUserId(response.data.data.userId);
             navigate("/", { replace: true });
+            document.location.reload();
             console.log(response);
           } else if (response.data.message === "Bad credentials") {
             setMailMessage("로그인 실패");
@@ -81,7 +82,7 @@ const LoginInput = () => {
             document.getElementById("input_pw").value = null;
           }
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.log(error);
         });
     }
