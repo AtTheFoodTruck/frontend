@@ -61,27 +61,24 @@ const LoginInput = () => {
           password: inputPw,
         })
         .then(function (response) {
-          console.log(response);        
+          console.log(response);
 
-          if(response.data.result === "success"){            
+          if (response.data.result === "success") {
             setAccessToken(response.data.data.accessToken);
             setRefreshToken(response.data.data.refreshToken);
             setUserId(response.data.data.userId);
-            navigate("/", { replace: true });          
+            navigate("/", { replace: true });
             console.log(response);
-
-          } else if(response.data.message === "Bad credentials") {
-            setMailMessage("로그인 실패")
+          } else if (response.data.message === "Bad credentials") {
+            setMailMessage("로그인 실패");
             setPasswordMessage("Password");
-            document.getElementById('input_id_label').style.color = "red";
+            document.getElementById("input_id_label").style.color = "red";
             document.getElementById("input_pw").value = null;
-            
           } else {
-            setMailMessage("계정이 존재하지 않습니다.")
+            setMailMessage("계정이 존재하지 않습니다.");
             setPasswordMessage("Password");
-            document.getElementById('input_id_label').style.color = "red";
+            document.getElementById("input_id_label").style.color = "red";
             document.getElementById("input_pw").value = null;
-            
           }
         })
         .catch(function (error) {
@@ -105,7 +102,9 @@ const LoginInput = () => {
             placeholder="아이디를 입력하세요."
             onChange={handleInputId}
           />
-          <label id="input_id_label" for="floatingInput">{mailMessage}</label>
+          <label id="input_id_label" for="floatingInput">
+            {mailMessage}
+          </label>
         </div>
       </div>
 
