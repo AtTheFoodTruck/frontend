@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Link, Navigate } from "react-router-dom";
 import _ from "lodash";
-import { useSearchContext } from "../Context/SearchContext";
+import { useSearchContext } from "../../Context/SearchContext";
 import { useNavigate } from "react-router-dom";
 const Section = styled.section`
   display: flex;

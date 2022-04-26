@@ -18,7 +18,7 @@ import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import "bootswatch/dist/sketchy/bootstrap.min.css";
 import SearchList from "./components/SearchListPage/SearchList";
-import { SearchContextProvider } from "./components/Context/SearchContext";
+import { SearchContextProvider } from "./Context/SearchContext";
 import OrderPage from "./components/OrderPage/OrderPage";
 import ReviewStorePage from "./components/MyPage/ReviewStorePage";
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import styled from "styled-components";
-import { useSearchContext } from "../Context/SearchContext";
+import { useSearchContext } from "../../Context/SearchContext";
 import SearchResult from "./SearchResult";
 import SearchPagination from "./SearchPagination";
 const SearchWrapper = styled.div`
