@@ -37,17 +37,13 @@ AWS.config.update({
 export default function ReviewWriting() {
   const location = useLocation();
 
-  console.log("orderId : " + location.state.orderId);
-  console.log("storeName : " + location.state.storeName);
-  console.log("itemName : " + location.state.itemName);
-
   const orderId = location.state.orderId;
   const storeName = location.state.storeName;
   const itemName = location.state.itemName;
 
   //image 상태
   //s3
-  const [imgURL, setImgURL] = useState(null);
+  const [imgURL, setImgURL] = useState("");
   //미리보기
   const [fileURL, setFileURL] = useState("img/default_image.png");
   const [reviewLocation, setReviewLocation] = useState("");
@@ -55,7 +51,7 @@ export default function ReviewWriting() {
   const contentInput = useRef();
   const [loaded, setLoaded] = useState(false);
   const [state, setState] = useState({
-    user_id: null,
+    user_id: 0,
     order_id: orderId,
     content: "",
     review_img_url: "",
@@ -68,8 +64,8 @@ export default function ReviewWriting() {
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
 
-  const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
-  // const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
+  // const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
+  const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
 
   //${accessToken}
   const headers = {
