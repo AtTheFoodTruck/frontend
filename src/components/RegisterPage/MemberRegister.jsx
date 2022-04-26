@@ -80,8 +80,8 @@ const MemberRegister = () => {
   const [inputpwVerification, setPwVerification] = useState("");
   const [inputUsername, setInputUsername] = useState("");
   const [inputPhonenumber, setInputPhonenumber] = useState("");
-  const [mailDuplicate, setMailDuplicate] = useState(true);
-  const [nameDuplicate, setNameDuplicate] = useState(true);
+  const [mailDuplicate, setMailDuplicate] = useState(false);
+  const [nameDuplicate, setNameDuplicate] = useState(false);
 
   const [isEmail, setIsEmail] = useState(false);
   const [emailMessage, setEmailMessage] = useState("Email");
@@ -223,6 +223,7 @@ const MemberRegister = () => {
             alert(response.data.message);
             console.log(response);
             document.getElementById("input_email").value = null;
+            setMailDuplicate(false);
           } else {
             alert("사용가능합니다!");
             setMailDuplicate(true);
@@ -253,9 +254,10 @@ const MemberRegister = () => {
           if (response.data.result === "fail") {
             alert(response.data.message);
             document.getElementById("input_username").value = null;
-            setNameDuplicate(true);
+            setNameDuplicate(false);
           } else {
             alert("사용가능합니다!");
+            setNameDuplicate(true);
           }
         })
         .catch(function(error) {
@@ -271,16 +273,20 @@ const MemberRegister = () => {
       alert("아이디를 입력하세요");
     } else if (inputPw === "") {
       alert("비밀번호를 입력하세요");
-    } else if (!mailDuplicate) {
+    } else if (mailDuplicate === false) {
       alert("메일 중복확인을 해주세요");
     } else if (inputPw !== inputpwVerification) {
       alert("입력하신 비밀번호가 동일하지 않습니다.");
-    } else if (!nameDuplicate) {
+    } else if (nameDuplicate === false) {
       alert("이름 중복확인을 해주세요");
     } else if (inputPhonenumber === "") {
       alert("전화번호를 입력해주세요");
     } else if (isPhone === false) {
       alert("전화번호 형식을 맞춰주세요");
+    } else if (
+      !(isEmail && isPassword && isPasswordConfirm && isName && isPhone)
+    ) {
+      alert("양삭애 맞게 다시 기입해주세요");
     } else {
       axios
         .post("https://apifood.blacksloop.com/user-service/users/v1/join", {
@@ -291,7 +297,7 @@ const MemberRegister = () => {
         })
         .then(function(response) {
           if (response.data.result === "fail") {
-            console.log(response.data.error[0].message);
+            alert(response.data.error[0].message);
           } else {
             alert("가입 성공");
             navigate("/login", { replace: true });
