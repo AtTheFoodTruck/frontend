@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import _ from "lodash";
 import axios from "axios";
 import ImgUpload from "./ImgUpload";
-import AWS from "aws-sdk";
+// import AWS from "aws-sdk";
 
 const ReviewWritinghWrapper = styled.div`
   position: absolute;
@@ -28,11 +28,11 @@ const ReviewWritinghWrapper = styled.div`
 //TODO
 //주문내역 props ( orderId,Store_name,menu) 받아서 출력
 // useLocation으로 받아와야함
-AWS.config.update({
-  accessKeyId: process.env.REACT_APP_ACCESS_KEY,
-  secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
-  region: process.env.REACT_APP_REGION,
-});
+// AWS.config.update({
+//   accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+//   secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
+//   region: process.env.REACT_APP_REGION,
+// });
 
 export default function ReviewWriting() {
   const location = useLocation();
@@ -95,31 +95,31 @@ export default function ReviewWriting() {
   // }
 
   //이미지 업로드 진행
-  const handleImgUpload = (e) => {
-    const file = e.target.files[0];
-    const upload = new AWS.S3.ManagedUpload({
-      params: {
-        ACL: "public-read",
-        Body: file,
-        Bucket: process.env.REACT_APP_S3_BUCKET,
-        Key: "upload/" + file.name,
-      },
-    });
+  // const handleImgUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   const upload = new AWS.S3.ManagedUpload({
+  //     params: {
+  //       ACL: "public-read",
+  //       Body: file,
+  //       Bucket: process.env.REACT_APP_S3_BUCKET,
+  //       Key: "upload/" + file.name,
+  //     },
+  //   });
 
-    const promise = upload.promise();
+  //   const promise = upload.promise();
 
-    promise.then(
-      function (data) {
-        setReviewLocation(data.Location);
-        console.log(data.Location + "업로드 성공");
-      },
+  //   promise.then(
+  //     function (data) {
+  //       setReviewLocation(data.Location);
+  //       console.log(data.Location + "업로드 성공");
+  //     },
 
-      function (err) {
-        console.log(err);
-        return console.log("오류가 발생했습니다");
-      }
-    );
-  };
+  //     function (err) {
+  //       console.log(err);
+  //       return console.log("오류가 발생했습니다");
+  //     }
+  //   );
+  // };
 
   const onCreate = async (content, rating, orderId, reviewLocation) => {
     console.log("리뷰 이미지 URL" + reviewLocation);
@@ -211,7 +211,7 @@ export default function ReviewWriting() {
               loaded={loaded}
               fileURL={fileURL}
               handleImgInput={handleImgInput}
-              handleImgUpload={handleImgUpload}
+              // handleImgUpload={handleImgUpload}
             />
             {/* 이미지 처리 -> S3 Upload */}
             {/* 이미지 S3 컴포넌트 */}

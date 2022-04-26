@@ -20,6 +20,7 @@ import "bootswatch/dist/sketchy/bootstrap.min.css";
 import SearchList from "./components/SearchListPage/SearchList";
 import { SearchContextProvider } from "./components/Context/SearchContext";
 import OrderPage from "./components/OrderPage/OrderPage";
+import ReviewStorePage from "./components/MyPage/ReviewStorePage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/order-list" element={<OrderListPage />} />
           <Route path="/review-history" element={<ReviewHistory />} />
           <Route path="/review-writing" element={<ReviewWriting />} />
+          <Route path="/review-storepage" element={<ReviewStorePage />} />
           <Route path="/userinfo-config" element={<UserInfoConfig />} />
           <Route path="/login" element={<Login />} />
           <Route path="/member-register" element={<MemberRegister />} />
@@ -45,5 +47,5 @@ function App() {
     </SearchContextProvider>
   );
 }
- 
+
 export default App;

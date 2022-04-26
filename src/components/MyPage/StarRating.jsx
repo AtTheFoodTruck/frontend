@@ -22,7 +22,6 @@ export default StarRating;
 
 const Stars = styled.div`
   display: flex;
-
   .yellowStar {
     color: #fcc419;
   }

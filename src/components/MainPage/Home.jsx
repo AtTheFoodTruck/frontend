@@ -29,11 +29,11 @@ const Home = () => {
   async function fetchPopular() {
     const foodtruck = await axios
       .get(
-        `http://localhost:8000/item-service/items/v1/main?page=0&size=${size}`,
+        `https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=${size}`,
         { headers }
       )
       .then((res) => {
-        console.log("최초 렌더링 api 호출")
+        console.log("최초 렌더링 api 호출");
         setTotalPage(res.data.data.page.totalPage);
         setPopular(res.data.data.storeList);
         setFiltered(res.data.data.storeList);
@@ -51,11 +51,11 @@ const Home = () => {
     const getData = async () => {
       await axios
         .get(
-          `http://localhost:8000/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
           { headers }
         )
         .then((res) => {
-          console.log("페이지 api 호출")
+          console.log("페이지 api 호출");
           setPopular(res.data.data.storeList);
         })
         .catch((err) => console.log(err));

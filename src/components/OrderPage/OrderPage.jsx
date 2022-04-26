@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import OrderPageMenu from "./OrderPageMenu";
 import Cart from "../CartPage/Cart";
@@ -11,6 +11,16 @@ const OrderPage = () => {
   // 이전 화면에서 전달받은 props
   const location = useLocation();
   const storeId = location.state.storeId;
+
+  const navigate = useNavigate();
+
+  const reviewNavigate = () => {
+    navigate("/review-storepage", {
+      state: {
+        storeId: storeId,
+      },
+    });
+  };
 
   // 변수 선언
   let params = useParams();
@@ -25,30 +35,28 @@ const OrderPage = () => {
     Authorization: `Bearer ${authorization}`,
   };
 
-  //Axios 가게 정보 GET
+  // //Axios 가게 정보 GET
   async function fetchDetails() {
-    const foodtruck = await axios.get(
-      // `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
-      // `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=10`,
-      `http://localhost:8000/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
-      { headers }
-    ).then( res => {
-      setDetails(res.data.data);
-    });
+    const foodtruck = await axios
+      .get(
+        // `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
+        // `http://localhost:8000/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=10`,
+        `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
+        { headers }
+      )
+      .then((res) => {
+        setDetails(res.data.data);
+      });
   }
 
   //Axios가게 메뉴 목록 GET
   async function fetchDetailsMenu() {
     const foodtruck = await axios.get(
       // `https://apifood.blacksloop.com/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
-      `http://localhost:8000/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
+      `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
       { headers }
     );
     setDetailsMenu(foodtruck.data.data);
-    console.log(foodtruck);
-    console.log(foodtruck.data);
-    console.log(foodtruck.data.data);
-
   }
 
   const handleClick = (item) => {
@@ -76,21 +84,18 @@ const OrderPage = () => {
       <section className="Title container text-center ">
         <h1>{details.storeName}</h1>
       </section>
-
       {/* Waiting Number */}
       <section className="Waiting container text-center mt-3">
         <button type="button" className="btn btn-secondary disabled">
-          {details.totalWaitingCount}
+          주문 번호 {details.totalWaitingCount}
         </button>
       </section>
-
       {/* Navigation Bar */}
       <section className="Navbar container text-center mt-5">
-        <button type="button" className="btn btn-outline-secondary">
+        <button onClick={reviewNavigate} className="btn btn-outline-secondary">
           reviews
         </button>
       </section>
-
       {/* Notice */}
       <section className="Notice container mt-5">
         <h4>Notice</h4>
@@ -107,7 +112,6 @@ const OrderPage = () => {
           </div>
         </div>
       </section>
-
       {/* MenuList */}
       <section className="Menus container mt-4">
         <h4>Menu</h4>
