@@ -1,10 +1,8 @@
-import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
-import { Link, Navigate } from 'react-router-dom';
-import _ from 'lodash';
-import { useSearchContext } from '../Context/SearchContext';
-import { useNavigate } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
+import { Link, Navigate } from "react-router-dom";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 const Section = styled.section`
   display: flex;
   justify-content: center;
@@ -15,8 +13,8 @@ const Section = styled.section`
 `;
 
 const HeaderInput = () => {
-  const [word, setWord] = useState('');
-  // const { setSearch } = useSearchContext();
+  const [word, setWord] = useState("");
+  //const { setSearch } = useSearchContext(); //usehistory로 보내줄 데이터
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -24,11 +22,11 @@ const HeaderInput = () => {
   //   console.log(word);
   // }, [search]);
 
-  const inputDebounce = _.debounce((input) => {
-    // const word = input.split(" ");
-    // setSearch(word);
-    setWord(input);
-  }, 400);
+  // const inputDebounce = _.debounce((input) => {
+  //   const word = input.split(" ");
+  //   setSearch(word);
+  //   setWord(input);
+  // }, 400);
 
   //onChange
   const handleInput = (e) => {
@@ -41,29 +39,32 @@ const HeaderInput = () => {
     //   // setWord(input);
     // }
   };
-
+  console.log("word : " + word);
   const onReset = () => {
     setWord('');
+  };
+
+  //handleKeyPress
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   //handleMessage
   const handleSearch = () => {
     if (word != '') {
       // setSearch(word);
-      navigate('/search-list');
+      navigate("/search-list", {
+        state: {
+          searchWord: word,
+        },
+      });
       onReset();
     } else {
       return alert('검색어를 입력해주세요!');
     }
   };
-
-  //handleKeyPress
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
   return (
     <Container className="d-flex justify-content-end">
       <input
