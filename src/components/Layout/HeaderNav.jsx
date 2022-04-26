@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -8,7 +9,7 @@ const NavR = styled.div`
   justify-content: end;
   margin-right: 90px;
 
-  .logout{
+  .logout {
     cursor: pointer;
   }
 
@@ -19,7 +20,6 @@ const HeaderNav = () => {
   const [dropdown, setDropdown] = useState(false);
 
   let isAuthorized = localStorage.getItem("Authorization");
-  
 
   const onClickLogout = () => {
     localStorage.removeItem("Authorization");
@@ -75,21 +75,20 @@ const HeaderNav = () => {
           </Link>
           {dropdown && <DropDown />}
         </li>
-        
+
         {!isAuthorized ? (
           <li className="nav-item">
             <Link className="nav-link" to="/login">
               login
             </Link>
-          </li>  
+          </li>
         ) : (
           <li className="nav-item">
             <div onClick={onClickLogout} className="nav-link logout">
-            logout
+              logout
             </div>
           </li>
         )}
-             
       </ul>
     </NavR>
   );
