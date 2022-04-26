@@ -15,6 +15,8 @@ import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
 import MemberRegister from "./components/RegisterPage/MemberRegister";
 import OwnerRegister from "./components/RegisterPage/OwnerRegister";
+import PasswordChange from "./components/MyPage/PasswordChange";
+
 import "bootswatch/dist/sketchy/bootstrap.min.css";
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/member-register" element={<MemberRegister />} />
         <Route path="/owner-register" element={<OwnerRegister />} />
+        <Route path="/userinfo-password" element={<PasswordChange />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

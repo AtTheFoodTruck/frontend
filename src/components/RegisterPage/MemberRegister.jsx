@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { use } from "bcrypt/promises";
 
 const MemberRegisterContainer = styled.div`
   padding-top: 250px;
@@ -91,9 +90,8 @@ const MemberRegister = () => {
 
   const [setConfirm, isSetConfirm] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState(
-    "Password Check"
-  );
+  const [passwordConfirmMessage, setPasswordConfirmMessage] =
+    useState("Password Check");
 
   const [isName, setIsName] = useState(false);
   const [nameMessage, setNameMessage] = useState("Username");
@@ -109,7 +107,8 @@ const MemberRegister = () => {
     const emailCurrent = e.target.value;
     setInputEmail(emailCurrent);
 
-    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     if (!emailRegex.test(inputEmail)) {
       document.getElementById("input_email").style.color = "red";
@@ -128,7 +127,8 @@ const MemberRegister = () => {
     const passwordCurrent = e.target.value;
     setInputPw(passwordCurrent);
 
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,1000}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,1000}$/;
 
     if (!passwordRegex.test(passwordCurrent)) {
       setPasswordMessage("숫자+영문자+특수문자 조합으로 8자리 이상");
@@ -218,7 +218,7 @@ const MemberRegister = () => {
             email: inputEmail,
           }
         )
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.result === "fail") {
             alert(response.data.message);
             console.log(response);
@@ -229,7 +229,7 @@ const MemberRegister = () => {
             setMailDuplicate(true);
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     }
@@ -250,7 +250,7 @@ const MemberRegister = () => {
             username: inputUsername,
           }
         )
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.result === "fail") {
             alert(response.data.message);
             document.getElementById("input_username").value = null;
@@ -260,7 +260,7 @@ const MemberRegister = () => {
             setNameDuplicate(true);
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     }
@@ -295,7 +295,7 @@ const MemberRegister = () => {
           password: inputPw,
           phone_num: inputPhonenumber,
         })
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.result === "fail") {
             alert(response.data.error[0].message);
           } else {
@@ -303,7 +303,7 @@ const MemberRegister = () => {
             navigate("/login", { replace: true });
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     }
