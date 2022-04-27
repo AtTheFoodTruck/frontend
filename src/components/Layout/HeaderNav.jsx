@@ -71,11 +71,6 @@ const HeaderNav = () => {
         ) : (
           <>
             <li className="nav-item">
-              <div onClick={onClickLogout} className="nav-link logout">
-                logout
-              </div>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/cart">
                 cart
               </Link>
@@ -89,6 +84,11 @@ const HeaderNav = () => {
                 mypage
               </Link>
               {dropdown && <DropDown />}
+            </li>
+            <li className="nav-item">
+              <div onClick={onClickLogout} className="nav-link logout">
+                logout
+              </div>
             </li>
           </>
         )}
