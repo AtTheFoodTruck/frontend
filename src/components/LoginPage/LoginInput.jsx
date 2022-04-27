@@ -56,12 +56,12 @@ const LoginInput = () => {
       alert("비밀번호를 입력하세요");
     } else {
       axios
-        .post("http://localhost:8000/user-service/users/v1/logins", {
+        .post("https://apifood.blacksloop.com/user-service/users/v1/logins", {
           // https://apifood.blacksloop.com/
           email: inputId,
           password: inputPw,
         })
-        .then(function(response) {
+        .then(function (response) {
           console.log(response);
 
           if (response.data.result === "success") {
@@ -83,7 +83,7 @@ const LoginInput = () => {
             document.getElementById("input_pw").value = null;
           }
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     }
