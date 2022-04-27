@@ -410,6 +410,22 @@ const MemberRegister = () => {
             <label for="floatingPassword">{phoneMessage}</label>
           </div>
         </div>
+
+        <div className="phonenumber">
+          <div className="form-floating">
+            <input
+              type="text"
+              name="input_phonenumber"
+              value={inputPhonenumber}
+              className="form-control"
+              id="input_phonenumber"
+              placeholder="휴대전화 번호를 입력하세요."
+              onChange={handleInputPhonenumber}
+            />
+            <label for="floatingPassword">{phoneMessage}</label>
+          </div>
+        </div>
+
         <div className="join">
           <button
             type="submit"

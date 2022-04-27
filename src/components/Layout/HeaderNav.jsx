@@ -61,21 +61,6 @@ const HeaderNav = () => {
             store
           </Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/cart">
-            cart
-          </Link>
-        </li>
-        <li
-          className="nav-item dropdown"
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        >
-          <Link className="nav-link dropdown-toggle" to="/userinfo-config">
-            mypage
-          </Link>
-          {dropdown && <DropDown />}
-        </li>
 
         {!isAuthorized ? (
           <li className="nav-item">
@@ -84,11 +69,28 @@ const HeaderNav = () => {
             </Link>
           </li>
         ) : (
-          <li className="nav-item">
-            <div onClick={onClickLogout} className="nav-link logout">
-              logout
-            </div>
-          </li>
+          <>
+            <li className="nav-item">
+              <div onClick={onClickLogout} className="nav-link logout">
+                logout
+              </div>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/cart">
+                cart
+              </Link>
+            </li>
+            <li
+              className="nav-item dropdown"
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+            >
+              <Link className="nav-link dropdown-toggle" to="/userinfo-config">
+                mypage
+              </Link>
+              {dropdown && <DropDown />}
+            </li>
+          </>
         )}
       </ul>
     </NavR>
