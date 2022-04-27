@@ -26,6 +26,7 @@ const OrderListPage = () => {
     const getTotalPage = async () => {
       await axios
         .get(
+          //`http://localhost:8000/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           { headers }
         )

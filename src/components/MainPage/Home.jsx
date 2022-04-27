@@ -51,7 +51,7 @@ const Home = () => {
     const getData = async () => {
       await axios
         .get(
-          // `https://localhost:8000/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          //`https://localhost:8000/item-service/items/v1/main?page=${currentPage}&size=${size}`,
           `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
           { headers }
         )
