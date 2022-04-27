@@ -39,9 +39,9 @@ const SearchResult = ({ store }) => {
         <div className="card h-100 ">
           <ImgSize
             className="card-img-top img-fluid"
-            src="/img/pizza.jpg"
+            // src="/img/pizza.jpg"
             // 이미지
-            // src={storeImgUrl}
+            src={storeImgUrl}
             alt="..."
           />
           <div className="card-body p-4">
