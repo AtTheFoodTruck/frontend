@@ -1,3 +1,5 @@
+import React from "react";
+
 const StoreListItem = ({ store_name, address, category, id }) => {
   return (
     <tr>

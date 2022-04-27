@@ -31,7 +31,7 @@ const HeaderInput = () => {
 
   //onChange
   const handleInput = (e) => {
-    let value = e?.target?.value;
+    let value = e.target.value;
     setWord(value);
     // inputDebounce(value);
     // if (e.target.value != "") {

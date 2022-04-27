@@ -1,4 +1,5 @@
-import { Row, Col, Button, Card } from 'react-bootstrap';
+import React from "react";
+import { Row, Col, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 const OrderListItem = ({
   orderId,
@@ -9,7 +10,7 @@ const OrderListItem = ({
   orderTime,
   storeId,
 }) => {
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   console.log(orderItems);
   const handleClick = () => {
     navigate("/review-writing", {
@@ -19,8 +20,7 @@ const OrderListItem = ({
         itemName: orderItems[0].itemName,
       },
     });
-    
-  }
+  };
 
   return (
     <Row key={orderId} className="d-flex align-items-center mb-5">

@@ -1,11 +1,12 @@
-import { Container, Table } from 'react-bootstrap';
-import StoreListItem from './StoreListItem';
+import React from "react";
+import { Container, Table } from "react-bootstrap";
+import StoreListItem from "./StoreListItem";
 
 const StoreList = ({ storelist }) => {
   console.log(storelist);
   return (
-    <Container className='Table'>
-      <Table className='text-center mt-5'>
+    <Container className="Table">
+      <Table className="text-center mt-5">
         <thead>
           <tr>
             <th>매장명</th>

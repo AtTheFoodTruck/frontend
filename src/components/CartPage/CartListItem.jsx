@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Row, Col, Card, Button } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import axios from "axios";
 
 const CartListItem = ({
   orderItemId,
@@ -13,14 +13,14 @@ const CartListItem = ({
   onRemove,
   initPriceHandle,
 }) => {
-  const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem("userId");
   // const orderItemId = orderItemId;
   const [number, setNumber] = useState(count);
   const [unitPrices, setUnitPrices] = useState(totalPrice);
   const [itemUnitPrices, setItemUnitPrices] = useState(unitPrice);
   const [price, setPrice] = useState(0);
   const [initPrice, setInitPrice] = useState(0);
-  const accessToken = localStorage.getItem('Authorization');
+  const accessToken = localStorage.getItem("Authorization");
 
   const headers = {
     Authorization: `Bearer ${accessToken}`,
@@ -86,40 +86,40 @@ const CartListItem = ({
   return (
     <>
       <Row key={orderItemId}>
-        {' '}
-        <Col lg={4} className='d-flex justify-content-start'>
-          <Card style={{ width: '8rem', height: '8rem' }}>
+        {" "}
+        <Col lg={4} className="d-flex justify-content-start">
+          <Card style={{ width: "8rem", height: "8rem" }}>
             <Card.Img
-              variant='top'
+              variant="top"
               src={itemImgUrl}
-              style={{ width: '7.5rem', height: '7.5rem' }}
+              style={{ width: "7.5rem", height: "7.5rem" }}
             />
           </Card>
         </Col>
-        <Col className='d-flex justify-content-start text-center'>
-          <Col lg={3} className='d-flex align-items-center me-2'>
+        <Col className="d-flex justify-content-start text-center">
+          <Col lg={3} className="d-flex align-items-center me-2">
             {itemName}
           </Col>
-          <Col lg={3} className='d-flex align-items-center'>
-            <Button onClick={decreaseNumber} variant='outline-secondary'>
+          <Col lg={3} className="d-flex align-items-center">
+            <Button onClick={decreaseNumber} variant="outline-secondary">
               -
-            </Button>{' '}
-            <Button variant='outline-secondary disabled'>{number}</Button>{' '}
-            <Button onClick={increaseNumber} variant='outline-secondary'>
+            </Button>{" "}
+            <Button variant="outline-secondary disabled">{number}</Button>{" "}
+            <Button onClick={increaseNumber} variant="outline-secondary">
               +
-            </Button>{' '}
+            </Button>{" "}
           </Col>
-          <Col lg={3} className='d-flex align-items-center ms-5'>
+          <Col lg={3} className="d-flex align-items-center ms-5">
             {/* {price.toLocaleString()} */}
             {unitPrices}
           </Col>
-          <Col lg={3} className='d-flex align-items-center ms-3'>
+          <Col lg={3} className="d-flex align-items-center ms-3">
             <Button onClick={handleClickRemove}>삭제</Button>
           </Col>
         </Col>
       </Row>
 
-      <hr className='mt-5' />
+      <hr className="mt-5" />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -7,7 +8,6 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 const OrderPage = () => {
-
   // 이전 화면에서 전달받은 props
   const location = useLocation();
   const storeId = location.state.storeId;
@@ -43,7 +43,7 @@ const OrderPage = () => {
         { headers }
       )
       .then((res) => {
-        setDetails(res.data.data); // 가게 정보 저장 
+        setDetails(res.data.data); // 가게 정보 저장
         setDetailsMenu(res.data.data); // 메뉴 정보 저장
       });
   }

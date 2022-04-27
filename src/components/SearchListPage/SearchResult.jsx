@@ -1,3 +1,4 @@
+import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { AiFillStar } from "react-icons/ai";
 import StarRating from "../MyPage/StarRating";
