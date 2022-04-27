@@ -96,23 +96,23 @@ const Cart = () => {
 
   return (
     <CartWrapper>
-      <Container className='mt-5'>
-        <h1 className='text-center'>Cart</h1>
-        <p className='fs-5 mt-5'> {storeName} </p>
-        <Row className='d-flex justify-content-evenly mt-5'>
+      <Container className="mt-5">
+        <h1 className="text-center">Cart</h1>
+        <p className="fs-5 mt-5"> {storeName} </p>
+        <Row className="d-flex justify-content-evenly mt-5">
           <Col lg={3}></Col>
-          <Col className='d-flex justify-content-center p-0'>
+          <Col className="d-flex justify-content-center p-0">
             <h5>Menu</h5>
           </Col>
-          <Col lg={2} className='d-flex justify-content-start p-0'>
+          <Col lg={2} className="d-flex justify-content-start p-0">
             <h5>Amout</h5>
           </Col>
-          <Col className='d-flex justify-content-start ms-2 p-0'>
+          <Col className="d-flex justify-content-start ms-2 p-0">
             <h5>Price</h5>
           </Col>
         </Row>
 
-        <Row className='StoreName d-flex justify-content-center mt-3'>
+        <Row className="StoreName d-flex justify-content-center mt-3">
           <hr />
         </Row>
 

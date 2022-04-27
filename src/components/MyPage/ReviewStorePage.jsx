@@ -23,7 +23,7 @@ const ReviewStorePage = () => {
   //페이지 [현재 페이지,총 페이지 수]
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  
+
   //
   useEffect(() => {
     const getTotalPage = async () => {
