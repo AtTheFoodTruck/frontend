@@ -16,7 +16,7 @@ const Home = () => {
   const [activeMenuList, setActiveactiveMenuList] = useState();
 
   //페이지당 게시물
-  const size = 10;
+  const size = 16;
   //페이지 [현재 페이지,총 페이지 수]
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);

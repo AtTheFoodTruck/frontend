@@ -95,7 +95,7 @@ const ReviewHistory = () => {
             >
               <Col className="d-flex justify-content-center">
                 <Card style={{ width: "8rem", height: "8rem" }}>
-                  <Card.Img variant="top" src={it.storeImgUrl} />
+                  <Card.Img variant="top" src={it.reviewImgUrl} />
                 </Card>
               </Col>
 
@@ -103,7 +103,7 @@ const ReviewHistory = () => {
               <Col lg={9}>
                 <Row>
                   <Col className="MenuName">
-                    <h5>{it.name}</h5>
+                    <h5>{it.storeName}</h5>
                   </Col>
                   <Col className="Price">
                     <h5>{it.oderPrice}</h5>
