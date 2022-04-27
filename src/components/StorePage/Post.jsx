@@ -1,3 +1,4 @@
+import React from "react";
 // import DaumPostcode from "react-daum-postcode";
 
 //우편번호 조회 컴포넌트
