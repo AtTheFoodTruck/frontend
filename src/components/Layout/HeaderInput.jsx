@@ -40,7 +40,7 @@ const HeaderInput = () => {
     //   // setWord(input);
     // }
   };
-  console.log("word : " + word);
+  // console.log("word : " + word);
   const onReset = () => {
     setWord("");
   };

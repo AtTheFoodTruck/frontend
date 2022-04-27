@@ -29,10 +29,10 @@ const HeaderNav = () => {
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
       setDropdown(false);
-      console.log("false" + window.innerWidth);
+      // console.log("false" + window.innerWidth);
     } else {
       setDropdown(true);
-      console.log("true" + window.innerWidth);
+      // console.log("true" + window.innerWidth);
     }
   };
 

@@ -29,6 +29,8 @@ const ReviewWritinghWrapper = styled.div`
 //주문내역 props ( orderId,Store_name,menu) 받아서 출력
 // useLocation으로 받아와야함
 
+
+
 AWS.config.update({
   accessKeyId: process.env.REACT_APP_ACCESS_KEY,
   secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
@@ -117,6 +119,7 @@ export default function ReviewWriting() {
 
       function (err) {
         console.log(err);
+        console.log('env, ', process.env.AWS_CONFIG);
         return console.log('오류가 발생했습니다');
       }
     );
@@ -208,10 +211,8 @@ export default function ReviewWriting() {
               setState={setState}
               loaded={loaded}
               fileURL={fileURL}
-              handleImgInput={(e) => {
-                handleImgUpload(e);
-                handleImgInput(e);
-              }}
+              handleImgInput={handleImgInput}
+              handleImgUpload={handleImgUpload}
             />
             {/* 이미지 처리 -> S3 Upload */}
             {/* 이미지 S3 컴포넌트 */}
