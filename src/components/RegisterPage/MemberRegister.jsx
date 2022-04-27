@@ -37,7 +37,6 @@ const MemberRegisterContainer = styled.div`
   .mailDuplicate {
     grid-area: mailDuplicate;
   }
-
   .username {
     grid-area: username;
     margin-top: 0.5em;
@@ -51,7 +50,6 @@ const MemberRegisterContainer = styled.div`
     grid-area: join;
     margin-top: 0.5em;
   }
-
   .phonenumber {
     grid-area: phonenumber;
     margin-top: 0.5em;
@@ -121,6 +119,13 @@ const MemberRegister = () => {
     }
   };
 
+  // 메일 인풋창 클릭시 중복체크 해제 후 입력가능하게 함
+  const handleInputEmailClick = (e) => {
+    e.preventDefault();
+    setMailDuplicate(false);
+    document.getElementById("input_email").readOnly = false;
+  };
+
   // 비밀번호 입력시 상태값 변경
   const handleInputPw = (e) => {
     e.preventDefault();
@@ -184,6 +189,13 @@ const MemberRegister = () => {
     }
   };
 
+  // 유저이름 인풋창 클릭시 중복체크 해제 후 입력가능하게 함
+  const handleInputUsernameClick = (e) => {
+    e.preventDefault();
+    setNameDuplicate(false);
+    document.getElementById("input_username").readOnly = false;
+  };
+
   // 휴대 전화 번호 입력시 상태값 변경
   const handleInputPhonenumber = (e) => {
     e.preventDefault();
@@ -225,6 +237,7 @@ const MemberRegister = () => {
             document.getElementById("input_email").value = null;
             setMailDuplicate(false);
           } else {
+            document.getElementById("input_email").readOnly = true;
             alert("사용가능합니다!");
             setMailDuplicate(true);
           }
@@ -256,6 +269,7 @@ const MemberRegister = () => {
             document.getElementById("input_username").value = null;
             setNameDuplicate(false);
           } else {
+            document.getElementById("input_username").readOnly = true;
             alert("사용가능합니다!");
             setNameDuplicate(true);
           }
@@ -326,6 +340,7 @@ const MemberRegister = () => {
               id="input_email"
               placeholder="아이디를 입력하세요."
               onChange={handleInputEmail}
+              onClick={handleInputEmailClick}
             />
             <label for="floatingInput">{emailMessage}</label>
           </div>
@@ -381,6 +396,7 @@ const MemberRegister = () => {
               id="input_username"
               placeholder="이름을 입력하세요."
               onChange={handleInputUsername}
+              onClick={handleInputUsernameClick}
             />
             <label for="floatingPassword">{nameMessage}</label>
           </div>
