@@ -34,22 +34,28 @@ const OrderPageMenu = ({ storeId, item }) => {
     // console.log(`장바구니에 담긴 아이템 개수: ${count}`);
     // console.log(`장바구니에 담긴 총 가격: ${price}`);
 
-    await axios.post(`https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`, {
-      // user_id: 1, // 테스트용 UserId 픽스
-      user_id: userId, // 배포용, 배포 시 주석 삭제
-      store_id: storeId,
-      item_id: itemId,
-      price: price,
-      count: count
-    }, {
-      headers: headers,
-    })
-    .then(res => {
-      console.log(res.data);
-      setCount(0);
-      alert("장바구니에 담겼습니다.");
-    })
-    .catch(err => console.log("return error" + err))
+    await axios
+      .post(
+        //`https://localhost:8000/order-service/orders/v1/customer/carts`,
+         `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
+        {
+          // user_id: 1, // 테스트용 UserId 픽스
+          user_id: userId, // 배포용, 배포 시 주석 삭제
+          store_id: storeId,
+          item_id: itemId,
+          price: price,
+          count: count,
+        },
+        {
+          headers: headers,
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setCount(0);
+        alert("장바구니에 담겼습니다.");
+      })
+      .catch((err) => console.log("return error" + err));
   }
 
   //메뉴 갯수 1개 증가
