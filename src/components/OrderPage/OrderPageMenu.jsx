@@ -23,9 +23,8 @@ const OrderPageMenu = ({ storeId, item }) => {
 
   // 장바구니에 아이템 담기 메서드
   const postCart = async () => {
-
     // count가 < 1 일 경우 막는법
-    if( count < 1) {
+    if (count < 1) {
       return alert("수량을 확인해주세요");
     }
     // console.log(`userId: ${userId}`);

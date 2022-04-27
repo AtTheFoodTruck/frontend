@@ -98,34 +98,37 @@ export default function ReviewWriting() {
   //이미지 업로드 진행
   const handleImgUpload = (e) => {
     const file = e.target.files[0];
-    const upload = new AWS.S3.ManagedUpload({
-      params: {
-        ACL: "public-read",
-        Body: file,
-        Bucket: process.env.REACT_APP_S3_BUCKET,
-        Key: "reviewImg/" + file.name,
-      },
-    });
-
-    const promise = upload.promise();
-
-    promise.then(
-      function (data) {
-        setReviewLocation(data.Location);
-        console.log(data.Location + '업로드 성공');
-      },
-
-      function (err) {
-        console.log(err);
-        console.log('env, ', process.env.AWS_CONFIG);
-        return console.log('오류가 발생했습니다');
-      }
-    );
+    if (file != "") {
+      const upload = new AWS.S3.ManagedUpload({
+        params: {
+          ACL: "public-read",
+          Body: file,
+          Bucket: process.env.REACT_APP_S3_BUCKET,
+          Key: "reviewImg/" + file.name,
+        },
+      });
+      const promise = upload.promise();
+      promise.then(
+        function (data) {
+          setReviewLocation(data.Location);
+          console.log(data.Location + "업로드 성공");
+        },
+        function (err) {
+          console.log(err);
+          console.log("env, ", process.env.AWS_CONFIG);
+          return console.log("오류가 발생했습니다");
+        }
+      );
+    } else return;
   };
 
   const onCreate = async (content, rating, orderId, reviewLocation) => {
-    console.log('리뷰 이미지 URL' + reviewLocation);
+    console.log("리뷰 이미지 URL" + reviewLocation);
     // console.log("Params => orderId : ", orderId);
+    if (rating < 1) {
+      return alert("별점을 입력해주세요!");
+    }
+
     await axios
       .post(
         url,
