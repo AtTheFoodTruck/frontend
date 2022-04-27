@@ -28,11 +28,12 @@ const ReviewWritinghWrapper = styled.div`
 //TODO
 //주문내역 props ( orderId,Store_name,menu) 받아서 출력
 // useLocation으로 받아와야함
-// AWS.config.update({
-//   accessKeyId: process.env.REACT_APP_ACCESS_KEY,
-//   secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
-//   region: process.env.REACT_APP_REGION,
-// });
+
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
+  region: process.env.REACT_APP_REGION,
+});
 
 export default function ReviewWriting() {
   const location = useLocation();
@@ -106,7 +107,7 @@ export default function ReviewWriting() {
       },
     });
 
-  //   const promise = upload.promise();
+    const promise = upload.promise();
 
     promise.then(
       function (data) {
@@ -207,8 +208,10 @@ export default function ReviewWriting() {
               setState={setState}
               loaded={loaded}
               fileURL={fileURL}
-              handleImgInput={handleImgInput}
-              // handleImgUpload={handleImgUpload}
+              handleImgInput={(e) => {
+                handleImgUpload(e);
+                handleImgInput(e);
+              }}
             />
             {/* 이미지 처리 -> S3 Upload */}
             {/* 이미지 S3 컴포넌트 */}
