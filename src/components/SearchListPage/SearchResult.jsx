@@ -22,13 +22,11 @@ const SearchResult = ({ store }) => {
     });
   };
   // store list
-  // console.log(card);
-
-  console.log("storeId = " + storeId);
-  console.log("storeImgUrl = " + storeImgUrl);
-  console.log("storeName = " + storeName);
-  console.log("avgRating = " + avgRating);
-  console.log("----------");
+  // console.log("storeId = " + storeId);
+  // console.log("storeImgUrl = " + storeImgUrl);
+  // console.log("storeName = " + storeName);
+  // console.log("avgRating = " + avgRating);
+  // console.log("----------");
   return (
     <motion.section
       layout

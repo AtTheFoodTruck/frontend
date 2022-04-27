@@ -82,7 +82,7 @@ const ReviewHistory = () => {
     }
   };
 
-  http: return (
+  return (
     <>
       <ReviewHistoryWrapper>
         <Container className="ReviewPage text-center mt-5">
@@ -130,7 +130,7 @@ const ReviewHistory = () => {
                 </Row>
 
                 {/* 리뷰텍스트 */}
-                <Row className="mt-3">
+                <Row className="mt-3 ms-5 text-start">
                   <Card.Body>
                     <Card.Text>{it.content}</Card.Text>
                   </Card.Body>
