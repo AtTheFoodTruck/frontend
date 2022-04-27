@@ -45,7 +45,6 @@ const SearchList = () => {
   useEffect(async () => {
     await axios
       .post(
-        //`http://localhost:8000/item-service/items/v1/search/stores?page=0&size=${size}`,
         `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
         {
           latitude: "1600.93", //localStorage.getItem("latitude");
@@ -65,7 +64,6 @@ const SearchList = () => {
   useEffect(async () => {
     await axios
       .post(
-        // `http://localhost:8000/item-service/items/v1/search/stores?page=0&size=${size}`,
         `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
         {
           latitude: "1600.93", //localStorage.getItem("latitude");

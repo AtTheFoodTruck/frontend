@@ -36,8 +36,7 @@ const OrderPageMenu = ({ storeId, item }) => {
 
     await axios
       .post(
-        //`https://localhost:8000/order-service/orders/v1/customer/carts`,
-         `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
+        `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
         {
           // user_id: 1, // 테스트용 UserId 픽스
           user_id: userId, // 배포용, 배포 시 주석 삭제
@@ -56,11 +55,11 @@ const OrderPageMenu = ({ storeId, item }) => {
         alert("장바구니에 담겼습니다.");
       })
       .catch((err) => console.log("return error" + err));
-  }
+  };
 
   //메뉴 갯수 1개 증가
   const increaseNumber = () => {
-    setCount(prev => prev + 1); // 수량 증가
+    setCount((prev) => prev + 1); // 수량 증가
   };
 
   //메뉴 갯수 1개 감소
@@ -68,7 +67,7 @@ const OrderPageMenu = ({ storeId, item }) => {
     if (num <= 0) {
       setCount(0);
     } else {
-      setCount(prev => prev - 1); // 수량 증가
+      setCount((prev) => prev - 1); // 수량 증가
     }
   };
 

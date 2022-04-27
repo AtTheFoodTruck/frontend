@@ -66,7 +66,7 @@ export default function ReviewPage({
         onClick={() => {
           setCurrentPage(currentPage + 1);
         }}
-        disabled={currentPage === totalPage}
+        disabled={currentPage === totalPage - 1}
       >
         &gt;
       </button>

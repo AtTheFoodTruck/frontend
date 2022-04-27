@@ -29,7 +29,6 @@ const ReviewHistory = () => {
   const [totalPage, setTotalPage] = useState(0);
   const navigate = useNavigate();
 
-  //develop MERGE 전 https://apifood.blacksloop.com/
   useEffect(() => {
     const getTotalPage = async () => {
       await axios
@@ -96,10 +95,7 @@ const ReviewHistory = () => {
             >
               <Col className="d-flex justify-content-center">
                 <Card style={{ width: "8rem", height: "8rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src="https://mp-seoul-image-production-s3.mangoplate.com/999285_1575800181007324.jpg?fit=around|738:738&crop=738:738;*,*&output-format=jpg&output-quality=80"
-                  />
+                  <Card.Img variant="top" src={it.storeImgUrl} />
                 </Card>
               </Col>
 

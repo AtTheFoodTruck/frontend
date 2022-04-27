@@ -29,8 +29,6 @@ const ReviewWritinghWrapper = styled.div`
 //주문내역 props ( orderId,Store_name,menu) 받아서 출력
 // useLocation으로 받아와야함
 
-
-
 AWS.config.update({
   accessKeyId: process.env.REACT_APP_ACCESS_KEY,
   secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
@@ -81,7 +79,7 @@ export default function ReviewWriting() {
     const fileReader = new FileReader();
     const file = e.target.files[0];
     if (file) {
-      setLoaded('loading');
+      setLoaded("loading");
       fileReader.readAsDataURL(file);
     }
     fileReader.onload = () => {
@@ -102,10 +100,10 @@ export default function ReviewWriting() {
     const file = e.target.files[0];
     const upload = new AWS.S3.ManagedUpload({
       params: {
-        ACL: 'public-read',
+        ACL: "public-read",
         Body: file,
         Bucket: process.env.REACT_APP_S3_BUCKET,
-        Key: 'upload/' + file.name,
+        Key: "reviewImg/" + file.name,
       },
     });
 
