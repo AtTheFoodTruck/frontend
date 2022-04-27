@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -37,7 +37,6 @@ const UserInfoConfig = () => {
   const [inputUsername, setInputUsername] = useState("");
   const [isName, setIsName] = useState(false);
   const [nameMessage, setNameMessage] = useState("Username");
-  const [nameDuplicate, setNameDuplicate] = useState(false);
 
   // 비밀번호  관련 상태
   const [inputPw, setInputPw] = useState("");
@@ -48,7 +47,6 @@ const UserInfoConfig = () => {
   const [passwordConfirmMessage, setPasswordConfirmMessage] =
     useState("New Password");
 
-  const [setConfirm, isSetConfirm] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
   // 유저 정보
@@ -130,10 +128,8 @@ const UserInfoConfig = () => {
           if (response.data.result === "fail") {
             alert(response.data.message);
             document.getElementById("input_username").value = null;
-            setNameDuplicate(false);
             console.log(response);
           } else {
-            setNameDuplicate(true);
             console.log(response);
 
             axios
