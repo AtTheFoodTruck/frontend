@@ -129,7 +129,7 @@ const LoginInput = () => {
         className="btn btn-lg btn-outline-secondary"
         onClick={onClickLogin}
       >
-        로그인
+        Login
       </button>
     </InputContainer>
   );
