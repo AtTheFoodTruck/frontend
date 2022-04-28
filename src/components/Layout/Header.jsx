@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import HeaderInput from "./HeaderInput";
-import HeaderNav from "./HeaderNav";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import HeaderInput from './HeaderInput';
+import HeaderNav from './HeaderNav';
 
 const NavH = styled.nav`
   display: flex;

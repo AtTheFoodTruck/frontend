@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import HomeCategories from "./HomeCategories";
-import HomeMenu from "./HomeMenu";
-import { AnimatePresence, motion } from "framer-motion";
-import styled from "styled-components";
-import axios from "axios";
-import HomePagination from "./HomePagination";
+import React, { useEffect, useState } from 'react';
+import HomeCategories from './HomeCategories';
+import HomeMenu from './HomeMenu';
+import { AnimatePresence, motion } from 'framer-motion';
+import styled from 'styled-components';
+import axios from 'axios';
+import HomePagination from './HomePagination';
 
 const Home = () => {
-  const authorization = localStorage.getItem("Authorization");
-  const userId = localStorage.getItem("userId");
+  const authorization = localStorage.getItem('Authorization');
+  const userId = localStorage.getItem('userId');
 
   //리스트
   const [popular, setPopular] = useState([]);
@@ -32,11 +32,11 @@ const Home = () => {
         { headers }
       )
       .then((res) => {
-        console.log("최초 렌더링 api 호출");
+        console.log('최초 렌더링 api 호출');
         setTotalPage(res.data.data.page.totalPage);
         setPopular(res.data.data.storeList);
         setFiltered(res.data.data.storeList);
-        console.log("메인페이지 Respone " + res.data.data.storeList[0]);
+        console.log('메인페이지 Respone ' + res.data.data.storeList[0]);
       })
       .catch((err) => console.log(err));
   }
@@ -54,7 +54,7 @@ const Home = () => {
           { headers }
         )
         .then((res) => {
-          console.log("페이지 api 호출");
+          console.log('페이지 api 호출');
           setPopular(res.data.data.storeList);
         })
         .catch((err) => console.log(err));
@@ -70,7 +70,7 @@ const Home = () => {
             <Input1
               type="text"
               class="form-control"
-              placeholder="Recipient's username"
+              placeholder="주소를 검색하세요!"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
             />

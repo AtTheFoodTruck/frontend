@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
 
 const UserInfoConfigContainer = styled.div`
   padding-top: 250px;
@@ -34,23 +34,23 @@ const UserInfoConfigContainer = styled.div`
 
 const UserInfoConfig = () => {
   // 이름 관련 상태
-  const [inputUsername, setInputUsername] = useState("");
+  const [inputUsername, setInputUsername] = useState('');
   const [isName, setIsName] = useState(false);
-  const [nameMessage, setNameMessage] = useState("Username");
+  const [nameMessage, setNameMessage] = useState('Username');
 
   // 비밀번호  관련 상태
-  const [inputPw, setInputPw] = useState("");
-  const [passwordMessage, setPasswordMessage] = useState("Current Password");
+  const [inputPw, setInputPw] = useState('');
+  const [passwordMessage, setPasswordMessage] = useState('Current Password');
 
-  const [inputpwVerification, setPwVerification] = useState("");
+  const [inputpwVerification, setPwVerification] = useState('');
   const [isPassword, setIsPassword] = useState(false);
   const [passwordConfirmMessage, setPasswordConfirmMessage] =
-    useState("New Password");
+    useState('New Password');
 
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
   // 유저 정보
-  const authorization = localStorage.getItem("Authorization");
+  const authorization = localStorage.getItem('Authorization');
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
@@ -60,13 +60,13 @@ const UserInfoConfig = () => {
     e.preventDefault();
     setInputUsername(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 20) {
-      setNameMessage("2글자 이상 20글자 미만으로 입력해주세요.");
+      setNameMessage('2글자 이상 20글자 미만으로 입력해주세요.');
       setIsName(false);
-      document.getElementById("input_username").style.color = "red";
+      document.getElementById('input_username').style.color = 'red';
     } else {
-      setNameMessage("Username");
+      setNameMessage('Username');
       setIsName(true);
-      document.getElementById("input_username").style.color = "green";
+      document.getElementById('input_username').style.color = 'green';
     }
   };
 
@@ -80,12 +80,12 @@ const UserInfoConfig = () => {
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,1000}$/;
 
     if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage("숫자+영문자+특수문자 조합으로 8자리 이상");
-      document.getElementById("input_pw").style.color = "red";
+      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상');
+      document.getElementById('input_pw').style.color = 'red';
       setIsPassword(false);
     } else {
-      setPasswordMessage("Current Password");
-      document.getElementById("input_pw").style.color = "green";
+      setPasswordMessage('Current Password');
+      document.getElementById('input_pw').style.color = 'green';
       setIsPassword(true);
     }
   };
@@ -99,12 +99,12 @@ const UserInfoConfig = () => {
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,1000}$/;
 
     if (!passwordRegex.test(passwordConfirmCurrent)) {
-      setPasswordConfirmMessage("숫자+영문자+특수문자 조합으로 8자리 이상");
-      document.getElementById("input_pwVerification").style.color = "red";
+      setPasswordConfirmMessage('숫자+영문자+특수문자 조합으로 8자리 이상');
+      document.getElementById('input_pwVerification').style.color = 'red';
       setIsPasswordConfirm(false);
     } else {
-      setPasswordConfirmMessage("New Password");
-      document.getElementById("input_pwVerification").style.color = "green";
+      setPasswordConfirmMessage('New Password');
+      document.getElementById('input_pwVerification').style.color = 'green';
       setIsPasswordConfirm(true);
     }
   };
@@ -112,29 +112,29 @@ const UserInfoConfig = () => {
   // 이름 중복 확인
   async function usernameDuplicateCheck(e) {
     e.preventDefault();
-    if (inputUsername === "") {
-      alert("이름을 입력하세요");
+    if (inputUsername === '') {
+      alert('이름을 입력하세요');
     } else if (!isName) {
-      alert("형식을 지켜주세요");
+      alert('형식을 지켜주세요');
     } else {
       axios
         .post(
-          "https://apifood.blacksloop.com/user-service/users/v1/validation/name",
+          'https://apifood.blacksloop.com/user-service/users/v1/validation/name',
           {
             username: inputUsername,
           }
         )
         .then(function (response) {
-          if (response.data.result === "fail") {
+          if (response.data.result === 'fail') {
             alert(response.data.message);
-            document.getElementById("input_username").value = null;
+            document.getElementById('input_username').value = null;
             console.log(response);
           } else {
             console.log(response);
 
             axios
               .patch(
-                "https://apifood.blacksloop.com/user-service/users/v1/mypage/name",
+                'https://apifood.blacksloop.com/user-service/users/v1/mypage/name',
                 {
                   username: inputUsername,
                 },
@@ -143,8 +143,8 @@ const UserInfoConfig = () => {
                 }
               )
               .then(function (response) {
-                alert(response.data.data.username + "으로 변경되었습니다.");
-                document.getElementById("input_username").value = null;
+                alert(response.data.data.username + '으로 변경되었습니다.');
+                document.getElementById('input_username').value = null;
                 console.log(response);
               })
               .catch(function (error) {
@@ -162,14 +162,14 @@ const UserInfoConfig = () => {
   async function onPasswordChange(e) {
     e.preventDefault();
 
-    if (inputPw === "") {
-      alert("현재 패스워드를 입력하세요");
+    if (inputPw === '') {
+      alert('현재 패스워드를 입력하세요');
     } else if (!isPassword && !isPasswordConfirm) {
-      alert("비밀번호 형식을 지켜주세요");
+      alert('비밀번호 형식을 지켜주세요');
     } else {
       axios
         .patch(
-          "https://apifood.blacksloop.com/user-service/users/v1/mypage/password",
+          'https://apifood.blacksloop.com/user-service/users/v1/mypage/password',
           {
             current_password: inputPw,
             new_password: inputpwVerification,
@@ -179,11 +179,11 @@ const UserInfoConfig = () => {
           }
         )
         .then(function (response) {
-          if (response.data.result === "fail") {
-            alert("현재 비밀번호가 맞지 않습니다.");
+          if (response.data.result === 'fail') {
+            alert('현재 비밀번호가 맞지 않습니다.');
           } else {
-            alert("비밀번호가 변경되었습니다.");
-            window.location.replace("/login");
+            alert('비밀번호가 변경되었습니다.');
+            window.location.replace('/login');
             document.location.reload();
           }
         })
@@ -197,7 +197,7 @@ const UserInfoConfig = () => {
     <UserInfoConfigContainer>
       <form className="container">
         <div className="userChangeTitle">
-          <h2>유저이름 변경</h2>
+          <p className="fs-4">유저이름 변경</p>
         </div>
 
         <div className="username">
@@ -218,14 +218,14 @@ const UserInfoConfig = () => {
         <div className="usernameDuplicate">
           <button
             type="submit"
-            className=" btn btn-lg btn-outline-secondary usernameDuplicateBtn"
+            className="btn btn-outline-secondary usernameDuplicateBtn mt-3"
             onClick={usernameDuplicateCheck}
           >
             변경
           </button>
         </div>
         <div className="passwordChangeTitle">
-          <h2>비밀번호 변경</h2>
+          <p className="fs-4">비밀번호 변경</p>
         </div>
         <div className="password">
           <div className="form-floating">
@@ -261,7 +261,7 @@ const UserInfoConfig = () => {
           <Link to="/userinfo-password">
             <button
               type="submit"
-              className=" btn btn-lg btn-outline-secondary passwordChangeBtn"
+              className="btn btn-outline-secondary passwordChangeBtn mt-3"
               onClick={onPasswordChange}
             >
               변경

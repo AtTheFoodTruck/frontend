@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import OrderPageMenu from "./OrderPageMenu";
-import Cart from "../CartPage/Cart";
-import axios from "axios";
-import { useLocation } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import OrderPageMenu from './OrderPageMenu';
+import Cart from '../CartPage/Cart';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const OrderPage = () => {
   // 이전 화면에서 전달받은 props
@@ -20,15 +20,15 @@ const OrderPage = () => {
   const [cart, setCart] = useState([]);
 
   // 로그인 정보
-  const authorization = localStorage.getItem("Authorization");
-  const userId = localStorage.getItem("userId");
+  const authorization = localStorage.getItem('Authorization');
+  const userId = localStorage.getItem('userId');
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
 
   // 리뷰 페이지로 전달할 props
   const reviewNavigate = () => {
-    navigate("/review-storepage", {
+    navigate('/review-storepage', {
       state: {
         storeId: storeId,
       },
@@ -66,7 +66,7 @@ const OrderPage = () => {
     <StoreWrapper className="container">
       {/* Title */}
       <section className="Title container text-center ">
-        <h1>{details.storeName}</h1>
+        <p className="fs-2">{details.storeName}</p>
       </section>
       {/* Waiting Number */}
       <section className="Waiting container text-center mt-3">

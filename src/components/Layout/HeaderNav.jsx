@@ -1,13 +1,13 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import DropDown from "../MyPage/DropDown";
+import React from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import DropDown from '../MyPage/DropDown';
 
 const NavR = styled.div`
   display: flex;
   justify-content: end;
-  margin-right: 90px;
+  // margin-right: 90px;
 
   .logout {
     cursor: pointer;
@@ -19,13 +19,13 @@ const NavR = styled.div`
 const HeaderNav = () => {
   const [dropdown, setDropdown] = useState(false);
 
-  let isAuthorized = localStorage.getItem("Authorization");
+  let isAuthorized = localStorage.getItem('Authorization');
 
   const onClickLogout = () => {
-    localStorage.removeItem("Authorization");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("userId");
-    window.location.replace("/");
+    localStorage.removeItem('Authorization');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userId');
+    window.location.replace('/');
   };
 
   const onMouseEnter = () => {
@@ -43,13 +43,13 @@ const HeaderNav = () => {
       setDropdown(false);
     } else {
       setDropdown(false);
-      console.log("false" + window.innerWidth);
+      console.log('false' + window.innerWidth);
     }
   };
 
   return (
-    <NavR className="collapse navbar-collapse " id="navbarColor03">
-      <ul className="navbar-nav ">
+    <NavR className="ms-0" id="navbarColor03">
+      <ul className="navbar-nav">
         <li className="nav-item">
           <Link className="nav-link active" to="/">
             Home
