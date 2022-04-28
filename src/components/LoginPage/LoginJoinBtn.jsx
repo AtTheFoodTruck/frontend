@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 const LoginBtnContainer = styled.div`
   .btn {
-    margin-top: 2em;
-    width: 50%;
+    width: 100%;
+    margin-top: 0.5em;
   }
 `;
 
@@ -13,11 +13,7 @@ const LoginJoinBtn = () => {
   return (
     <LoginBtnContainer>
       <Link to="/member-register">
-        <button className="btn btn-outline-secondary">개인 가입</button>
-      </Link>
-
-      <Link to="/owner-register">
-        <button className="btn btn-outline-secondary">사장 가입</button>
+        <button className="btn btn-lg btn-outline-secondary"> Join </button>
       </Link>
     </LoginBtnContainer>
   );
