@@ -28,8 +28,8 @@ const HomeMenu = ({ item }) => {
         <div className="card h-100 ">
           <ImgSize
             className="card-img-top img-fluid"
-            src="/img/pizza.jpg"
-            // src={item.storeImgUrl}
+            // src="/img/pizza.jpg"
+            src={item.storeImgUrl}
             alt="..."
           />
           <div className="card-body p-4">
