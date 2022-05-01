@@ -27,7 +27,7 @@ const OrderListPage = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
-          `http://localhost:8000/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -44,7 +44,7 @@ const OrderListPage = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
-          `http://localhost:8000/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {

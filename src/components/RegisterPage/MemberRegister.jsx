@@ -226,7 +226,7 @@ const MemberRegister = () => {
       axios
         .post(
           // "https://apifood.blacksloop.com/user-service/users/v1/validation/email",
-          "http://localhost:8000/user-service/users/v1/validation/email",
+          "https://apifood.blacksloop.com/user-service/users/v1/validation/email",
           {
             email: inputEmail,
           }
@@ -260,7 +260,7 @@ const MemberRegister = () => {
       axios
         .post(
           // "https://apifood.blacksloop.com/user-service/users/v1/validation/name",
-          "http://localhost:8000/user-service/users/v1/validation/name",
+          "https://apifood.blacksloop.com/user-service/users/v1/validation/name",
           {
             username: inputUsername,
           }
@@ -306,7 +306,7 @@ const MemberRegister = () => {
     } else {
       axios
         // .post("https://apifood.blacksloop.com/user-service/users/v1/join", {
-          .post("http://localhost:8000/user-service/users/v1/join", {
+          .post("https://apifood.blacksloop.com/user-service/users/v1/join", {
           email: inputEmail,
           username: inputUsername,
           password: inputPw,

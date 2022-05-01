@@ -35,7 +35,7 @@ const Cart = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
-          `http://localhost:8000/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -51,7 +51,7 @@ const Cart = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
-          `http://localhost:8000/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -68,7 +68,7 @@ const Cart = () => {
   const onRemove = async (orderItemId) => {
     axios.delete(
       // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      'http://localhost:8000/order-service/orders/v1/customer/order',
+      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
       {
         user_id: userId,
         order_item_id: orderItemId,
@@ -85,7 +85,7 @@ const Cart = () => {
   async function handleClick() {
     axios.post(
       // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      'http://localhost:8000/order-service/orders/v1/customer/order',
+      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
       {
         //body
         user_id: userId,

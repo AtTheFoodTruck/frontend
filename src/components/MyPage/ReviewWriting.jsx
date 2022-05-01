@@ -65,7 +65,7 @@ export default function ReviewWriting() {
   const authorization = localStorage.getItem('Authorization');
   const userId = localStorage.getItem('userId');
 
-  const url = `http://localhost:8000/order-service/orders/v1/customer/reviews`;
+  const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
   // const url = `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews`;
 
   //${accessToken}

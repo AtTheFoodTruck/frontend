@@ -120,7 +120,7 @@ const UserInfoConfig = () => {
       axios
         .post(
           // 'https://apifood.blacksloop.com/user-service/users/v1/validation/name',
-          'http://localhost:8000/user-service/users/v1/validation/name',
+          'https://apifood.blacksloop.com/user-service/users/v1/validation/name',
           {
             username: inputUsername,
           }
@@ -136,7 +136,7 @@ const UserInfoConfig = () => {
             axios
               .patch(
                 // 'https://apifood.blacksloop.com/user-service/users/v1/mypage/name',
-                'http://localhost:8000/user-service/users/v1/mypage/name',
+                'https://apifood.blacksloop.com/user-service/users/v1/mypage/name',
                 {
                   username: inputUsername,
                 },
@@ -172,7 +172,7 @@ const UserInfoConfig = () => {
       axios
         .patch(
           // 'https://apifood.blacksloop.com/user-service/users/v1/mypage/password',
-          'http://localhost:8000/user-service/users/v1/mypage/password',
+          'https://apifood.blacksloop.com/user-service/users/v1/mypage/password',
           {
             current_password: inputPw,
             new_password: inputpwVerification,

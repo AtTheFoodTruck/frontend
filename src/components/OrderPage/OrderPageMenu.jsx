@@ -36,7 +36,7 @@ const OrderPageMenu = ({ storeId, item }) => {
     await axios
       .post(
         // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-        `http://localhost:8000/order-service/orders/v1/customer/carts`,
+        `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
         {
           // user_id: 1, // 테스트용 UserId 픽스
           user_id: userId, // 배포용, 배포 시 주석 삭제
