@@ -76,6 +76,9 @@ const OrderListPage = () => {
           <Col className='TitleDate fs-5 mt-5'>
             <p>주문일</p>
           </Col>
+          <Col className='TitleDate fs-5 mt-5'>
+            <p>주문상태</p>
+          </Col>
           <Col className='TitleWaiting fs-5 mt-5'>
             <p>대기번호</p>
           </Col>
