@@ -28,7 +28,8 @@ const Home = () => {
   async function fetchPopular() {
     const foodtruck = await axios
       .get(
-        `https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=${size}`,
+        // `https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=${size}`,
+        `http://localhost:8000/item-service/items/v1/main?page=0&size=${size}`,
         { headers }
       )
       .then((res) => {
@@ -50,7 +51,8 @@ const Home = () => {
     const getData = async () => {
       await axios
         .get(
-          `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          // `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          `http://localhost:8000/item-service/items/v1/main?page=${currentPage}&size=${size}`,
           { headers }
         )
         .then((res) => {

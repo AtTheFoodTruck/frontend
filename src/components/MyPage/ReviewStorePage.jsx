@@ -29,7 +29,8 @@ const ReviewStorePage = () => {
     const getTotalPage = async () => {
       await axios
         .post(
-          `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
+          // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
+          `http://localhost:8000/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
           {
             user_id: userId,
             store_id: storeId,
@@ -50,7 +51,8 @@ const ReviewStorePage = () => {
     const getData = async () => {
       await axios
         .post(
-          `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews`,
+          // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews`,
+          `http://localhost:8000/order-service/orders/v1/owner/reviews`,
           {
             user_id: userId,
             store_id: storeId,

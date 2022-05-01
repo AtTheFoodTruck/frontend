@@ -45,7 +45,8 @@ const SearchList = () => {
   useEffect(async () => {
     await axios
       .post(
-        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
+        // `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
+        `http://localhost:8000/item-service/items/v1/search/stores?page=0&size=${size}`,
         {
           latitude: "1600.93", //localStorage.getItem("latitude");
           longitude: "150.156", //localStorage.getItem("longitude")
@@ -64,7 +65,8 @@ const SearchList = () => {
   useEffect(async () => {
     await axios
       .post(
-        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
+        // `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
+        `http://localhost:8000/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
         {
           latitude: "1600.93", //localStorage.getItem("latitude");
           longitude: "150.156", //localStorage.getItem("longitude")

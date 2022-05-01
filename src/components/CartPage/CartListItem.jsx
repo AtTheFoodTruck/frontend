@@ -50,8 +50,8 @@ const CartListItem = ({
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
     axios.patch(
-      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-      // `http://localhost:8000/order-service/orders/v1/customer/carts`,
+      // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
+      `http://localhost:8000/order-service/orders/v1/customer/carts`,
       {
         order_item_id: orderItemId,
         plus_minus: false,
@@ -73,8 +73,8 @@ const CartListItem = ({
   //메뉴 삭제
   const handleClickRemove = () => {
     axios.delete(
-      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-      // `http://localhost:8000/order-service/orders/v1/customer/carts`,
+      // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
+      `http://localhost:8000/order-service/orders/v1/customer/carts`,
       {
         user_id: userId,
         order_item_id: orderItemId,
