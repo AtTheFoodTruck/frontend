@@ -104,7 +104,7 @@ export default function ReviewWriting() {
           ACL: "public-read",
           Body: file,
           Bucket: process.env.REACT_APP_S3_BUCKET,
-          Key: "reviewImg/" + file.name,
+          Key: "review/" + file.name,
         },
       });
       const promise = upload.promise();
