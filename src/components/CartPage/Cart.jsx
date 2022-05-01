@@ -34,8 +34,8 @@ const Cart = () => {
     const getTotalPage = async () => {
       await axios
         .get(
-          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
-          // `http://localhost:8000/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          `http://localhost:8000/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -50,8 +50,8 @@ const Cart = () => {
     const getData = async () => {
       await axios
         .get(
-          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
-          // `http://localhost:8000/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          `http://localhost:8000/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -67,8 +67,8 @@ const Cart = () => {
   // 아이템 삭제 버튼 클릭 이벤트
   const onRemove = async (orderItemId) => {
     axios.delete(
-      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      // 'http://localhost:8000/order-service/orders/v1/customer/order',
+      // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+      'http://localhost:8000/order-service/orders/v1/customer/order',
       {
         user_id: userId,
         order_item_id: orderItemId,
@@ -84,8 +84,8 @@ const Cart = () => {
   //주문생성 및 주문 완료 버튼
   async function handleClick() {
     axios.post(
-      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      // 'http://localhost:8000/order-service/orders/v1/customer/order',
+      // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+      'http://localhost:8000/order-service/orders/v1/customer/order',
       {
         //body
         user_id: userId,
@@ -94,9 +94,16 @@ const Cart = () => {
       {
         headers: headers,
       }
-    );
-    alert(`주문 완료되었습니다!`);
+    ).then(res => {
+      console.log(res);
+      if(res.data.result === "success"){
+        alert(`주문 완료되었습니다!`);
+        document.location.reload();
+      }
+    })
   }
+
+  console.log(cartList);
 
   return (
     <CartWrapper>
@@ -121,7 +128,7 @@ const Cart = () => {
         </Row>
 
         {/* 카트리스트 */}
-        <Row>
+        {/* <Row> */}
           <CartList
             cartlists={cartList}
             onRemove={onRemove}
@@ -132,7 +139,7 @@ const Cart = () => {
             {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
             <h4>총 금액 : {initPrice.toLocaleString()}</h4>
           </Row>
-        </Row>
+        {/* </Row> */}
 
         {/* 주문하기 버튼 */}
         <Container className='text-center'>

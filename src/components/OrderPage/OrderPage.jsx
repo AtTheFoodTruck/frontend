@@ -39,7 +39,8 @@ const OrderPage = () => {
   async function fetchDetails() {
     const foodtruck = await axios
       .get(
-        `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
+        // `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
+        `http://localhost:8000/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
         { headers }
       )
       .then((res) => {

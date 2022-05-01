@@ -28,7 +28,8 @@ const Home = () => {
   async function fetchPopular() {
     const foodtruck = await axios
       .get(
-        `https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=${size}`,
+        // `https://apifood.blacksloop.com/item-service/items/v1/main?page=0&size=${size}`,
+        `http://localhost:8000/item-service/items/v1/main?page=0&size=${size}`,
         { headers }
       )
       .then((res) => {
@@ -50,7 +51,8 @@ const Home = () => {
     const getData = async () => {
       await axios
         .get(
-          `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          // `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          `http://localhost:8000/item-service/items/v1/main?page=${currentPage}&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -64,17 +66,17 @@ const Home = () => {
 
   return (
     <div className="container">
-      <Header1 class="masthead d-flex ">
-        <div class="container  px-4 px-lg-5 text-center">
-          <div class="mb-3">
+      <Header1 className="masthead d-flex ">
+        <div className="container  px-4 px-lg-5 text-center">
+          <div className="mb-3">
             <Input1
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="주소를 검색하세요!"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
             />
-            <button class="btn btn-primary" type="button" id="button-addon2">
+            <button className="btn btn-primary" type="button" id="button-addon2">
               Button
             </button>
           </div>
