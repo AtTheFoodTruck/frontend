@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
 import { Row, Col, Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 const OrderListItem = ({
@@ -9,8 +9,10 @@ const OrderListItem = ({
   totalPrice,
   orderTime,
   storeId,
+  orderStatus
 }) => {
   const navigate = useNavigate();
+  const [status, setStatus] = useState("");
   console.log(orderItems);
   const handleClick = () => {
     navigate("/review-writing", {
@@ -21,6 +23,21 @@ const OrderListItem = ({
       },
     });
   };
+
+  useEffect( () => {
+    if( orderStatus === "ORDER") {
+      setStatus("주문 상태");
+    } else if( orderStatus === "ACCEPTED") {
+      setStatus("주문 수락");
+    } else if( orderStatus === "REJECTED") {
+      setStatus("주문 거절");
+    } else if( orderStatus === "COMPLETED") {
+      setStatus("조리 완료");
+    } else {
+      setStatus("취소");
+    }
+
+    }, [orderStatus])
 
   return (
     <Row key={orderId} className="d-flex align-items-center mb-5">
@@ -48,14 +65,17 @@ const OrderListItem = ({
       <Col className="Date">
         <p>{orderTime}</p>
       </Col>
+      <Col className="Status">
+        <p>{status}</p>
+      </Col>
       <Col className="Waiting">
         <p>{storeId}</p>
       </Col>
       <Col className="ReviewBtn">
-        {/* <Link to='/review-writing'> */}
-        <Button variant="outline-secondary" onClick={handleClick}>
-          리뷰쓰기
-        </Button>{" "}
+        { orderStatus === "COMPLETED"
+          ? <Button disabled={false} variant="outline-secondary" onClick={handleClick}> 리뷰쓰기 </Button>
+          : <Button disabled={true} variant="outline-secondary" onClick={handleClick}> 리뷰쓰기 </Button>
+        }
       </Col>
     </Row>
   );
