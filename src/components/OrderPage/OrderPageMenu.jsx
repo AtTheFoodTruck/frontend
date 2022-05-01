@@ -3,7 +3,6 @@ import { FaCartPlus } from "react-icons/fa";
 import axios from "axios";
 
 const OrderPageMenu = ({ storeId, item }) => {
-
   console.log("받아온 storeId의 값은 ? " + storeId);
 
   // 유저 정보
@@ -73,8 +72,8 @@ const OrderPageMenu = ({ storeId, item }) => {
 
   return (
     <>
-      <div className="MenuItems col">
-        <div className="MenuItem card">
+      <div className="MenuItems col ">
+        <div className="MenuItem card h-100">
           {/* 이미지 출력 */}
           <img
             src={itemImgUrl}

@@ -1,8 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import DropDown from '../MyPage/DropDown';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import DropDown from "../MyPage/DropDown";
+import axios from "axios";
 
 const NavR = styled.div`
   display: flex;
@@ -18,14 +19,20 @@ const NavR = styled.div`
 
 const HeaderNav = () => {
   const [dropdown, setDropdown] = useState(false);
-
-  let isAuthorized = localStorage.getItem('Authorization');
+  const authorization = localStorage.getItem("Authorization");
+  const headers = {
+    Authorization: `Bearer ${authorization}`,
+  };
+  let isAuthorized = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
+  const [cartBadge, setCartBadge] = useState([]);
+  const size = 20;
 
   const onClickLogout = () => {
-    localStorage.removeItem('Authorization');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userId');
-    window.location.replace('/');
+    localStorage.removeItem("Authorization");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userId");
+    window.location.replace("/");
   };
 
   const onMouseEnter = () => {
@@ -43,9 +50,35 @@ const HeaderNav = () => {
       setDropdown(false);
     } else {
       setDropdown(false);
-      console.log('false' + window.innerWidth);
+      // console.log("false" + window.innerWidth);
     }
   };
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get(
+          // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+          { headers }
+        )
+        .then((res) => {
+          if (Array.isArray(res.data.data) && res.data.data.length === 0) {
+            setCartBadge(res.data.data.cartList.length);
+            console.log(
+              "현재 장바구니 배열의 길이는  = " +
+                JSON.stringify(res.data.data.length)
+            );
+          }
+          setCartBadge(res.data.data.cartList);
+          console.log(
+            "현재 장바구니 배열의 길이는 = " +
+              JSON.stringify(res.data.data.cartList.length)
+          );
+        })
+        .catch((err) => console.log(err));
+    };
+    getData();
+  }, []);
 
   return (
     <NavR className="ms-0" id="navbarColor03">
@@ -73,6 +106,7 @@ const HeaderNav = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/cart">
                 cart
+                <CartBadge>{cartBadge.length}</CartBadge>
               </Link>
             </li>
             <li
@@ -97,11 +131,12 @@ const HeaderNav = () => {
   );
 };
 
-// const NavR = styled.div`
-//   display: flex;
-//   justify-content: end;
-//   margin-right: 90px;
-
-//   //네비게이션 메뉴바 오른쪽 정렬
-// `;
+const CartBadge = styled.span`
+  padding: 0 5px;
+  background-color: red;
+  color: black;
+  border-radius: 5px;
+  position: relative;
+  top: -15px;
+`;
 export default HeaderNav;
