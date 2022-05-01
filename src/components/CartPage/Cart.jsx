@@ -94,9 +94,16 @@ const Cart = () => {
       {
         headers: headers,
       }
-    );
-    alert(`주문 완료되었습니다!`);
+    ).then(res => {
+      console.log(res);
+      if(res.data.result === "success"){
+        alert(`주문 완료되었습니다!`);
+        document.location.reload();
+      }
+    })
   }
+
+  console.log(cartList);
 
   return (
     <CartWrapper>
@@ -121,7 +128,7 @@ const Cart = () => {
         </Row>
 
         {/* 카트리스트 */}
-        <Row>
+        {/* <Row> */}
           <CartList
             cartlists={cartList}
             onRemove={onRemove}
@@ -132,7 +139,7 @@ const Cart = () => {
             {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
             <h4>총 금액 : {initPrice.toLocaleString()}</h4>
           </Row>
-        </Row>
+        {/* </Row> */}
 
         {/* 주문하기 버튼 */}
         <Container className='text-center'>
