@@ -11,7 +11,6 @@ import ProFile from "./components/ProFilePage/ProFile";
 import Cart from "./components/CartPage/Cart";
 import Store from "./components/StorePage/Store";
 import MemberRegister from "./components/RegisterPage/MemberRegister";
-import OwnerRegister from "./components/RegisterPage/OwnerRegister";
 import ReviewHistory from "./components/MyPage/ReviewHistory";
 import ReviewWriting from "./components/MyPage/ReviewWriting";
 import UserInfoConfig from "./components/MyPage/UserInfoConfig";
@@ -35,7 +34,6 @@ function App() {
         <Route path="/userinfo-config" element={<UserInfoConfig />} />
         <Route path="/login" element={<Login />} />
         <Route path="/member-register" element={<MemberRegister />} />
-        <Route path="/owner-register" element={<OwnerRegister />} />
         <Route path="/search-list" element={<SearchList />} />
         <Route path="/order-page" element={<OrderPage />} />
       </Route>
