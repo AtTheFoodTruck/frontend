@@ -41,8 +41,6 @@ const OrderListPage = () => {
 
   useEffect(() => {
     const getData = async () => {
-      console.log(`getData() 함수 불러오기 전 currentPage : ` + currentPage);
-      console.log(`getData() 함수 불러오기 전 totalPage : ` + totalPage);
       await axios
         .get(
           // `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
@@ -50,7 +48,6 @@ const OrderListPage = () => {
           { headers }
         )
         .then((res) => {
-          console.log('response 데이터 ' + res.data);
           setOrderList(res.data.data.orderHistoryList);
           console.log('orderHistoryList의 데이터 ' + orderList[0]);
         })

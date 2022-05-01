@@ -4,7 +4,7 @@ import OrderListItem from "./OrderListItem";
 const OrderList = ({ orderList }) => {
   return (
     <span className="list">
-      {orderList.map((orderItem) => (
+      {orderList && orderList.map((orderItem) => (
         <OrderListItem key={orderItem.orderId} {...orderItem} />
       ))}
     </span>
