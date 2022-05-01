@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import  React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import CartList from './CartList';
