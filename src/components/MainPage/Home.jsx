@@ -66,17 +66,17 @@ const Home = () => {
 
   return (
     <div className="container">
-      <Header1 className="masthead d-flex ">
-        <div className="container  px-4 px-lg-5 text-center">
-          <div className="mb-3">
+      <Header1 class="masthead d-flex ">
+        <div class="container  px-4 px-lg-5 text-center">
+          <div class="mb-3">
             <Input1
               type="text"
-              className="form-control"
+              class="form-control"
               placeholder="주소를 검색하세요!"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
             />
-            <button className="btn btn-primary" type="button" id="button-addon2">
+            <button class="btn btn-primary" type="button" id="button-addon2">
               Button
             </button>
           </div>
@@ -92,7 +92,7 @@ const Home = () => {
       <motion.div layout className="container px-4 px-lg-5 mt-5 ">
         <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <AnimatePresence>
-            {popular.map((item) => {
+            {popular && popular.map((item) => {
               return <HomeMenu key={item.storeId} item={item} />;
             })}
           </AnimatePresence>
