@@ -25,8 +25,8 @@ const ReviewStorePage = () => {
   const [totalPage, setTotalPage] = useState(0);
 
   //
-  useEffect(() => {
-    const getTotalPage = async () => {
+  const getTotalPage2 = async () => {
+    if (userId) {
       await axios
         .post(
           // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
@@ -43,12 +43,11 @@ const ReviewStorePage = () => {
           console.log(res.data.data.page.totalPage);
         })
         .catch((err) => console.log(err));
-    };
-    getTotalPage();
-  }, []);
+    }
+  };
 
-  useEffect(() => {
-    const getData = async () => {
+  const getData2 = async () => {
+    if (userId) {
       await axios
         .post(
           // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews`,
@@ -64,13 +63,17 @@ const ReviewStorePage = () => {
           console.log(res.data.data.reviews);
         })
         .catch((err) => {
-          alert("로그인 후 이용해주세요");
           console.log(err);
         });
-    };
-    getData();
-  }, [currentPage]);
+    } else {
+      alert("로그인 후 이용해주세요");
+    }
+  };
 
+  useEffect(() => {
+    getData2();
+    getTotalPage2();
+  }, [currentPage]);
   return (
     <>
       <ReviewHistoryWrapper>
