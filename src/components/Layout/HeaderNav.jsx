@@ -55,27 +55,33 @@ const HeaderNav = () => {
   };
   useEffect(() => {
     const getData = async () => {
-      await axios
-        .get(
-          // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
-          `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
-          { headers }
-        )
-        .then((res) => {
-          if (Array.isArray(res.data.data) && res.data.data.length === 0) {
-            setCartBadge(res.data.data.cartList.length);
+      if (userId) {
+        await axios
+          .get(
+            // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+            `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${userId}?page=0&size=${size}`,
+            { headers }
+          )
+          .then((res) => {
+            if (Array.isArray(res.data.data) && res.data.data.length === 0) {
+              setCartBadge(res.data.data.cartList.length);
+              console.log(
+                "현재 장바구니 배열의 길이는  = " +
+                  JSON.stringify(res.data.data.length)
+              );
+            }
+            setCartBadge(res.data.data.cartList);
             console.log(
-              "현재 장바구니 배열의 길이는  = " +
-                JSON.stringify(res.data.data.length)
+              "현재 장바구니 배열의 길이는 = " +
+                JSON.stringify(res.data.data.cartList.length)
             );
-          }
-          setCartBadge(res.data.data.cartList);
-          console.log(
-            "현재 장바구니 배열의 길이는 = " +
-              JSON.stringify(res.data.data.cartList.length)
-          );
-        })
-        .catch((err) => console.log(err));
+          })
+          .catch((err) => {
+            //TODO 로그인 하지 않았을때 error예외 처리
+            console.log(err);
+          });
+      }
+      console.log("로그인해야 cart에 담은 개수가 보임");
     };
     getData();
   }, []);

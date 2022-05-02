@@ -89,8 +89,8 @@ const Home = () => {
         />
       </Header1>
       {/* <HomeMenu /> */}
-      <motion.div layout className="container px-4 px-lg-5 mt-5 ">
-        <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-4  justify-content-center ">
+      <motion.div layout className="container px-lg-10 mt-5 ">
+        <motion.div className="row gx-lg-5 row-cols-md-4  justify-content-center ">
           <AnimatePresence>
             {filtered &&
               filtered.map((item) => {

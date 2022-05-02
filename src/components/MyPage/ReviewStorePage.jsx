@@ -1,5 +1,5 @@
-import { Card, Container, Button, Col, Row } from "react-bootstrap";
-import { useLocation, useParams } from "react-router-dom";
+import { Card, Container, Col, Row } from "react-bootstrap";
+import { useLocation, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -63,7 +63,10 @@ const ReviewStorePage = () => {
           setReviewList(res.data.data.reviews);
           console.log(res.data.data.reviews);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          alert("로그인 후 이용해주세요");
+          console.log(err);
+        });
     };
     getData();
   }, [currentPage]);
@@ -104,7 +107,7 @@ const ReviewStorePage = () => {
                 </Row>
 
                 {/* 리뷰텍스트 */}
-                <Row className="mt-3 ms-5 text-start" >
+                <Row className="mt-3 ms-5 text-start">
                   <Card.Body>
                     <Card.Text>{it.content}</Card.Text>
                   </Card.Body>
