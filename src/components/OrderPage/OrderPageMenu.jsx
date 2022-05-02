@@ -53,6 +53,7 @@ const OrderPageMenu = ({ storeId, item }) => {
         console.log(res.data);
         setCount(0);
         alert("장바구니에 담겼습니다.");
+        document.location.reload();
       })
       .catch((err) => console.log("return error" + err));
   };
