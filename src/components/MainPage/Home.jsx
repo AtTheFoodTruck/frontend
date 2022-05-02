@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import HomeCategories from './HomeCategories';
-import HomeMenu from './HomeMenu';
-import { AnimatePresence, motion } from 'framer-motion';
-import styled from 'styled-components';
-import axios from 'axios';
-import HomePagination from './HomePagination';
+import React, { useEffect, useState } from "react";
+import HomeCategories from "./HomeCategories";
+import HomeMenu from "./HomeMenu";
+import { AnimatePresence, motion } from "framer-motion";
+import styled from "styled-components";
+import axios from "axios";
+import HomePagination from "./HomePagination";
+import Pagination from "react-js-pagination";
+import "../Pagination.css";
 
 const Home = () => {
-  const authorization = localStorage.getItem('Authorization');
-  const userId = localStorage.getItem('userId');
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
+
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
 
   //리스트
   const [popular, setPopular] = useState([]);
@@ -18,7 +24,7 @@ const Home = () => {
   //페이지당 게시물
   const size = 16;
   //페이지 [현재 페이지,총 페이지 수]
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
   const headers = {
@@ -33,11 +39,11 @@ const Home = () => {
         { headers }
       )
       .then((res) => {
-        console.log('최초 렌더링 api 호출');
+        console.log("최초 렌더링 api 호출");
         setTotalPage(res.data.data.page.totalPage);
         setPopular(res.data.data.storeList);
         setFiltered(res.data.data.storeList);
-        console.log('메인페이지 Respone ' + res.data.data.storeList[0]);
+        console.log("메인페이지 Respone " + res.data.data.storeList[0]);
       })
       .catch((err) => console.log(err));
   }
@@ -52,11 +58,13 @@ const Home = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
-          `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          `https://apifood.blacksloop.com/item-service/items/v1/main?page=${
+            currentPage - 1
+          }&size=${size}`,
           { headers }
         )
         .then((res) => {
-          console.log('페이지 api 호출');
+          console.log("페이지 api 호출");
           setPopular(res.data.data.storeList);
         })
         .catch((err) => console.log(err));
@@ -92,20 +100,30 @@ const Home = () => {
       <motion.div layout className="container px-4 px-lg-5 mt-5 ">
         <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <AnimatePresence>
-            {popular && popular.map((item) => {
-              return <HomeMenu key={item.storeId} item={item} />;
-            })}
+            {popular &&
+              popular.map((item) => {
+                return <HomeMenu key={item.storeId} item={item} />;
+              })}
           </AnimatePresence>
         </motion.div>
       </motion.div>
 
       {/* 페이징 처리 */}
-      <HomePagination
+      {/* <HomePagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPage={totalPage}
         popular={popular}
         size={size}
+      /> */}
+      <Pagination
+        activePage={currentPage}
+        itemsCountPerPage={size}
+        totalItemsCount={totalPage * size}
+        pageRangeDisplayed={10}
+        prevPageText={"<"}
+        nextPageText={">"}
+        onChange={handlePageChange}
       />
     </div>
   );

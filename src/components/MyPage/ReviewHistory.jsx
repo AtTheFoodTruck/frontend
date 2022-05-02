@@ -5,6 +5,8 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import StarRating from "./StarRating";
 import ReviewPagination from "./ReviewPagination";
 import { useNavigate } from "react-router-dom";
+import Pagination from "react-js-pagination";
+import "../Pagination.css";
 const ReviewHistoryWrapper = styled.div`
   position: absolute;
   align-items: center;
@@ -25,10 +27,12 @@ const ReviewHistory = () => {
   //page 당 게시글 수
   const size = 4;
   //페이지 [현재 페이지,총 페이지 수]
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const navigate = useNavigate();
-
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
   useEffect(() => {
     const getTotalPage = async () => {
       await axios
@@ -51,7 +55,9 @@ const ReviewHistory = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
-          `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=${
+            currentPage - 1
+          }&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -139,12 +145,21 @@ const ReviewHistory = () => {
             </Row>
           ))}
           {/*페이징 처리*/}
-          <ReviewPagination
+          {/* <ReviewPagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPage={totalPage}
             reviewList={reviewList}
             size={size}
+          /> */}
+          <Pagination
+            activePage={currentPage}
+            itemsCountPerPage={size}
+            totalItemsCount={totalPage * size}
+            pageRangeDisplayed={10}
+            prevPageText={"<"}
+            nextPageText={">"}
+            onChange={handlePageChange}
           />
         </Container>
       </ReviewHistoryWrapper>

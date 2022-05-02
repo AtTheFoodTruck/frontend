@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import StarRating from "./StarRating";
 import ReviewPagination from "./ReviewPagination";
-
+import Pagination from "react-js-pagination";
+import "../Pagination.css";
 const ReviewStorePage = () => {
   const location = useLocation();
   const storeId = location.state.storeId;
@@ -23,7 +24,9 @@ const ReviewStorePage = () => {
   //페이지 [현재 페이지,총 페이지 수]
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
   //
   useEffect(() => {
     const getTotalPage = async () => {
@@ -104,7 +107,7 @@ const ReviewStorePage = () => {
                 </Row>
 
                 {/* 리뷰텍스트 */}
-                <Row className="mt-3 ms-5 text-start" >
+                <Row className="mt-3 ms-5 text-start">
                   <Card.Body>
                     <Card.Text>{it.content}</Card.Text>
                   </Card.Body>
@@ -114,13 +117,22 @@ const ReviewStorePage = () => {
             </Row>
           ))}
           {/*페이징 처리*/}
-          <ReviewPagination
+          {/* <ReviewPagination
             key={storeId}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPage={totalPage}
             reviewList={reviewList}
             size={size}
+          /> */}
+          <Pagination
+            activePage={currentPage}
+            itemsCountPerPage={size}
+            totalItemsCount={totalPage * size}
+            pageRangeDisplayed={10}
+            prevPageText={"<"}
+            nextPageText={">"}
+            onChange={handlePageChange}
           />
         </Container>
       </ReviewHistoryWrapper>
