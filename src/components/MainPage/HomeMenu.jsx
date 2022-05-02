@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import OrderPage from "../OrderPage/OrderPage";
 import { useNavigate } from "react-router-dom";
-
+import Pagination from "react-js-pagination";
 const HomeMenu = ({ item }) => {
   const navigate = useNavigate();
 
