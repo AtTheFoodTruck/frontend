@@ -1,4 +1,4 @@
-import  React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import CartList from './CartList';
@@ -83,24 +83,26 @@ const Cart = () => {
 
   //주문생성 및 주문 완료 버튼
   async function handleClick() {
-    axios.post(
-      // 'http://localhost:8000/order-service/orders/v1/customer/order',
-      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      {
-        //body
-        user_id: userId,
-        //
-      },
-      {
-        headers: headers,
-      }
-    ).then(res => {
-      console.log(res);
-      if(res.data.result === "success"){
-        alert(`주문 완료되었습니다!`);
-        document.location.reload();
-      }
-    })
+    axios
+      .post(
+        // 'http://localhost:8000/order-service/orders/v1/customer/order',
+        'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+        {
+          //body
+          user_id: userId,
+          //
+        },
+        {
+          headers: headers,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.result === 'success') {
+          alert(`주문 완료되었습니다!`);
+          document.location.reload();
+        }
+      });
   }
 
   console.log(cartList);
@@ -110,7 +112,7 @@ const Cart = () => {
       <Container className="mt-5">
         <h1 className="text-center">Cart</h1>
         <p className="fs-5 mt-5"> {storeName} </p>
-        <Row className="d-flex justify-content-evenly mt-5">
+        <Row className="d-flex justify-content-evenly">
           <Col lg={3}></Col>
           <Col className="d-flex justify-content-center p-0">
             <h5>Menu</h5>
@@ -129,25 +131,25 @@ const Cart = () => {
 
         {/* 카트리스트 */}
         {/* <Row> */}
-          <CartList
-            cartlists={cartList}
-            onRemove={onRemove}
-            handTotalPrice={handTotalPrice}
-            initPriceHandle={initPriceHandle}
-          />
-          <Row className='text-center mt-5'>
-            {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
-            <h4>총 금액 : {initPrice.toLocaleString()}</h4>
-          </Row>
+        <CartList
+          cartlists={cartList}
+          onRemove={onRemove}
+          handTotalPrice={handTotalPrice}
+          initPriceHandle={initPriceHandle}
+        />
+        <Row className="text-center mt-5">
+          {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
+          <h4>총 금액 : {initPrice.toLocaleString()}</h4>
+        </Row>
         {/* </Row> */}
 
         {/* 주문하기 버튼 */}
-        <Container className='text-center'>
+        <Container className="text-center">
           <Button
             onClick={handleClick}
-            className='mt-5'
-            size='lg'
-            variant='outline-secondary'
+            className="mt-5"
+            size="lg"
+            variant="outline-secondary"
           >
             주문하기
           </Button>{' '}

@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { FaCartPlus } from "react-icons/fa";
-import axios from "axios";
+import React, { useState } from 'react';
+import { FaCartPlus } from 'react-icons/fa';
+import axios from 'axios';
 
 const OrderPageMenu = ({ storeId, item }) => {
-
-  console.log("받아온 storeId의 값은 ? " + storeId);
+  console.log('받아온 storeId의 값은 ? ' + storeId);
 
   // 유저 정보
-  const authorization = localStorage.getItem("Authorization");
-  const userId = localStorage.getItem("userId");
+  const authorization = localStorage.getItem('Authorization');
+  const userId = localStorage.getItem('userId');
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
@@ -25,7 +24,7 @@ const OrderPageMenu = ({ storeId, item }) => {
   const postCart = async () => {
     // count가 < 1 일 경우 막는법
     if (count < 1) {
-      return alert("수량을 확인해주세요");
+      return alert('수량을 확인해주세요');
     }
     // console.log(`userId: ${userId}`);
     // console.log(`storeIds: ${storeId}`);
@@ -52,10 +51,10 @@ const OrderPageMenu = ({ storeId, item }) => {
       .then((res) => {
         console.log(res.data);
         setCount(0);
-        alert("장바구니에 담겼습니다.");
+        alert('장바구니에 담겼습니다.');
         document.location.reload();
       })
-      .catch((err) => console.log("return error" + err));
+      .catch((err) => console.log('return error' + err));
   };
 
   //메뉴 갯수 1개 증가
@@ -94,10 +93,10 @@ const OrderPageMenu = ({ storeId, item }) => {
             >
               <button
                 type="button"
-                onClick={() => increaseNumber()}
+                onClick={() => decreaseNumber(count)}
                 className="btn btn-outline-primary"
               >
-                +
+                -
               </button>
               <button
                 type="button"
@@ -107,10 +106,10 @@ const OrderPageMenu = ({ storeId, item }) => {
               </button>
               <button
                 type="button"
-                onClick={() => decreaseNumber(count)}
+                onClick={() => increaseNumber()}
                 className="btn btn-outline-primary"
               >
-                -
+                +
               </button>
               <button
                 onClick={() => postCart()}
