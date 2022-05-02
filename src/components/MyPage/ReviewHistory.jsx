@@ -121,7 +121,7 @@ const ReviewHistory = () => {
                     <StarRating rating={it.rating} />
                   </Col>
                   <Col className="Date">
-                    <h5>{it.reviewTime}</h5>
+                    <h5>{it.reviewTime.slice(2, 16)}</h5>
                   </Col>
                   <Col className="deleteBtn">
                     <Button
