@@ -24,8 +24,8 @@ const HomeMenu = ({ item }) => {
       exit={{ opacity: 0 }}
       className="py-2 "
     >
-      <div className="col mb-5 ">
-        <div className="card h-100 ">
+      <div className="col mb-5">
+        <div className="card h-100">
           <ImgSize
             className="card-img-top img-fluid"
             // src="/img/pizza.jpg"

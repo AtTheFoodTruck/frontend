@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import HomeCategories from './HomeCategories';
-import HomeMenu from './HomeMenu';
-import { AnimatePresence, motion } from 'framer-motion';
-import styled from 'styled-components';
-import axios from 'axios';
-import HomePagination from './HomePagination';
+import React, { useEffect, useState } from "react";
+import HomeCategories from "./HomeCategories";
+import HomeMenu from "./HomeMenu";
+import { AnimatePresence, motion } from "framer-motion";
+import styled from "styled-components";
+import axios from "axios";
+import HomePagination from "./HomePagination";
 
 const Home = () => {
-  const authorization = localStorage.getItem('Authorization');
-  const userId = localStorage.getItem('userId');
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
 
   //리스트
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [activeMenuList, setActiveactiveMenuList] = useState();
+  const [activeMenuList, setActiveMenuList] = useState("전체");
 
   //페이지당 게시물
   const size = 16;
@@ -33,11 +33,11 @@ const Home = () => {
         { headers }
       )
       .then((res) => {
-        console.log('최초 렌더링 api 호출');
+        console.log("최초 렌더링 api 호출");
         setTotalPage(res.data.data.page.totalPage);
         setPopular(res.data.data.storeList);
         setFiltered(res.data.data.storeList);
-        console.log('메인페이지 Respone ' + res.data.data.storeList[0]);
+        console.log([res.data.data.storeList]);
       })
       .catch((err) => console.log(err));
   }
@@ -56,7 +56,7 @@ const Home = () => {
           { headers }
         )
         .then((res) => {
-          console.log('페이지 api 호출');
+          console.log("페이지 api 호출");
           setPopular(res.data.data.storeList);
         })
         .catch((err) => console.log(err));
@@ -83,18 +83,19 @@ const Home = () => {
         </div>
         <HomeCategories
           popular={popular}
-          setFiltered={setPopular}
+          setFiltered={setFiltered}
           activeMenuList={activeMenuList}
-          setActiveactiveMenuList={setActiveactiveMenuList}
+          setActiveMenuList={setActiveMenuList}
         />
       </Header1>
       {/* <HomeMenu /> */}
       <motion.div layout className="container px-4 px-lg-5 mt-5 ">
-        <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-4  justify-content-center ">
           <AnimatePresence>
-            {popular && popular.map((item) => {
-              return <HomeMenu key={item.storeId} item={item} />;
-            })}
+            {filtered &&
+              filtered.map((item) => {
+                return <HomeMenu key={item.storeId} item={item} />;
+              })}
           </AnimatePresence>
         </motion.div>
       </motion.div>
