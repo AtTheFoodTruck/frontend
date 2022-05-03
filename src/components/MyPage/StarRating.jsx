@@ -13,7 +13,7 @@ function StarRating({ rating }) {
   return (
     <Stars>
       {rendering()}
-      {rating}점
+      {/* {rating}점 */}
     </Stars>
   );
 }
@@ -22,7 +22,6 @@ export default StarRating;
 
 const Stars = styled.div`
   display: flex;
-
   .yellowStar {
     color: #fcc419;
   }

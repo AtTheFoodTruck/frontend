@@ -1,4 +1,5 @@
-// import DaumPostcode from "react-daum-postcode";
+import React from "react";
+import DaumPostcode from "react-daum-postcode";
 
 //우편번호 조회 컴포넌트
 
@@ -14,13 +15,13 @@ const postCodeStyle = {
 
 const Post = (props) => {
   const onComplete = (data) => {
-    console.log(data);
+    console.log("입력창을 누루면 나옴");
     props.selectedAddress(data);
   };
 
   return (
     <>
-      {/* <DaumPostcode style={postCodeStyle} autoClose onComplete={onComplete} /> */}
+      <DaumPostcode style={postCodeStyle} autoClose onComplete={onComplete} />
     </>
   );
 };

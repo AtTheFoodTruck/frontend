@@ -5,7 +5,6 @@ const Nav = styled.nav`
   justify-content: center;
   align-items: center;
   gap: 12px;
-
   button:hover {
     cursor: pointer;
     transform: translateY(-1.7px);
@@ -67,7 +66,7 @@ export default function ReviewPage({
         onClick={() => {
           setCurrentPage(currentPage + 1);
         }}
-        disabled={currentPage === totalPage}
+        disabled={currentPage === totalPage - 1}
       >
         &gt;
       </button>

@@ -56,7 +56,8 @@ const LoginInput = () => {
       alert("비밀번호를 입력하세요");
     } else {
       axios
-        .post("https://apifood.blacksloop.com/user-service/users/v1/logins", {
+        // .post("https://apifood.blacksloop.com/user-service/users/v1/logins", {
+          .post("https://apifood.blacksloop.com/user-service/users/v1/logins", {
           email: inputId,
           password: inputPw,
         })
@@ -68,6 +69,7 @@ const LoginInput = () => {
             setRefreshToken(response.data.data.refreshToken);
             setUserId(response.data.data.userId);
             navigate("/", { replace: true });
+            document.location.reload();
             console.log(response);
           } else if (response.data.message === "Bad credentials") {
             setMailMessage("로그인 실패");
@@ -128,7 +130,7 @@ const LoginInput = () => {
         className="btn btn-lg btn-outline-secondary"
         onClick={onClickLogin}
       >
-        로그인
+        Login
       </button>
     </InputContainer>
   );

@@ -21,15 +21,13 @@ const Nav = styled.nav`
   }
 `;
 
-export default function ReviewPage({
+export default function SearchPagination({
   currentPage,
   setCurrentPage,
   totalPage,
-  storeList,
-  size,
 }) {
-  console.log("currentPage : " + currentPage);
-  console.log("totalPage : " + totalPage);
+  // console.log("currentPage : " + currentPage);
+  // console.log("totalPage : " + totalPage);
 
   return (
     <Nav>
@@ -66,7 +64,7 @@ export default function ReviewPage({
         onClick={() => {
           setCurrentPage(currentPage + 1);
         }}
-        disabled={currentPage === totalPage}
+        disabled={currentPage === totalPage - 1}
       >
         &gt;
       </button>

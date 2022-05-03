@@ -1,149 +1,113 @@
+import React from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import OrderPageMenu from "./OrderPageMenu";
 import Cart from "../CartPage/Cart";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const OrderPage = () => {
+  // 이전 화면에서 전달받은 props
+  const location = useLocation();
+  const storeId = location.state.storeId;
+
+  // 변수 선언
+  const navigate = useNavigate();
   let params = useParams();
   const [details, setDetails] = useState({});
   const [detailsMenu, setDetailsMenu] = useState({});
   const [cart, setCart] = useState([]);
 
-  //토큰
+  // 로그인 정보
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
 
-  // TODO - https://apifood.blacksloop.com/ dvelop푸시할때 변경하기
-  //Axios 가게 정보 GET
-  async function fetchDetails() {
-    const foodtruck = await axios.get(
-      `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${params.storeId}?page=0&size=20`,
-      { headers }
-    );
-    setDetails(foodtruck.data.data);
-  }
-
-  //Axios가게 메뉴 목록 GET
-  async function fetchDetailsMenu() {
-    const foodtruck = await axios.get(
-      `https://apifood.blacksloop.com/item-service/items/v1/owner/item/${params.storeId}?page=0&size=20`,
-      { headers }
-    );
-    setDetailsMenu(foodtruck.data.data);
-    console.log(foodtruck);
-    console.log(foodtruck.data);
-    console.log(foodtruck.data.data);
-
-    // console.log(foodtruck.data.data.itemsDto);
-  }
-  /**
-   * Promise는 프로미스가 생성된 시점에는 알려지지 않았을 수도 있는 값을 위한 대리자로,
-   * 비동기 연산이 종료된 이후에 결과 값과 실패 사유를 처리하기 위한 처리기를 연결할 수 있습니다.
-   * await연산자는 Promise를 기다리기 위해 사용됩니다. 연산자는 async function 내부에서만 사용할 수 있습니다.
-   * await 키워드를 만나면 프라미스가 처리(settled)될 때까지 기다립니다. 결과는 그 이후 반환됩니다.
-   * async가 붙은 함수는 반드시 프라미스를 반환하고, 프라미스가 아닌 것은 프라미스로 감싸 반환합니다.
-   * 프라미스가 처리가 완료되어 resolve(값) 되면 값만 따로 추출해서 리턴한다.
-   */
-  // //장바구니 가져오기
-  // async function getCart() {
-  //   const foodtruck = await axios.get(
-  //     `http://localhost:8000/order-service/orders/v1/customer/carts/${params.storeId}?page=0&size=20`,
-  //     { headers }
-  //   );
-  //   setGetCount(foodtruck.data.data.cartList);
-  //   console.log("장바구니 가져오기 =" + foodtruck);
-  //   console.log(foodtruck.data.data.cartList);
-  // }
-
-  //fetch  예제 소스
-  // const fetchDetails = async () => {
-  //   const data = await fetch(
-  //     `https://api.themoviedb.org/3/movie/${params.name}?api_key=e2604cc00e2d6cf3166131fbe7c76bd7&language=en-US&page=1`
-  //   );
-  //   const detailData = await data.json();
-  //   setDetails(detailData);
-  //   console.log(detailData);
-  // };
-
-  const handleClick = (item) => {
-    //indexOf() 메서드는 배열에서 지정된 요소를 찾을 수 있는 첫 번째
-    //인덱스를 반환하고 존재하지 않으면 -1을 반환합니다.
-    if (cart.indexOf(item) !== -1) return;
-    setCart([...cart, item]);
-
-    console.log(cart);
+  // 리뷰 페이지로 전달할 props
+  const reviewNavigate = () => {
+    navigate("/review-storepage", {
+      state: {
+        storeId: storeId,
+      },
+    });
   };
-  // //Load More
-  // const loadMore = () => {
-  //   setPostsPerPage(postsPerPage + 4);
+
+  // //Axios 가게 정보 GET
+  async function fetchDetails() {
+    const foodtruck = await axios
+      .get(
+        // `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
+        `https://apifood.blacksloop.com/item-service/items/v1/customer/stores/${storeId}?page=0&size=10`,
+        { headers }
+      )
+      .then((res) => {
+        console.log(res);
+        setDetails(res.data.data); // 가게 정보 저장
+        setDetailsMenu(res.data.data); // 메뉴 정보 저장
+      });
+  }
+  // const handleClick = (item) => {
+  //   //indexOf() 메서드는 배열에서 지정된 요소를 찾을 수 있는 첫 번째
+  //   //인덱스를 반환하고 존재하지 않으면 -1을 반환합니다.
+  //   if (cart.indexOf(item) !== -1) return;
+  //   setCart([...cart, item]);
+
+  //   console.log(cart);
   // };
 
+  // 최초 렌더링
   useEffect(() => {
-    fetchDetails(params.storeId);
-    fetchDetailsMenu(params.storeId);
-    console.log("선택한 푸드트럭의 ID : " + params.storeId);
+    fetchDetails();
+    // fetchDetailsMenu();
   }, []);
 
   return (
     <StoreWrapper className="container">
       {/* Title */}
       <section className="Title container text-center ">
-        <h1>{details.storeName}</h1>
+        <p className="fs-2">{details.storeName}</p>
       </section>
-
       {/* Waiting Number */}
       <section className="Waiting container text-center mt-3">
         <button type="button" className="btn btn-secondary disabled">
-          {details.totalWaitingCount}
+          주문 번호 {details.totalWaitingCount}
         </button>
       </section>
-
       {/* Navigation Bar */}
       <section className="Navbar container text-center mt-5">
-        <button type="button" className="btn btn-outline-secondary">
-          Notice
-        </button>
-        <button type="button" className="btn btn-outline-secondary ms-4 me-4">
-          menu
-        </button>
-        <button type="button" className="btn btn-outline-secondary">
+        <button onClick={reviewNavigate} className="btn btn-outline-secondary">
           reviews
         </button>
       </section>
-
       {/* Notice */}
       <section className="Notice container mt-5">
         <h4>Notice</h4>
         <div className="Notice card">
           <div className="card-body">
-            <h5 className="card-subtitle mb-2 text-muted">sajangnim alarm</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">사장님 알림</p>
             <p className="card-text">{details.notice}</p>
-            <h5 className="card-subtitle mb-2 text-muted">Time</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">영업시간</p>
             <p className="card-text">{details.openTime}</p>
-            <h5 className="card-subtitle mb-2 text-muted">Address</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">주소</p>
             <p className="card-text">{details.address}</p>
-            <h5 className="card-subtitle mb-2 text-muted">Phone Number</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">전화번호</p>
             <p className="card-text">{details.phoneNum}</p>
           </div>
         </div>
       </section>
-
       {/* MenuList */}
       <section className="Menus container mt-4">
         <h4>Menu</h4>
-        <div className="MenuList row gx-4 gx-lg-5  row-cols-md-3 row-cols-xl-4  text-center">
-          {detailsMenu.itemsDto &&
-            detailsMenu.itemsDto.map((item) => {
+        <div className="MenuList row gx-4 gx-lg-5  row-cols-md-3 row-cols-xl-4   text-center">
+          {detailsMenu.searchItemResults &&
+            detailsMenu.searchItemResults.map((item) => {
               return (
                 <OrderPageMenu
                   key={item.itemId}
                   item={item}
-                  handleClick={handleClick}
                   storeId={details.storeId}
                 />
               );
@@ -151,12 +115,12 @@ const OrderPage = () => {
         </div>
       </section>
       {/* TODO - LOAD MORE Button */}
-      <button
+      {/* <button
         // onClick={() => loadMore()}
         className="btn btn-dark d-block w-100 mt-5 mb-5"
       >
-        Load More
-      </button>
+        장바구니 이동
+      </button> */}
     </StoreWrapper>
   );
 };

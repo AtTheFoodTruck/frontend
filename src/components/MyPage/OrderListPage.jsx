@@ -26,6 +26,7 @@ const OrderListPage = () => {
     const getTotalPage = async () => {
       await axios
         .get(
+          // `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           { headers }
         )
@@ -40,15 +41,13 @@ const OrderListPage = () => {
 
   useEffect(() => {
     const getData = async () => {
-      console.log(`getData() 함수 불러오기 전 currentPage : ` + currentPage);
-      console.log(`getData() 함수 불러오기 전 totalPage : ` + totalPage);
       await axios
         .get(
+          // `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           `https://apifood.blacksloop.com/order-service/orders/v1/customer/order/list/${userId}?page=0&size=${size}`,
           { headers }
         )
         .then((res) => {
-          console.log('response 데이터 ' + res.data);
           setOrderList(res.data.data.orderHistoryList);
           console.log('orderHistoryList의 데이터 ' + orderList[0]);
         })
@@ -76,6 +75,9 @@ const OrderListPage = () => {
           </Col>
           <Col className='TitleDate fs-5 mt-5'>
             <p>주문일</p>
+          </Col>
+          <Col className='TitleDate fs-5 mt-5'>
+            <p>주문상태</p>
           </Col>
           <Col className='TitleWaiting fs-5 mt-5'>
             <p>대기번호</p>

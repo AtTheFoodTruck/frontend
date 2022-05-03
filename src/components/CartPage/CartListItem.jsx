@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Row, Col, Card, Button } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import axios from "axios";
 
 const CartListItem = ({
   orderItemId,
@@ -10,21 +10,22 @@ const CartListItem = ({
   itemName,
   unitPrice,
   handTotalPrice,
-  onRemove,
   initPriceHandle,
 }) => {
-  const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem("userId");
   // const orderItemId = orderItemId;
   const [number, setNumber] = useState(count);
   const [unitPrices, setUnitPrices] = useState(totalPrice);
   const [itemUnitPrices, setItemUnitPrices] = useState(unitPrice);
   const [price, setPrice] = useState(0);
   const [initPrice, setInitPrice] = useState(0);
-  const accessToken = localStorage.getItem('Authorization');
+  const accessToken = localStorage.getItem("Authorization");
 
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
+
+  console.log("orderItemId : " + orderItemId);
 
   useEffect(() => {
     initPriceHandle(totalPrice);
@@ -34,6 +35,7 @@ const CartListItem = ({
     //메뉴 갯수 1개 증가
     axios.patch(
       `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
+      // `http:localhost:8000/order-service/orders/v1/customer/carts`,
       {
         order_item_id: orderItemId,
         plus_minus: true,
@@ -49,6 +51,7 @@ const CartListItem = ({
   const decreaseNumber = () => {
     //메뉴 갯수 1개 감소
     axios.patch(
+      // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
       `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
       {
         order_item_id: orderItemId,
@@ -70,15 +73,23 @@ const CartListItem = ({
 
   //메뉴 삭제
   const handleClickRemove = () => {
+    console.log("user_id : " + userId, "order_item_id: " + orderItemId);
     axios.delete(
-      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-      {
-        user_id: userId,
-        order_item_id: orderItemId,
-      },
+      // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
+      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${orderItemId}`,
+      // {
+      //   user_id: userId,
+      //   order_item_id: orderItemId,
+      // },
       {
         //header
         headers: headers,
+      }).then(res => {
+        console.log(res);
+        if(res.data.result==="success"){
+          alert("삭제가 완료되었습니다");
+          document.location.reload();
+        }
       }
     );
   };
@@ -86,40 +97,40 @@ const CartListItem = ({
   return (
     <>
       <Row key={orderItemId}>
-        {' '}
-        <Col lg={4} className='d-flex justify-content-start'>
-          <Card style={{ width: '8rem', height: '8rem' }}>
+        {" "}
+        <Col lg={4} className="d-flex justify-content-start">
+          <Card style={{ width: "8rem", height: "8rem" }}>
             <Card.Img
-              variant='top'
+              variant="top"
               src={itemImgUrl}
-              style={{ width: '7.5rem', height: '7.5rem' }}
+              style={{ width: "7.5rem", height: "7.5rem" }}
             />
           </Card>
         </Col>
-        <Col className='d-flex justify-content-start text-center'>
-          <Col lg={3} className='d-flex align-items-center me-2'>
+        <Col className="d-flex justify-content-start text-center">
+          <Col lg={3} className="d-flex align-items-center me-2">
             {itemName}
           </Col>
-          <Col lg={3} className='d-flex align-items-center'>
-            <Button onClick={decreaseNumber} variant='outline-secondary'>
+          <Col lg={3} className="d-flex align-items-center">
+            <Button onClick={decreaseNumber} variant="outline-secondary">
               -
-            </Button>{' '}
-            <Button variant='outline-secondary disabled'>{number}</Button>{' '}
-            <Button onClick={increaseNumber} variant='outline-secondary'>
+            </Button>{" "}
+            <Button variant="outline-secondary disabled">{number}</Button>{" "}
+            <Button onClick={increaseNumber} variant="outline-secondary">
               +
-            </Button>{' '}
+            </Button>{" "}
           </Col>
-          <Col lg={3} className='d-flex align-items-center ms-5'>
+          <Col lg={3} className="d-flex align-items-center ms-5">
             {/* {price.toLocaleString()} */}
             {unitPrices}
           </Col>
-          <Col lg={3} className='d-flex align-items-center ms-3'>
+          <Col lg={3} className="d-flex align-items-center ms-3">
             <Button onClick={handleClickRemove}>삭제</Button>
           </Col>
         </Col>
       </Row>
 
-      <hr className='mt-5' />
+      <hr className="mt-5" />
     </>
   );
 };
