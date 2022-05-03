@@ -5,10 +5,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import styled from "styled-components";
 import axios from "axios";
 import HomePagination from "./HomePagination";
+import Pagination from "react-js-pagination";
+import "../Pagination.css";
 
 const Home = () => {
   const authorization = localStorage.getItem("Authorization");
   const userId = localStorage.getItem("userId");
+
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
 
   //리스트
   const [popular, setPopular] = useState([]);
@@ -18,7 +24,7 @@ const Home = () => {
   //페이지당 게시물
   const size = 16;
   //페이지 [현재 페이지,총 페이지 수]
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
 
   const headers = {
@@ -37,7 +43,7 @@ const Home = () => {
         setTotalPage(res.data.data.page.totalPage);
         setPopular(res.data.data.storeList);
         setFiltered(res.data.data.storeList);
-        console.log([res.data.data.storeList]);
+        console.log("메인페이지 Respone " + res.data.data.storeList[0]);
       })
       .catch((err) => console.log(err));
   }
@@ -52,7 +58,9 @@ const Home = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
-          `https://apifood.blacksloop.com/item-service/items/v1/main?page=${currentPage}&size=${size}`,
+          `https://apifood.blacksloop.com/item-service/items/v1/main?page=${
+            currentPage - 1
+          }&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -101,12 +109,21 @@ const Home = () => {
       </motion.div>
 
       {/* 페이징 처리 */}
-      <HomePagination
+      {/* <HomePagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPage={totalPage}
         popular={popular}
         size={size}
+      /> */}
+      <Pagination
+        activePage={currentPage}
+        itemsCountPerPage={size}
+        totalItemsCount={totalPage * size}
+        pageRangeDisplayed={10}
+        prevPageText={"<"}
+        nextPageText={">"}
+        onChange={handlePageChange}
       />
     </div>
   );

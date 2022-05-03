@@ -1,9 +1,9 @@
-import  React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import styled from 'styled-components';
-import CartList from './CartList';
-import axios from 'axios';
-import _, { toInteger } from 'lodash';
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import styled from "styled-components";
+import CartList from "./CartList";
+import axios from "axios";
+import _, { toInteger } from "lodash";
 
 const Cart = () => {
   const [cartList, setCartList] = useState([]);
@@ -11,9 +11,9 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  const [storeName, setStoreName] = useState('');
-  const authorization = localStorage.getItem('Authorization');
-  const userId = localStorage.getItem('userId');
+  const [storeName, setStoreName] = useState("");
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
   const size = 4;
   const headers = {
     Authorization: `Bearer ${authorization}`,
@@ -68,7 +68,7 @@ const Cart = () => {
   const onRemove = async (orderItemId) => {
     axios.delete(
       // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+      "https://apifood.blacksloop.com/order-service/orders/v1/customer/order",
       {
         user_id: userId,
         order_item_id: orderItemId,
@@ -83,24 +83,26 @@ const Cart = () => {
 
   //주문생성 및 주문 완료 버튼
   async function handleClick() {
-    axios.post(
-      // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      {
-        //body
-        user_id: userId,
-        //
-      },
-      {
-        headers: headers,
-      }
-    ).then(res => {
-      console.log(res);
-      if(res.data.result === "success"){
-        alert(`주문 완료되었습니다!`);
-        document.location.reload();
-      }
-    })
+    axios
+      .post(
+        // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+        "https://apifood.blacksloop.com/order-service/orders/v1/customer/order",
+        {
+          //body
+          user_id: userId,
+          //
+        },
+        {
+          headers: headers,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.result === "success") {
+          alert(`주문 완료되었습니다!`);
+          document.location.reload();
+        }
+      });
   }
 
   console.log(cartList);
@@ -129,28 +131,28 @@ const Cart = () => {
 
         {/* 카트리스트 */}
         {/* <Row> */}
-          <CartList
-            cartlists={cartList}
-            onRemove={onRemove}
-            handTotalPrice={handTotalPrice}
-            initPriceHandle={initPriceHandle}
-          />
-          <Row className='text-center mt-5'>
-            {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
-            <h4>총 금액 : {initPrice.toLocaleString()}</h4>
-          </Row>
+        <CartList
+          cartlists={cartList}
+          onRemove={onRemove}
+          handTotalPrice={handTotalPrice}
+          initPriceHandle={initPriceHandle}
+        />
+        <Row className="text-center mt-5">
+          {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
+          <h4>총 금액 : {initPrice.toLocaleString()}</h4>
+        </Row>
         {/* </Row> */}
 
         {/* 주문하기 버튼 */}
-        <Container className='text-center'>
+        <Container className="text-center">
           <Button
             onClick={handleClick}
-            className='mt-5'
-            size='lg'
-            variant='outline-secondary'
+            className="mt-5"
+            size="lg"
+            variant="outline-secondary"
           >
             주문하기
-          </Button>{' '}
+          </Button>{" "}
         </Container>
       </Container>
     </CartWrapper>
