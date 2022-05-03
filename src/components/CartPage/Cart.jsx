@@ -139,7 +139,7 @@ const Cart = () => {
         />
         <Row className="text-center mt-5">
           {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
-          <h4>총 금액 : {initPrice.toLocaleString()}</h4>
+          <p className="fs-5">총 금액 : {initPrice.toLocaleString()}</p>
         </Row>
         {/* </Row> */}
 

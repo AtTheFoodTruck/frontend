@@ -1,12 +1,12 @@
-import { render } from "@testing-library/react";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import styled from "styled-components";
-import SearchResult from "./SearchResult";
-import SearchPagination from "./SearchPagination";
-import { AnimatePresence, motion } from "framer-motion";
+import { render } from '@testing-library/react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+import SearchResult from './SearchResult';
+import SearchPagination from './SearchPagination';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Input1 = styled.input`
   margin-top: 11%;
@@ -21,7 +21,7 @@ const Header1 = styled.header`
 `;
 
 const SearchList = () => {
-  const authorization = localStorage.getItem("Authorization");
+  const authorization = localStorage.getItem('Authorization');
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
@@ -32,8 +32,8 @@ const SearchList = () => {
   const [data, setData] = useState([]);
 
   //위도 경도
-  const latitude = localStorage.getItem("latitude");
-  const longitude = localStorage.getItem("longitude");
+  const latitude = localStorage.getItem('latitude');
+  const longitude = localStorage.getItem('longitude');
 
   //페이징
   const [currentPage, setCurrentPage] = useState(0);
@@ -48,8 +48,8 @@ const SearchList = () => {
         // `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
         `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=${size}`,
         {
-          latitude: "1600.93", //localStorage.getItem("latitude");
-          longitude: "150.156", //localStorage.getItem("longitude")
+          latitude: '1600.93', //localStorage.getItem("latitude");
+          longitude: '150.156', //localStorage.getItem("longitude")
           name: searchWord,
         },
         { headers }
@@ -68,8 +68,8 @@ const SearchList = () => {
         // `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
         `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
         {
-          latitude: "1600.93", //localStorage.getItem("latitude");
-          longitude: "150.156", //localStorage.getItem("longitude")
+          latitude: '1600.93', //localStorage.getItem("latitude");
+          longitude: '150.156', //localStorage.getItem("longitude")
           name: searchWord,
         },
         { headers }
@@ -127,10 +127,10 @@ const SearchList = () => {
       <motion.div layout className="container px-4 px-lg-5 mt-5  text-center">
         <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <AnimatePresence>
-            {renderList.length > 0 && searchWord != "" ? (
+            {renderList.length > 0 && searchWord != '' ? (
               renderList
             ) : (
-              <h4 className="mb-5">검색 결과가 없습니다</h4>
+              <p className="mb-5 fs-5">검색 결과가 없습니다!</p>
             )}
           </AnimatePresence>
         </motion.div>
