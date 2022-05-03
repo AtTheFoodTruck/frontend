@@ -26,6 +26,8 @@ const CartListItem = ({
     Authorization: `Bearer ${accessToken}`,
   };
 
+  console.log("orderItemId : " + orderItemId);
+
   useEffect(() => {
     initPriceHandle(totalPrice);
   }, [totalPrice]);
@@ -72,6 +74,7 @@ const CartListItem = ({
 
   //메뉴 삭제
   const handleClickRemove = () => {
+    console.log("user_id : " + userId, "order_item_id: " + orderItemId);
     axios.delete(
       // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
       `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
@@ -82,7 +85,13 @@ const CartListItem = ({
       {
         //header
         headers: headers,
-      }
+      }.then(res => {
+        console.log(res);
+        if(res.data.result==="success"){
+          alert("삭제가 완료되었습니다");
+          document.location.reload();
+        }
+      })
     );
   };
 
