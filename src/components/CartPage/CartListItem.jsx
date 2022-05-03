@@ -76,11 +76,11 @@ const CartListItem = ({
     console.log("user_id : " + userId, "order_item_id: " + orderItemId);
     axios.delete(
       // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-      {
-        user_id: userId,
-        order_item_id: orderItemId,
-      },
+      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${orderItemId}`,
+      // {
+      //   user_id: userId,
+      //   order_item_id: orderItemId,
+      // },
       {
         //header
         headers: headers,
