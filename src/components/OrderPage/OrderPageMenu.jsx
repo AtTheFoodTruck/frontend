@@ -3,7 +3,7 @@ import { FaCartPlus } from 'react-icons/fa';
 import axios from 'axios';
 
 const OrderPageMenu = ({ storeId, item }) => {
-  console.log("받아온 storeId의 값은 ? " + storeId);
+  console.log('받아온 storeId의 값은 ? ' + storeId);
 
   // 유저 정보
   const authorization = localStorage.getItem('Authorization');
@@ -24,7 +24,7 @@ const OrderPageMenu = ({ storeId, item }) => {
   const postCart = async () => {
     // count가 < 1 일 경우 막는법
     if (count < 1) {
-      return alert("수량을 확인해주세요");
+      return alert('수량을 확인해주세요');
     } else if (userId) {
       await axios
         .post(
@@ -44,14 +44,13 @@ const OrderPageMenu = ({ storeId, item }) => {
         )
         .then((res) => {
           setCount(0);
-          alert("장바구니에 담겼습니다.");
-          
+          alert('장바구니에 담겼습니다.');
         })
         .catch((err) => {
-          console.log("return error" + err);
+          console.log('return error' + err);
         });
     } else {
-      return alert("로그인 후 이용해주세요");
+      return alert('로그인 후 이용해주세요');
     }
     // console.log(`userId: ${userId}`);
     // console.log(`storeIds: ${storeId}`);
@@ -111,7 +110,9 @@ const OrderPageMenu = ({ storeId, item }) => {
           />
           {/* 데이터 출력 부 */}
           <div className="card-body">
-            <h5 style={{ display: "inline" }}>{itemName}</h5>
+            <p className="fs-5" style={{ display: 'inline' }}>
+              {itemName}
+            </p>
             <h6>${item.itemPrice}</h6>
             <div
               className="btn-group"

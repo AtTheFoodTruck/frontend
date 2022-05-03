@@ -1,11 +1,13 @@
-import React from "react";
-import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import OrderPageMenu from "./OrderPageMenu";
-import Cart from "../CartPage/Cart";
-import axios from "axios";
-import { useLocation } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import OrderPageMenu from './OrderPageMenu';
+import Cart from '../CartPage/Cart';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { AiFillSound, AiFillPhone } from 'react-icons/ai';
+import { BiTimeFive, BiMapAlt } from 'react-icons/bi';
 
 const OrderPage = () => {
   // 이전 화면에서 전달받은 props
@@ -20,15 +22,15 @@ const OrderPage = () => {
   const [cart, setCart] = useState([]);
 
   // 로그인 정보
-  const authorization = localStorage.getItem("Authorization");
-  const userId = localStorage.getItem("userId");
+  const authorization = localStorage.getItem('Authorization');
+  const userId = localStorage.getItem('userId');
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
 
   // 리뷰 페이지로 전달할 props
   const reviewNavigate = () => {
-    navigate("/review-storepage", {
+    navigate('/review-storepage', {
       state: {
         storeId: storeId,
       },
@@ -85,15 +87,26 @@ const OrderPage = () => {
       <section className="Notice container mt-5">
         <h4>Notice</h4>
         <div className="Notice card">
-          <div className="card-body">
-            <p className="card-subtitle mb-2 text-muted fs-5">사장님 알림</p>
-            <p className="card-text">{details.notice}</p>
-            <p className="card-subtitle mb-2 text-muted fs-5">영업시간</p>
-            <p className="card-text">{details.openTime}</p>
-            <p className="card-subtitle mb-2 text-muted fs-5">주소</p>
-            <p className="card-text">{details.address}</p>
-            <p className="card-subtitle mb-2 text-muted fs-5">전화번호</p>
-            <p className="card-text">{details.phoneNum}</p>
+          <div className="card-body ms-5">
+            <p className="card-subtitle mb-2 text-muted fs-5">
+              <AiFillSound className="me-3" />
+              공지사항
+            </p>
+            <p className="card-text ms-4 ps-3">{details.notice}</p>
+            <p className="card-subtitle mb-2 text-muted fs-5 mt-3">
+              <BiTimeFive className="me-3" /> 영업시간
+            </p>
+            <p className="card-text ms-4 ps-3">{details.openTime}</p>
+            <p className="card-subtitle mb-2 text-muted fs-5 mt-3">
+              <BiMapAlt className="me-3" />
+              주소
+            </p>
+            <p className="card-text ms-4 ps-3">{details.address}</p>
+            <p className="card-subtitle mb-2 text-muted fs-5 mt-3">
+              <AiFillPhone className="me-3" />
+              전화번호
+            </p>
+            <p className="card-text ms-4 ps-3">{details.phoneNum}</p>
           </div>
         </div>
       </section>
