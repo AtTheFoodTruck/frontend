@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import styled from 'styled-components';
-import CartList from './CartList';
-import axios from 'axios';
-import _, { toInteger } from 'lodash';
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import styled from "styled-components";
+import CartList from "./CartList";
+import axios from "axios";
+import _, { toInteger } from "lodash";
 
 const Cart = () => {
   const [cartList, setCartList] = useState([]);
@@ -11,9 +11,9 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  const [storeName, setStoreName] = useState('');
-  const authorization = localStorage.getItem('Authorization');
-  const userId = localStorage.getItem('userId');
+  const [storeName, setStoreName] = useState("");
+  const authorization = localStorage.getItem("Authorization");
+  const userId = localStorage.getItem("userId");
   const size = 4;
   const headers = {
     Authorization: `Bearer ${authorization}`,
@@ -68,7 +68,7 @@ const Cart = () => {
   const onRemove = async (orderItemId) => {
     axios.delete(
       // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+      "https://apifood.blacksloop.com/order-service/orders/v1/customer/order",
       {
         user_id: userId,
         order_item_id: orderItemId,
@@ -85,8 +85,8 @@ const Cart = () => {
   async function handleClick() {
     axios
       .post(
-        // 'http://localhost:8000/order-service/orders/v1/customer/order',
-        'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+        // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
+        "https://apifood.blacksloop.com/order-service/orders/v1/customer/order",
         {
           //body
           user_id: userId,
@@ -98,7 +98,7 @@ const Cart = () => {
       )
       .then((res) => {
         console.log(res);
-        if (res.data.result === 'success') {
+        if (res.data.result === "success") {
           alert(`주문 완료되었습니다!`);
           document.location.reload();
         }
@@ -152,7 +152,7 @@ const Cart = () => {
             variant="outline-secondary"
           >
             주문하기
-          </Button>{' '}
+          </Button>{" "}
         </Container>
       </Container>
     </CartWrapper>

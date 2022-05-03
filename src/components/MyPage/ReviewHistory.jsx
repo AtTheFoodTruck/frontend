@@ -1,10 +1,12 @@
-import { Card, Container, Button, Col, Row } from 'react-bootstrap';
-import styled from 'styled-components';
-import axios from 'axios';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import StarRating from './StarRating';
-import ReviewPagination from './ReviewPagination';
-import { useNavigate } from 'react-router-dom';
+import { Card, Container, Button, Col, Row } from "react-bootstrap";
+import styled from "styled-components";
+import axios from "axios";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import StarRating from "./StarRating";
+import ReviewPagination from "./ReviewPagination";
+import { useNavigate } from "react-router-dom";
+import Pagination from "react-js-pagination";
+import "../Pagination.css";
 const ReviewHistoryWrapper = styled.div`
   position: absolute;
   align-items: center;
@@ -25,10 +27,12 @@ const ReviewHistory = () => {
   //page 당 게시글 수
   const size = 4;
   //페이지 [현재 페이지,총 페이지 수]
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const navigate = useNavigate();
-
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
   useEffect(() => {
     const getTotalPage = async () => {
       await axios
@@ -51,7 +55,9 @@ const ReviewHistory = () => {
       await axios
         .get(
           // `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
-          `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=${currentPage}&size=${size}`,
+          `https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews/${userId}?page=${
+            currentPage - 1
+          }&size=${size}`,
           { headers }
         )
         .then((res) => {
@@ -132,7 +138,7 @@ const ReviewHistory = () => {
                     <StarRating rating={it.rating} />
                   </Col>
                   <Col className="Date">
-                    <h5>{it.reviewTime}</h5>
+                    <h5>{it.reviewTime.slice(2, 16)}</h5>
                   </Col>
                   <Col className="deleteBtn">
                     <Button
@@ -156,13 +162,21 @@ const ReviewHistory = () => {
             </Row>
           ))}
           {/*페이징 처리*/}
-          <ReviewPagination
-            className="mt-5"
+          {/* <ReviewPagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPage={totalPage}
             reviewList={reviewList}
             size={size}
+          /> */}
+          <Pagination
+            activePage={currentPage}
+            itemsCountPerPage={size}
+            totalItemsCount={totalPage * size}
+            pageRangeDisplayed={10}
+            prevPageText={"<"}
+            nextPageText={">"}
+            onChange={handlePageChange}
           />
         </Container>
       </ReviewHistoryWrapper>

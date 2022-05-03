@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const HomeCategories = ({
-  setActiveactiveMenuList,
+  setActiveMenuList,
   activeMenuList,
   setFiltered,
   popular,
@@ -13,67 +13,62 @@ const HomeCategories = ({
       console.log(activeMenuList);
       return;
     }
-    const filtered = popular.filter((item) =>
+    const _filtered = popular.filter((item) =>
       item.categoryName.includes(activeMenuList)
     );
-    console.log(activeMenuList);
-    setFiltered(filtered);
+    console.log("popular", popular);
+    setFiltered(_filtered);
   }, [activeMenuList]);
 
-  //리팩터링 필요함
-  function handleClick() {
-    // paginate(1);
-    setActiveactiveMenuList("전체");
-  }
-  function handleClick2() {
-    // paginate(1);
-    setActiveactiveMenuList("치킨");
-  }
-  function handleClick3() {
-    // paginate(1);
-    setActiveactiveMenuList("피자");
-  }
-  function handleClick4() {
-    setActiveactiveMenuList("햄버거");
-  }
-  function handleClick5() {
-    setActiveactiveMenuList("스테이크");
-  }
-  function handleClick6() {
-    setActiveactiveMenuList("닭강정");
-  }
-  function handleClick7() {
-    setActiveactiveMenuList("핫도그");
-  }
-  function handleClick8() {
-    setActiveactiveMenuList("아이스크림");
-  }
+  // //리팩터링 전에 했던것
+  // function handleClick() {
+  //   // paginate(1);
+  //   setActiveactiveMenuList("전체");
+  // }
+
+  const onClickCategoryHandler = (e) => {
+    e.preventDefault();
+    console.log(`선택한 button 이름 : ${e.target.value}`);
+    setActiveMenuList(e.target.value);
+  };
+  const cateAll = () => {
+    setFiltered(popular);
+  };
+
+  const categoryList = [
+    { id: 0, name: "전체" },
+    { id: 1, name: "치킨" },
+    { id: 2, name: "피자" },
+    { id: 3, name: "햄버거" },
+    { id: 4, name: "스테이크" },
+    { id: 5, name: "닭강정" },
+    { id: 6, name: "핫도그" },
+    { id: 7, name: "중식" },
+    { id: 8, name: "디저트" },
+    { id: 9, name: "일식" },
+    { id: 10, name: "기타" },
+    { id: 11, name: "한식" },
+    { id: 12, name: "분식" },
+  ];
   return (
     <Nav1>
-      <button onClick={handleClick} className="btn btn-outline-primary m-3">
-        전체
-      </button>
-      <button onClick={handleClick2} className="btn btn-outline-primary m-3">
-        치킨
-      </button>
-      <button onClick={handleClick3} className="btn btn-outline-primary m-3">
-        피자
-      </button>
-      <button onClick={handleClick4} className="btn btn-outline-primary m-3">
-        햄버거
-      </button>
-      <button onClick={handleClick5} className="btn btn-outline-primary m-3">
-        스테이크
-      </button>
-      <button onClick={handleClick6} className="btn btn-outline-primary m-3">
-        닭강정
-      </button>
-      <button onClick={handleClick7} className="btn btn-outline-primary m-3">
-        핫도그
-      </button>
-      <button onClick={handleClick8} className="btn btn-outline-primary m-3">
-        아이스크림
-      </button>
+      <div className="btn-group" role="group" aria-label="category">
+        {/* <button onClick={cateAll} className="btn btn-outline-primary m-3">
+          전체
+        </button> */}
+        {categoryList.map((item) => (
+          <div key={item.id}>
+            <button
+              name={item.name}
+              value={item.name}
+              onClick={onClickCategoryHandler}
+              className="btn btn-outline-primary m-3"
+            >
+              {item.name}
+            </button>
+          </div>
+        ))}
+      </div>
     </Nav1>
   );
 };

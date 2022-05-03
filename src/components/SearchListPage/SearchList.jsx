@@ -1,13 +1,14 @@
-import { render } from '@testing-library/react';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import SearchResult from './SearchResult';
-import SearchPagination from './SearchPagination';
-import { AnimatePresence, motion } from 'framer-motion';
-
+import { render } from "@testing-library/react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import SearchResult from "./SearchResult";
+import SearchPagination from "./SearchPagination";
+import { AnimatePresence, motion } from "framer-motion";
+import Pagination from "react-js-pagination";
+import "../Pagination.css";
 const Input1 = styled.input`
   margin-top: 11%;
   width: 35%;
@@ -36,10 +37,12 @@ const SearchList = () => {
   const longitude = localStorage.getItem('longitude');
 
   //페이징
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const size = 8;
-
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
   // console.log("검색어 : " + searchWord);
   //리스트 갯수 확인
   useEffect(async () => {
@@ -66,7 +69,9 @@ const SearchList = () => {
     await axios
       .post(
         // `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
-        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${currentPage}&size=${size}`,
+        `https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=${
+          currentPage - 1
+        }&size=${size}`,
         {
           latitude: '1600.93', //localStorage.getItem("latitude");
           longitude: '150.156', //localStorage.getItem("longitude")
@@ -136,12 +141,21 @@ const SearchList = () => {
         </motion.div>
       </motion.div>
       {/*페이징 처리*/}
-      <SearchPagination
+      {/* <SearchPagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPage={totalPage}
         storeList={data}
         size={size}
+      /> */}
+      <Pagination
+        activePage={currentPage}
+        itemsCountPerPage={size}
+        totalItemsCount={totalPage * size}
+        pageRangeDisplayed={10}
+        prevPageText={"<"}
+        nextPageText={">"}
+        onChange={handlePageChange}
       />
     </div>
   );

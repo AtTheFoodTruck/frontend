@@ -1,11 +1,12 @@
-import { Card, Container, Button, Col, Row } from "react-bootstrap";
-import { useLocation, useParams } from "react-router-dom";
+import { Card, Container, Col, Row } from "react-bootstrap";
+import { useLocation, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import StarRating from "./StarRating";
 import ReviewPagination from "./ReviewPagination";
-
+import Pagination from "react-js-pagination";
+import "../Pagination.css";
 const ReviewStorePage = () => {
   const location = useLocation();
   const storeId = location.state.storeId;
@@ -23,10 +24,12 @@ const ReviewStorePage = () => {
   //페이지 [현재 페이지,총 페이지 수]
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-
+  const handlePageChange = (currentPage) => {
+    setCurrentPage(currentPage);
+  };
   //
-  useEffect(() => {
-    const getTotalPage = async () => {
+  const getTotalPage2 = async () => {
+    if (userId) {
       await axios
         .post(
           // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
@@ -43,12 +46,11 @@ const ReviewStorePage = () => {
           console.log(res.data.data.page.totalPage);
         })
         .catch((err) => console.log(err));
-    };
-    getTotalPage();
-  }, []);
+    }
+  };
 
-  useEffect(() => {
-    const getData = async () => {
+  const getData2 = async () => {
+    if (userId) {
       await axios
         .post(
           // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews`,
@@ -63,11 +65,18 @@ const ReviewStorePage = () => {
           setReviewList(res.data.data.reviews);
           console.log(res.data.data.reviews);
         })
-        .catch((err) => console.log(err));
-    };
-    getData();
-  }, [currentPage]);
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert("로그인 후 이용해주세요");
+    }
+  };
 
+  useEffect(() => {
+    getData2();
+    getTotalPage2();
+  }, [currentPage]);
   return (
     <>
       <ReviewHistoryWrapper>
@@ -104,7 +113,7 @@ const ReviewStorePage = () => {
                 </Row>
 
                 {/* 리뷰텍스트 */}
-                <Row className="mt-3 ms-5 text-start" >
+                <Row className="mt-3 ms-5 text-start">
                   <Card.Body>
                     <Card.Text>{it.content}</Card.Text>
                   </Card.Body>
@@ -114,13 +123,22 @@ const ReviewStorePage = () => {
             </Row>
           ))}
           {/*페이징 처리*/}
-          <ReviewPagination
+          {/* <ReviewPagination
             key={storeId}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPage={totalPage}
             reviewList={reviewList}
             size={size}
+          /> */}
+          <Pagination
+            activePage={currentPage}
+            itemsCountPerPage={size}
+            totalItemsCount={totalPage * size}
+            pageRangeDisplayed={10}
+            prevPageText={"<"}
+            nextPageText={">"}
+            onChange={handlePageChange}
           />
         </Container>
       </ReviewHistoryWrapper>
