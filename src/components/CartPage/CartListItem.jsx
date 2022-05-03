@@ -84,13 +84,13 @@ const CartListItem = ({
       {
         //header
         headers: headers,
-      }.then(res => {
+      }).then(res => {
         console.log(res);
         if(res.data.result==="success"){
           alert("삭제가 완료되었습니다");
           document.location.reload();
         }
-      })
+      }
     );
   };
 
