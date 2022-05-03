@@ -86,13 +86,13 @@ const OrderPage = () => {
         <h4>Notice</h4>
         <div className="Notice card">
           <div className="card-body">
-            <h5 className="card-subtitle mb-2 text-muted">sajangnim alarm</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">사장님 알림</p>
             <p className="card-text">{details.notice}</p>
-            <h5 className="card-subtitle mb-2 text-muted">Time</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">영업시간</p>
             <p className="card-text">{details.openTime}</p>
-            <h5 className="card-subtitle mb-2 text-muted">Address</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">주소</p>
             <p className="card-text">{details.address}</p>
-            <h5 className="card-subtitle mb-2 text-muted">Phone Number</h5>
+            <p className="card-subtitle mb-2 text-muted fs-5">전화번호</p>
             <p className="card-text">{details.phoneNum}</p>
           </div>
         </div>

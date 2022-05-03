@@ -112,7 +112,7 @@ const Cart = () => {
       <Container className="mt-5">
         <h1 className="text-center">Cart</h1>
         <p className="fs-5 mt-5"> {storeName} </p>
-        <Row className="d-flex justify-content-evenly mt-5">
+        <Row className="d-flex justify-content-evenly">
           <Col lg={3}></Col>
           <Col className="d-flex justify-content-center p-0">
             <h5>Menu</h5>
@@ -139,7 +139,7 @@ const Cart = () => {
         />
         <Row className="text-center mt-5">
           {/* <h4>총 금액 : {totalPrice.toLocaleString()}</h4> */}
-          <h4>총 금액 : {initPrice.toLocaleString()}</h4>
+          <p className="fs-5">총 금액 : {initPrice.toLocaleString()}</p>
         </Row>
         {/* </Row> */}
 

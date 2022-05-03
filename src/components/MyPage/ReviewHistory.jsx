@@ -17,8 +17,8 @@ const ReviewHistoryWrapper = styled.div`
 
 const ReviewHistory = () => {
   //axios
-  const authorization = localStorage.getItem("Authorization");
-  const userId = localStorage.getItem("userId");
+  const authorization = localStorage.getItem('Authorization');
+  const userId = localStorage.getItem('userId');
   const headers = {
     Authorization: `Bearer ${authorization}`,
   };
@@ -69,9 +69,9 @@ const ReviewHistory = () => {
   }, [currentPage]);
 
   const deleteReview = async (e) => {
-    console.log("userId : " + userId);
-    console.log("데이터 갯수 : " + reviewList.length);
-    if (window.confirm("리뷰를 삭제하시겠습니까?")) {
+    console.log('userId : ' + userId);
+    console.log('데이터 갯수 : ' + reviewList.length);
+    if (window.confirm('리뷰를 삭제하시겠습니까?')) {
       const data = {
         user_id: userId,
         review_id: e.target.value,
@@ -79,11 +79,11 @@ const ReviewHistory = () => {
       axios
         .delete(
           // "https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews",
-          "https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews",
+          'https://apifood.blacksloop.com/order-service/orders/v1/customer/reviews',
           { headers, data }
         )
         .then((res) => {
-          alert("삭제 완료하였습니다");
+          alert('삭제 완료하였습니다');
           navigate(0);
         })
         .catch((err) => console.log(err));
@@ -94,8 +94,25 @@ const ReviewHistory = () => {
     <>
       <ReviewHistoryWrapper>
         <Container className="ReviewPage text-center mt-5">
-          <h1>리뷰관리</h1>
-
+          <p className="fs-3">리뷰관리</p>
+          <Row className=" mt-5">
+            {/* <Col lg={3}></Col> */}
+            <Col className="d-flex justify-content-center p-0 ms-3 fs-5">
+              <p>메장명</p>
+            </Col>
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p>가격</p>
+            </Col>
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p>별점</p>
+            </Col>
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p>작성일</p>
+            </Col>
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p>리뷰내용</p>
+            </Col>
+          </Row>
           {reviewList.map((it) => (
             <Row
               className="mt-5 mb-5 d-flex align-items-center justify-content-center"
@@ -103,7 +120,7 @@ const ReviewHistory = () => {
               key={it.reviewId}
             >
               <Col className="d-flex justify-content-center">
-                <Card style={{ width: "8rem", height: "8rem" }}>
+                <Card style={{ width: '8rem', height: '8rem' }}>
                   <Card.Img variant="top" src={it.reviewImgUrl} />
                 </Card>
               </Col>
