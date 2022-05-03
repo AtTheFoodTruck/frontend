@@ -64,8 +64,10 @@ const Home = () => {
           { headers }
         )
         .then((res) => {
+          console.log("current Page" + currentPage);
           console.log("페이지 api 호출");
           setPopular(res.data.data.storeList);
+          setFiltered(res.data.data.storeList);
         })
         .catch((err) => console.log(err));
     };
