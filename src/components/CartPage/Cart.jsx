@@ -64,23 +64,6 @@ const Cart = () => {
     getData();
   }, [currentPage]);
 
-  // 아이템 삭제 버튼 클릭 이벤트
-  const onRemove = async (orderItemId) => {
-    axios.delete(
-      // 'https://apifood.blacksloop.com/order-service/orders/v1/customer/order',
-      "https://apifood.blacksloop.com/order-service/orders/v1/customer/order",
-      {
-        user_id: userId,
-        order_item_id: orderItemId,
-      },
-      {
-        headers: headers,
-      }
-    );
-    const newCartList = cartList.filter((list) => list.id !== orderItemId);
-    setCartList(newCartList);
-  };
-
   //주문생성 및 주문 완료 버튼
   async function handleClick() {
     axios
@@ -133,7 +116,6 @@ const Cart = () => {
         {/* <Row> */}
         <CartList
           cartlists={cartList}
-          onRemove={onRemove}
           handTotalPrice={handTotalPrice}
           initPriceHandle={initPriceHandle}
         />

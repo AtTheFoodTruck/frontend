@@ -10,7 +10,6 @@ const CartListItem = ({
   itemName,
   unitPrice,
   handTotalPrice,
-  onRemove,
   initPriceHandle,
 }) => {
   const userId = localStorage.getItem("userId");
