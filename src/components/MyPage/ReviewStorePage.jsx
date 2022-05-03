@@ -82,6 +82,20 @@ const ReviewStorePage = () => {
       <ReviewHistoryWrapper>
         <Container className="ReviewPage text-center mt-5">
           <h1>Reviews</h1>
+          <Row className="mt-5">
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p></p>
+            </Col>
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p>아이디</p>
+            </Col>
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p>별점</p>
+            </Col>
+            <Col className="d-flex justify-content-center p-0 fs-5">
+              <p>작성일</p>
+            </Col>
+          </Row>
 
           {reviewList.map((it) => (
             <Row
