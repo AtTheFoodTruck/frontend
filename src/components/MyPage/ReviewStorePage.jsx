@@ -1,5 +1,5 @@
-import { Card, Container, Button, Col, Row } from "react-bootstrap";
-import { useLocation, useParams } from "react-router-dom";
+import { Card, Container, Col, Row } from "react-bootstrap";
+import { useLocation, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -28,8 +28,8 @@ const ReviewStorePage = () => {
     setCurrentPage(currentPage);
   };
   //
-  useEffect(() => {
-    const getTotalPage = async () => {
+  const getTotalPage2 = async () => {
+    if (userId) {
       await axios
         .post(
           // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews/?page=0&size=${size}`,
@@ -46,12 +46,11 @@ const ReviewStorePage = () => {
           console.log(res.data.data.page.totalPage);
         })
         .catch((err) => console.log(err));
-    };
-    getTotalPage();
-  }, []);
+    }
+  };
 
-  useEffect(() => {
-    const getData = async () => {
+  const getData2 = async () => {
+    if (userId) {
       await axios
         .post(
           // `https://apifood.blacksloop.com/order-service/orders/v1/owner/reviews`,
@@ -66,11 +65,18 @@ const ReviewStorePage = () => {
           setReviewList(res.data.data.reviews);
           console.log(res.data.data.reviews);
         })
-        .catch((err) => console.log(err));
-    };
-    getData();
-  }, [currentPage]);
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      alert("로그인 후 이용해주세요");
+    }
+  };
 
+  useEffect(() => {
+    getData2();
+    getTotalPage2();
+  }, [currentPage]);
   return (
     <>
       <ReviewHistoryWrapper>

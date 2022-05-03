@@ -19,7 +19,7 @@ const Home = () => {
   //리스트
   const [popular, setPopular] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [activeMenuList, setActiveactiveMenuList] = useState();
+  const [activeMenuList, setActiveMenuList] = useState("전체");
 
   //페이지당 게시물
   const size = 16;
@@ -91,17 +91,17 @@ const Home = () => {
         </div>
         <HomeCategories
           popular={popular}
-          setFiltered={setPopular}
+          setFiltered={setFiltered}
           activeMenuList={activeMenuList}
-          setActiveactiveMenuList={setActiveactiveMenuList}
+          setActiveMenuList={setActiveMenuList}
         />
       </Header1>
       {/* <HomeMenu /> */}
-      <motion.div layout className="container px-4 px-lg-5 mt-5 ">
-        <motion.div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <motion.div layout className="container px-lg-10 mt-5 ">
+        <motion.div className="row gx-lg-5 row-cols-md-4  justify-content-center ">
           <AnimatePresence>
-            {popular &&
-              popular.map((item) => {
+            {filtered &&
+              filtered.map((item) => {
                 return <HomeMenu key={item.storeId} item={item} />;
               })}
           </AnimatePresence>

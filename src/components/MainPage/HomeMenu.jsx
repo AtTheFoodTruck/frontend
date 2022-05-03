@@ -25,18 +25,18 @@ const HomeMenu = ({ item }) => {
       className="py-2 "
     >
       <div className="col mb-5 ">
-        <div className="card h-100 ">
+        <div className="card ">
           <ImgSize
             className="card-img-top img-fluid"
             // src="/img/pizza.jpg"
             src={item.storeImgUrl}
             alt="..."
           />
-          <div className="card-body p-4">
-            <div className="text-center">
+          <div className="card-body p-1 ">
+            <div className="text-center ">
               {/* <!-- Product name--> */}
-              <h5 className="fw-bolder">{item.storeName}</h5>
-              <div className="d-flex justify-content-center small  mb-2">
+              <h5 className="fw-bolder ">{item.storeName}</h5>
+              <div className="d-flex  justify-content-center small  mb-2">
                 <div className="bi-star-fill text-warning"></div>&ensp;
                 {item.rateAvg}
               </div>
