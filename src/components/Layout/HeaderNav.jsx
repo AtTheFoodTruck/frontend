@@ -139,7 +139,7 @@ const HeaderNav = () => {
 
 const CartBadge = styled.span`
   padding: 0 5px;
-  background-color: red;
+  background-color: white;
   color: black;
   border-radius: 5px;
   position: relative;
