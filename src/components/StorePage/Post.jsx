@@ -6,8 +6,8 @@ import DaumPostcode from "react-daum-postcode";
 const postCodeStyle = {
   display: "block",
   position: "absolute",
-  top: "80%",
-  width: "700px",
+  top: "100%",
+  width: "100%",
   height: "700px",
   padding: "10px",
   zIndex: 100,

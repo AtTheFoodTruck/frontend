@@ -1,11 +1,11 @@
 import React from "react";
 
-const StoreListItem = ({ store_name, address, category, id }) => {
+const StoreListItem = ({ storeName, address, distance }) => {
   return (
     <tr>
-      <td>{store_name}</td>
+      <td>{storeName}</td>
       <td>{address}</td>
-      <td>{category}</td>
+      <td>{distance}</td>
     </tr>
   );
 };

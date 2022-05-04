@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import StoreListItem from "./StoreListItem";
 
-const StoreList = ({ storelist }) => {
-  console.log(storelist);
+const StoreList = (props) => {
+  const { listAddress } = props;
+
+  console.log("받아온리스트");
+  console.log(listAddress[0]);
   return (
     <Container className="Table">
       <Table className="text-center mt-5">
@@ -11,13 +14,14 @@ const StoreList = ({ storelist }) => {
           <tr>
             <th>매장명</th>
             <th>주소</th>
-            <th>카테고리</th>
+            <th>거리</th>
           </tr>
         </thead>
         <tbody>
-          {storelist.map((list) => (
-            <StoreListItem key={list.id} {...list} />
-          ))}
+          {listAddress &&
+            listAddress.map((list) => (
+              <StoreListItem key={list.id} {...list} />
+            ))}
         </tbody>
       </Table>
     </Container>
