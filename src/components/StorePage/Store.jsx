@@ -68,8 +68,11 @@ const Store = () => {
 
   // 현재위치 아이콘을 클릭하면 실행되는 함수
   const mylocation = () => {
-    setAddress(myAdrress);
-    console.log(listAddress);
+    if (document.getElementById("address_search").value === myAdrress) {
+      console.log("현재위치 입니다.");
+    } else {
+      setAddress(myAdrress);
+    }
   };
 
   return (
@@ -83,7 +86,7 @@ const Store = () => {
           onClick={() => setPopup(!popup)}
           size="lg"
           id="address_search"
-          value={address}
+          value={address === "" ? myAdrress : address}
         />
         {popup && <Post selectedAddress={selectedAddress}></Post>}
 
@@ -99,6 +102,7 @@ const Store = () => {
         className="map"
         setMyAdrress={setMyAdrress}
         address={address}
+        listAddress={listAddress}
         setListAddress={setListAddress}
       />
       <StoreList listAddress={listAddress} />

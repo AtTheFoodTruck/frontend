@@ -4,9 +4,6 @@ import StoreListItem from "./StoreListItem";
 
 const StoreList = (props) => {
   const { listAddress } = props;
-
-  console.log("받아온리스트");
-  console.log(listAddress[0]);
   return (
     <Container className="Table">
       <Table className="text-center mt-5">
