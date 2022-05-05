@@ -231,7 +231,7 @@ export default function KakaoMap(props) {
   return (
     <div
       id="containered"
-      style={{ width: "100%", height: "360px", marginTop: "0.5em" }}
+      style={{ width: "100%", height: "760px", marginTop: "0.5em" }}
       ref={container}
     />
   );
