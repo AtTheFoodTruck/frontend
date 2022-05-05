@@ -36,7 +36,7 @@ export default function KakaoMap(props) {
   useEffect(() => {
     axios
       .post(
-        "https://apifood.blacksloop.com/item-service/items/v1/search/stores?page=0&size=10",
+        "https://apifood.blacksloop.com/item-service/items/v1/search/stores",
         {
           latitude: currentState.center.lat,
           longitude: currentState.center.lng,
@@ -51,7 +51,7 @@ export default function KakaoMap(props) {
       .catch(function (error) {
         console.log(error);
       });
-  }, [currentState]);
+  }, [currentState, address]);
 
   // 렌더링이 되면 계속해서 최신화 해서 현재 위치를 currentState에 담기
   useEffect(() => {

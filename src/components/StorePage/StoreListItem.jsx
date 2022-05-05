@@ -5,7 +5,6 @@ const StoreListItem = ({ storeName, address, distance }) => {
     <tr>
       <td>{storeName}</td>
       <td>{address}</td>
-      <td>{distance}</td>
     </tr>
   );
 };

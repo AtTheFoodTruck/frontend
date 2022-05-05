@@ -11,7 +11,6 @@ const StoreList = (props) => {
           <tr>
             <th>매장명</th>
             <th>주소</th>
-            <th>거리</th>
           </tr>
         </thead>
         <tbody>
