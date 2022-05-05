@@ -10,7 +10,6 @@ const CartListItem = ({
   itemName,
   unitPrice,
   handTotalPrice,
-  onRemove,
   initPriceHandle,
 }) => {
   const userId = localStorage.getItem("userId");
@@ -25,6 +24,8 @@ const CartListItem = ({
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
+
+  console.log("orderItemId : " + orderItemId);
 
   useEffect(() => {
     initPriceHandle(totalPrice);
@@ -72,16 +73,23 @@ const CartListItem = ({
 
   //메뉴 삭제
   const handleClickRemove = () => {
+    console.log("user_id : " + userId, "order_item_id: " + orderItemId);
     axios.delete(
       // `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts`,
-      {
-        user_id: userId,
-        order_item_id: orderItemId,
-      },
+      `https://apifood.blacksloop.com/order-service/orders/v1/customer/carts/${orderItemId}`,
+      // {
+      //   user_id: userId,
+      //   order_item_id: orderItemId,
+      // },
       {
         //header
         headers: headers,
+      }).then(res => {
+        console.log(res);
+        if(res.data.result==="success"){
+          alert("삭제가 완료되었습니다");
+          document.location.reload();
+        }
       }
     );
   };

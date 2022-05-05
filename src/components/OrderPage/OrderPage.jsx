@@ -44,6 +44,7 @@ const OrderPage = () => {
         { headers }
       )
       .then((res) => {
+        console.log(res);
         setDetails(res.data.data); // 가게 정보 저장
         setDetailsMenu(res.data.data); // 메뉴 정보 저장
       });

@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Link, Navigate } from 'react-router-dom';
-import _ from 'lodash';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
+import { Container, Row, Col } from "react-bootstrap";
+import { Link, Navigate } from "react-router-dom";
+import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 
 const HeaderInput = () => {
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState("");
   //const { setSearch } = useSearchContext(); //usehistory로 보내줄 데이터
   const navigate = useNavigate();
 
@@ -34,28 +34,28 @@ const HeaderInput = () => {
   };
   // console.log("word : " + word);
   const onReset = () => {
-    setWord('');
+    setWord("");
   };
 
   //handleKeyPress
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
 
   //handleMessage
   const handleSearch = () => {
-    if (word != '') {
+    if (word != "") {
       // setSearch(word);
-      navigate('/search-list', {
+      navigate("/search-list", {
         state: {
           searchWord: word,
         },
       });
       onReset();
     } else {
-      return alert('검색어를 입력해주세요!');
+      return alert("검색어를 입력해주세요!");
     }
   };
 
@@ -79,14 +79,14 @@ const HeaderInput = () => {
           name="search_btn"
           onClick={handleSearch}
         >
-          Search{' '}
+          Search{" "}
         </button>
       </Container>
     </Inputform>
   );
 };
 
-const Inputform = styled.form`
+const Inputform = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
